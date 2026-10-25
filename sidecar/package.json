@@ -1,0 +1,22 @@
+{
+  "name": "anythingpocket-sidecar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AnythingPocket Harness Companion sidecar — WS server + token auth + SQLite state store (M1 core)",
+  "scripts": {
+    "start": "node --experimental-strip-types src/index.ts",
+    "dev": "tsx src/index.ts",
+    "doctor": "node --experimental-strip-types src/index.ts --doctor",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types test/e2e.ts"
+  },
+  "dependencies": {
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.18.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

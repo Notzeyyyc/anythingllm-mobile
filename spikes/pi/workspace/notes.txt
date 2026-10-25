@@ -1,0 +1,7 @@
+Spike Pi M0 (AnythingPocket): baca notes.txt lalu ringkas 1 kalimat.
+
+Ini file contoh di workspace sandbox. Agent harus baca file ini dengan
+tool read_file, lalu menulis ringkasan satu kalimat ke summary.txt.
+
+Isi penting: kopi pagi itu penting, dan trace viewer butuh event yang
+pasangan start/end-nya lengkap.
