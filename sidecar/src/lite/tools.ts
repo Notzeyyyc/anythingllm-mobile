@@ -8,6 +8,7 @@ import * as path from 'node:path';
 import { createHash } from 'node:crypto';
 import { tool } from 'ai';
 import { z } from 'zod';
+import type { ApprovalHandler } from '../runtime.ts';
 
 const MAX_READ_BYTES = 2 * 1024 * 1024; // 2MB read cap
 
@@ -16,8 +17,8 @@ export interface LiteToolContext {
   sessionId: string;
   turnId: string;
   emit: (type: import('../schema.ts').EventType, payload: Record<string, unknown>) => void;
-  /** Return true to allow execution; false/timeout = reject (default REJECT, spec §6). */
-  approvalHandler: (req: { tool: string; path: string; content: string; diff: string | null }) => Promise<boolean>;
+  /** Approval gate (spec §6): requested trace + WS/stdin flow live in the handler; default REJECT. */
+  approvalHandler: ApprovalHandler;
 }
 
 /** Resolve p against workspace and enforce containment (blocks ../ escape & outside-absolute). */
@@ -77,12 +78,11 @@ export function createLiteTools(ctx: LiteToolContext) {
         const before = existed ? fs.readFileSync(full, 'utf8') : null;
         const diff = simpleDiff(before, content);
         const args = { tool: 'write_file', path: p, content, diff };
-        ctx.emit('approval.requested', {
-          approvalId: p, tool: 'write_file', command: p, diff, ttlMs: 30_000,
-        });
-        const approved = await ctx.approvalHandler(args);
-        ctx.emit(approved ? 'approval.granted' : 'approval.rejected', { approvalId: p });
-        if (!approved) return { ok: false, rejected: true, path: p };
+        // Approval flow (requested trace + push + TTL) lives in the handler;
+        // this site only records the outcome with the handler's real approvalId.
+        const res = await ctx.approvalHandler(args);
+        ctx.emit(res.approved ? 'approval.granted' : 'approval.rejected', { approvalId: res.approvalId });
+        if (!res.approved) return { ok: false, rejected: true, path: p };
         fs.mkdirSync(path.dirname(full), { recursive: true });
         fs.writeFileSync(full, content);
         return { ok: true, path: p, bytes: Buffer.byteLength(content) };

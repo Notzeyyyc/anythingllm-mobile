@@ -1443,5 +1443,49 @@
   },
   "deep_links": {
     "finish_onboarding": "Finish setting up AnythingPocket before opening links to it"
+  },
+  "pocket": {
+    "title": "Harness Companion",
+    "settings_entry": "Harness Companion (my server)",
+    "pairing": {
+      "intro": "Connect to your own computer. Paste the host and pairing token shown by the server.",
+      "host_label": "Server address",
+      "host_placeholder": "e.g. 100.12.34.56:7443",
+      "token_label": "Pairing token",
+      "token_placeholder": "hbk_...",
+      "connect": "Connect",
+      "repair": "Re-pair",
+      "forget": "Forget"
+    },
+    "status": {
+      "connected": "Connected — safe and encrypted",
+      "connecting": "Connecting…",
+      "offline": "Disconnected — retrying in the background. History is still readable."
+    },
+    "chat": {
+      "empty": "Ask your server something to get started.",
+      "input_placeholder": "Ask something…",
+      "send": "Send",
+      "step": "Step {{n}}"
+    },
+    "tools": {
+      "read": "reading files…",
+      "write": "writing files…",
+      "run": "running a command…",
+      "generic": "using {{tool}}…",
+      "thinking": "thinking…"
+    },
+    "approval": {
+      "title": "This action needs your approval",
+      "tool": "Tool: {{tool}}",
+      "countdown": "Auto-rejected in {{s}}s",
+      "grant": "Allow",
+      "reject": "Reject"
+    },
+    "details": {
+      "show": "Technical details",
+      "hide": "Hide technical details",
+      "host": "Status: {{status}}"
+    }
   }
 }

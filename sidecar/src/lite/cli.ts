@@ -11,6 +11,8 @@ import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { openDb, closeDb, createSession, insertEvent, DATA_DIR } from '../db.ts';
 import { runLiteAgent } from './agent.ts';
 import { resolveInWorkspace } from './tools.ts';
+import type { ApprovalHandler } from '../runtime.ts';
+import type { EventType } from '../schema.ts';
 
 function parseArgs(argv: string[]) {
   const opts: Record<string, string | boolean> = {};
@@ -24,22 +26,27 @@ function parseArgs(argv: string[]) {
   return { opts, rest };
 }
 
-/** Interactive approval: show path + diff (or full content for new file), 30s TTL → REJECT. */
-async function approvalHandler(
-  req: { tool: string; path: string; content: string; diff: string | null },
-  autoYes: boolean,
-): Promise<boolean> {
-  if (autoYes) return true;
-  console.log(`\n── approval diminta: ${req.tool} → ${req.path}`);
-  console.log(req.diff ?? req.content);
-  console.log('Izinkan? [y/N] (30s timeout = tidak)');
-  const rl = readline.createInterface({ input: process.stdin, terminal: false });
-  const answer = await new Promise<string | null>((res) => {
-    const t = setTimeout(() => { rl.close(); res(null); }, 30_000);
-    rl.once('line', (l) => { clearTimeout(t); rl.close(); res(l); });
-    rl.once('close', () => { clearTimeout(t); res(null); });
-  });
-  return answer?.trim().toLowerCase() === 'y';
+/** Stdin approval handler (CLI flavor of the ApprovalHandler interface — WS flavor lives in runtime.ts). */
+export function createStdinApprovalHandler(
+  emit: (type: EventType, payload: Record<string, unknown>) => void,
+  opts: { autoYes?: boolean; ttlMs?: number } = {},
+): ApprovalHandler {
+  const ttlMs = opts.ttlMs ?? 30_000;
+  return async (req) => {
+    const approvalId = crypto.randomUUID();
+    emit('approval.requested', { approvalId, tool: req.tool, command: req.path, diff: req.diff ?? undefined, ttlMs });
+    if (opts.autoYes) return { approved: true, approvalId };
+    console.log(`\n── approval diminta: ${req.tool} → ${req.path}`);
+    console.log(req.diff ?? req.content);
+    console.log('Izinkan? [y/N] (30s timeout = tidak)');
+    const rl = readline.createInterface({ input: process.stdin, terminal: false });
+    const answer = await new Promise<string | null>((res) => {
+      const t = setTimeout(() => { rl.close(); res(null); }, ttlMs);
+      rl.once('line', (l) => { clearTimeout(t); rl.close(); res(l); });
+      rl.once('close', () => { clearTimeout(t); res(null); });
+    });
+    return { approved: answer?.trim().toLowerCase() === 'y', approvalId };
+  };
 }
 
 export async function main(argv: string[]): Promise<number> {
@@ -75,7 +82,7 @@ export async function main(argv: string[]): Promise<number> {
     const result = await runLiteAgent({
       model: provider(model),
       prompt, sessionId, turnId, workspace,
-      approvalHandler: (req) => approvalHandler(req, opts.yes === true),
+      approvalHandler: createStdinApprovalHandler(emit, { autoYes: opts.yes === true }),
       emit,
     });
     process.stdout.write(result.text + '\n');

@@ -136,3 +136,32 @@ approval ke HP lewat WS adalah kelanjutan M1 (infra WS/approval di
 - **Approval status `expired` ≠ `rejected`** di DB tapi keduanya default-REJECT
   secara semantik (agent harus memperlakukan keduanya sebagai "jangan jalankan");
   trace mencatat `approval.expired` agar bisa dibedakan di trace viewer.
+## Protokol WS v1 — agent runtime (`runtime.ts`)
+
+Setelah `session.start`, satu device punya SATU agent loop aktif. `turn.request`
+menjalankan Mode Lite async (tidak memblok event loop WS): teks parsial
+di-stream sebagai `turn.delta`, trace event tetap masuk DB + di-push, dan tool
+`write_file` memicu `approval.request` ke HP dengan TTL hard server-side —
+tanpa `approval.response` sampai TTL habis, approval otomatis REJECT
+(`approval.expired` di DB/trace). `approval.response` idempotent; id asing/terlambat
+diabaikan. Kontrak pesan:
+
+| Arah | `type` | Isi utama |
+|---|---|---|
+| C→S | `auth` | `token` (`hbk_`/`hbs_`) |
+| C→S | `session.start` | — |
+| C→S | `turn.request` | `turnId` (client uuid), `prompt` |
+| C→S | `approval.response` | `approvalId`, `decision: "grant"\|"reject"` |
+| S→C | `auth.ok` / `auth.deny` | `deviceId` (+`sessionToken` saat pairing) |
+| S→C | `session.started` | `sessionId` |
+| S→C | `turn.delta` | `turnId`, `delta` (teks parsial) |
+| S→C | `turn.end` | `turnId`, `ok`, `text`, `error` |
+| S→C | `approval.request` | `approvalId`, `turnId`, `tool`, `path`, `contentPreview`, `ttlMs` |
+| S→C | trace events | `turn.start`, `llm.call.*`, `tool.call.*`, `approval.*` (payload sesuai schema) |
+| S→C | `error` | `message` (termasuk `turn in progress`) |
+
+Test manual via wscat: `npm start` lalu di wscat `ws://127.0.0.1:7443/ws`,
+kirim `{"type":"auth","token":"<hbk_...>"}` (token dari
+`npm start -- --init-pairing --show-token`), `{"type":"session.start"}`, lalu
+`{"type":"turn.request","turnId":"t1","prompt":"tulis file catatan.txt"}` — balas
+approval dengan `{"type":"approval.response","approvalId":"<id>","decision":"grant"}`.

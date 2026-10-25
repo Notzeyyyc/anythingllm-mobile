@@ -324,6 +324,13 @@ export function MainView({ goToPage }: MainViewProps) {
               }}>
               {/* UI language - detected from the device on first launch */}
               <SupportItem
+                title={t('pocket.settings_entry')}
+                icon={<Sparkle size={18} color="#FFF" />}
+                onPress={() =>
+                  navigation.navigate(PATHS.pocket as never)
+                }
+              />
+              <SupportItem
                 title={t('settings.language.app_language')}
                 icon={<Translate size={18} color="#FFF" />}
                 value={activeLanguage?.nativeName}

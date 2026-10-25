@@ -198,6 +198,13 @@ const App = observer(() => {
                           options={{ headerShown: false }}
                         />
 
+                        {/* Harness Companion: pairing + remote chat (M1) */}
+                        <Drawer.Screen
+                          name={PATHS.pocket}
+                          component={gestureHandlerRootHOC(Screens.Pocket)}
+                          options={{ headerShown: false }}
+                        />
+
                         <Drawer.Screen
                           name={PATHS.developer.home}
                           component={gestureHandlerRootHOC(

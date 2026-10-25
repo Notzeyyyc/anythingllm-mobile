@@ -1397,5 +1397,49 @@
   },
   "deep_links": {
     "finish_onboarding": "Selesaikan pengaturan AnythingPocket sebelum membuka tautan ke dalamnya"
+  },
+  "pocket": {
+    "title": "Harness Companion",
+    "settings_entry": "Harness Companion (server milikmu)",
+    "pairing": {
+      "intro": "Sambungkan ke komputermu sendiri. Tempel host dan token pairing yang ditampilkan server.",
+      "host_label": "Alamat server",
+      "host_placeholder": "mis. 100.12.34.56:7443",
+      "token_label": "Token pairing",
+      "token_placeholder": "hbk_...",
+      "connect": "Sambungkan",
+      "repair": "Pasang ulang",
+      "forget": "Lupakan"
+    },
+    "status": {
+      "connected": "Tersambung — aman, terenkripsi",
+      "connecting": "Menyambung…",
+      "offline": "Terputus — mencoba sambung lagi di latar belakang. Riwayat tetap terbaca."
+    },
+    "chat": {
+      "empty": "Minta sesuatu ke servermu untuk mulai.",
+      "input_placeholder": "Minta sesuatu…",
+      "send": "Kirim",
+      "step": "Langkah {{n}}"
+    },
+    "tools": {
+      "read": "membaca file…",
+      "write": "menulis file…",
+      "run": "menjalankan perintah…",
+      "generic": "memakai {{tool}}…",
+      "thinking": "berpikir…"
+    },
+    "approval": {
+      "title": "Aksi ini butuh izin kamu",
+      "tool": "Perkakas: {{tool}}",
+      "countdown": "Ditolak otomatis dalam {{s}} detik",
+      "grant": "Izinkan",
+      "reject": "Tolak"
+    },
+    "details": {
+      "show": "Detail teknis",
+      "hide": "Sembunyikan detail teknis",
+      "host": "Status: {{status}}"
+    }
   }
 }

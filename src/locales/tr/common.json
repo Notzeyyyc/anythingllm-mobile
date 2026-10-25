@@ -1443,5 +1443,49 @@
   },
   "deep_links": {
     "finish_onboarding": "AnythingPocket'u kurmayı tamamlamadan bağlantıları açmayın."
+  },
+  "pocket": {
+    "title": null,
+    "settings_entry": null,
+    "pairing": {
+      "intro": null,
+      "host_label": null,
+      "host_placeholder": null,
+      "token_label": null,
+      "token_placeholder": null,
+      "connect": null,
+      "repair": null,
+      "forget": null
+    },
+    "status": {
+      "connected": null,
+      "connecting": null,
+      "offline": null
+    },
+    "chat": {
+      "empty": null,
+      "input_placeholder": null,
+      "send": null,
+      "step": null
+    },
+    "tools": {
+      "read": null,
+      "write": null,
+      "run": null,
+      "generic": null,
+      "thinking": null
+    },
+    "approval": {
+      "title": null,
+      "tool": null,
+      "countdown": null,
+      "grant": null,
+      "reject": null
+    },
+    "details": {
+      "show": null,
+      "hide": null,
+      "host": null
+    }
   }
 }

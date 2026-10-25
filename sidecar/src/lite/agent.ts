@@ -17,6 +17,8 @@ export interface LiteAgentOptions {
   approvalHandler: LiteToolContext['approvalHandler'];
   /** Trace sink (db.insertEvent bound to session/turn). */
   emit: (type: EventType, payload: Record<string, unknown>) => void;
+  /** Stream text deltas (WS turn.delta). CLI ignores it. */
+  onDelta?: (delta: string) => void;
 }
 
 export interface LiteRunResult {
@@ -51,6 +53,9 @@ export async function runLiteAgent(opts: LiteAgentOptions): Promise<LiteRunResul
         case 'start-step':
           steps++;
           opts.emit('llm.call.start', { model: (opts.model as { modelId?: string }).modelId ?? 'unknown' });
+          break;
+        case 'text-delta':
+          opts.onDelta?.(part.text);
           break;
         case 'tool-call':
           toolCalls++;

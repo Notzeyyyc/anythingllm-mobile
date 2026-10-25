@@ -18,8 +18,8 @@ function ok(cond: boolean, label: string): void {
   else { failed++; console.error(`  FAIL - ${label}`); }
 }
 
-const alwaysReject = async () => false;
-const alwaysApprove = async () => true;
+const alwaysReject = async () => ({ approved: false, approvalId: 'reject-fixed' });
+const alwaysApprove = async () => ({ approved: true, approvalId: 'approve-fixed' });
 
 /** stream-start must be first part (LanguageModelV2 spec). */
 function stream(parts: unknown[]) {

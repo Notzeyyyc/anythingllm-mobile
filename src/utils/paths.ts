@@ -10,6 +10,7 @@ export const PATHS = {
   workspace_settings: 'WorkspaceSettings',
   user_settings: 'UserSettings',
   scheduled_jobs: 'ScheduledJobs',
+  pocket: 'Pocket',
   developer: {
     home: 'DevToolsMenu',
   },

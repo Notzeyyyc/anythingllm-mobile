@@ -8,17 +8,24 @@
 import { randomUUID } from 'node:crypto';
 import { WebSocketServer, WebSocket } from 'ws';
 import type { IncomingMessage } from 'node:http';
+import * as path from 'node:path';
+import type { LanguageModel } from 'ai';
 import {
   insertEvent, createSession, createApproval, resolveApproval,
   expireStaleApprovals, getApproval,
 } from './db.ts';
 import { authenticate, isLockedOut } from './auth.ts';
+import { DeviceRuntime } from './runtime.ts';
 import type { EventType } from './schema.ts';
 import { isValidEvent, EVENT_TYPES as EVENT_TYPES_SET } from './schema.ts';
 
 export interface ServerOpts {
   port?: number;   // default 7443 (env PORT)
   bind?: string;   // default 127.0.0.1 (env BIND)
+  /** Agent runtime (WS protocol v1). model default: env-configured provider, lazy. */
+  model?: LanguageModel;
+  workspace?: string;           // sandbox root for the agent's file tools
+  approvalTtlMs?: number;       // hard approval TTL, default 30s (spec §6)
 }
 
 const AUTH_TIMEOUT_MS = 5_000;
@@ -36,8 +43,9 @@ export function startServer(opts: ServerOpts = {}) {
 
   const wss = new WebSocketServer({ host: bind, port, path: '/ws' });
 
-  type Ctx = { deviceId: string; sessionId: string | null; alive: boolean };
+  type Ctx = { deviceId: string; sessionId: string | null; alive: boolean; runtime: DeviceRuntime | null };
   const authed = new Map<WebSocket, Ctx>();
+  const workspaceDir = opts.workspace ?? path.resolve(import.meta.dirname, '../workspace');
 
   function send(ws: WebSocket, msg: Record<string, unknown>): void {
     if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg));
@@ -70,7 +78,8 @@ export function startServer(opts: ServerOpts = {}) {
 
   wss.on('connection', (ws, req) => {
     const ip = ipOf(req);
-    let ctx: Ctx | null = null;
+    let ctx: Ctx = { deviceId: '', sessionId: null, alive: true, runtime: null };
+    let authedOk = false;
 
     const authTimer = setTimeout(() => ws.close(4001, 'auth timeout'), AUTH_TIMEOUT_MS);
     ws.on('close', () => { clearTimeout(authTimer); authed.delete(ws); });
@@ -81,7 +90,7 @@ export function startServer(opts: ServerOpts = {}) {
       try { msg = JSON.parse(String(raw)); } catch { send(ws, { type: 'error', message: 'bad JSON' }); return; }
 
       // --- handshake: first message must be auth ---
-      if (!ctx) {
+      if (!authedOk) {
         if (msg.type !== 'auth') { ws.close(4003, 'first message must be auth'); return; }
         if (isLockedOut(ip)) {
           send(ws, { type: 'auth.deny', reason: 'locked out (too many failed attempts)' });
@@ -95,7 +104,9 @@ export function startServer(opts: ServerOpts = {}) {
           ws.close(4003, res.reason ?? 'auth failed');
           return;
         }
-        ctx = { deviceId: res.deviceId!, sessionId: null, alive: true };
+        ctx.deviceId = res.deviceId!;
+        ctx.alive = true;
+        authedOk = true;
         authed.set(ws, ctx);
         clearTimeout(authTimer);
         send(ws, {
@@ -110,7 +121,8 @@ export function startServer(opts: ServerOpts = {}) {
       // --- post-auth messages ---
       if (!ctx.sessionId) {
         const t = msg.type;
-        if (t !== 'session.start' && t !== 'ping' && !(typeof t === 'string' && EVENT_TYPES_SET.has(t))) {
+        if (t !== 'session.start' && t !== 'ping' && t !== 'turn.request' && t !== 'approval.response'
+            && !(typeof t === 'string' && EVENT_TYPES_SET.has(t))) {
           send(ws, { type: 'error', message: 'unknown message type: ' + String(t) }); return;
         }
       }
@@ -120,7 +132,36 @@ export function startServer(opts: ServerOpts = {}) {
         case 'session.start': {
           ctx.sessionId = createSession(ctx.deviceId);
           trace(ctx.sessionId, ctx.sessionId, 'session.start', { device: ctx.deviceId });
+          ctx.runtime = new DeviceRuntime(
+            { workspace: workspaceDir, model: opts.model, ttlMs: opts.approvalTtlMs },
+            ctx.sessionId,
+            (m) => send(ws, m),
+          );
           send(ws, { type: 'session.started', sessionId: ctx.sessionId });
+          return;
+        }
+
+        // --- WS protocol v1: agent runtime --------------------------------
+        case 'turn.request': {
+          const sid = ctx.sessionId;
+          if (!sid) { send(ws, { type: 'error', message: 'start a session first (session.start)' }); return; }
+          const prompt = typeof msg.prompt === 'string' ? msg.prompt : '';
+          if (!prompt) { send(ws, { type: 'error', message: 'prompt required' }); return; }
+          const turnId = typeof msg.turnId === 'string' && msg.turnId ? msg.turnId : randomUUID();
+          ctx.runtime!.startTurn(turnId, prompt); // false → already sent {type:'error',message:'turn in progress'}
+          return;
+        }
+
+        case 'approval.response': {
+          const sid = ctx.sessionId;
+          if (!sid) { send(ws, { type: 'error', message: 'start a session first (session.start)' }); return; }
+          const approvalId = typeof msg.approvalId === 'string' ? msg.approvalId : '';
+          // Ownership check: only approvals of THIS device's session. Unknown or
+          // foreign ids are silently ignored (idempotent, no info leak).
+          const ap = approvalId ? getApproval(approvalId) : null;
+          if (!ap || ap.sessionId !== sid) return;
+          const decision = msg.decision === 'grant' ? 'grant' : 'reject'; // anything else = REJECT
+          ctx.runtime!.onApprovalResponse(approvalId, decision);
           return;
         }
 
@@ -186,14 +227,6 @@ export function startServer(opts: ServerOpts = {}) {
           trace(sid, ap.turnId, status === 'granted' ? 'approval.granted' : 'approval.rejected',
             { approvalId, reason: decision === 'granted' ? undefined : String(msg.reason ?? 'rejected') });
           send(ws, { type: 'approval.resolved', approvalId, status });
-          return;
-        }
-
-        case 'turn.end': {
-          const sid = ctx.sessionId;
-          if (!sid) { send(ws, { type: 'error', message: 'start a session first (session.start)' }); return; }
-          const turnId = typeof msg.turnId === 'string' && msg.turnId ? msg.turnId : randomUUID();
-          trace(sid, turnId, 'turn.end', { ok: msg.ok !== false });
           return;
         }
 
