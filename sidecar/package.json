@@ -9,10 +9,18 @@
     "dev": "tsx src/index.ts",
     "doctor": "node --experimental-strip-types src/index.ts --doctor",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types test/e2e.ts"
+    "test": "node --experimental-strip-types test/e2e.ts",
+    "test:lite": "node --experimental-strip-types test/lite.test.ts",
+    "lite": "tsx src/lite/cli.ts run"
+  },
+  "bin": {
+    "anythingpocket": "src/lite/cli.ts"
   },
   "dependencies": {
-    "ws": "^8.22.0"
+    "@ai-sdk/openai-compatible": "^1.0.59",
+    "ai": "^5.0.281",
+    "ws": "^8.22.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/ws": "^8.18.2",

@@ -89,6 +89,26 @@ wscat -c ws://127.0.0.1:7443/ws
 
 Tanpa wscat: `npm test` sudah mewakili alur yang sama via Node native WebSocket.
 
+## Mode Lite (AI SDK 5, M1)
+
+CLI `npm run lite -- "prompt"` (alias `anythingpocket run "prompt"`) menjalankan
+agent Cepat: `streamText` + `stopWhen` multi-step dengan 3 tool sandboxed ke
+workspace (`read_file`, `list_dir`, `write_file`; path di luar workspace dan
+`../` escape ditolak, baca dibatasi 2MB). `write_file` = tool berbahaya: tanpa
+`--yes` CLI menampilkan diff dan bertanya `[y/N]` dari stdin dengan TTL hard
+30 detik → default REJECT (spec §6); semua keputusan approval tercatat sebagai
+event trace (`approval.requested/granted/rejected`) ke SQLite pakai schema
+tunggal di `src/schema.ts`. Env: `POCKET_MODEL` (default
+`ngd/ngodeai/gemini-3.8-flash`), `POCKET_BASE_URL` (default
+`http://127.0.0.1:20128/v1`), `POCKET_API_KEY_FILE` (default
+`/root/.secrets/9router_local_key.txt`, dibaca saat runtime — tidak pernah
+masuk log/trace), `POCKET_WORKSPACE` (default `sidecar/workspace/`),
+`POCKET_DATA_DIR` (default `sidecar/data/`). Flag `--model/--base-url/--api-key-file`
+meng-override env. Test: `npm run test:lite` (mock model via `ai/test`,
+19+14 assert). Batasan M1: approval masih interaktif via CLI stdin; push
+approval ke HP lewat WS adalah kelanjutan M1 (infra WS/approval di
+`ws.ts`/`db.ts` sudah ada). Retry network provider max 2×.
+
 ## Keputusan & dependency baru
 
 - **`ws` ^8.22.0 (runtime dep)** — Node native WebSocket cuma client, tidak ada
@@ -97,9 +117,14 @@ Tanpa wscat: `npm test` sudah mewakili alur yang sama via Node native WebSocket.
 - **devDependencies: `typescript`, `@types/ws`, `tsx`** — TS strict (`npm run
   typecheck`) dan runner dev alternatif; runtime jalan polos
   `node --experimental-strip-types` tanpa build step.
-- **`zod` TIDAK dipakai** — validator manual (whitelist + regex secret-guard)
-  lebih pendek dan cukup untuk satu schema internal. Tambahkan zod kalau
-  schema dipakai lintas package / producer pihak ketiga.
+- **`zod` ^4 (runtime dep, BARU)** — peer dependency wajib AI SDK 5 untuk
+  `inputSchema` tool Mode Lite; dipakai hanya di `src/lite/tools.ts`. Sebelumnya
+  README bilang zod TIDAK dipakai — itu masih berlaku untuk validator trace
+  (manual whitelist + secret-guard tetap dipertahankan); zod kini cuma untuk
+  skema input tool AI SDK.
+- **`ai` @5.0.281 + `@ai-sdk/openai-compatible` @1.0.59 (runtime dep)** — stack
+  resmi spec §8 untuk Mode Cepat/Lite; di-pin versi (spec §8: experimental
+  harus di-pin).
 - **Pairing token in-memory** (bukan tabel DB) — restart server = pairing token
   mati; cukup untuk M1, upgrade path: tabel `pairings` di db.ts saat butuh
   persist (M2). Session token & device TETAP persisten di SQLite.
