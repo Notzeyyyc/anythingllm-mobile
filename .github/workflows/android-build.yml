@@ -1,4 +1,4 @@
-name: android-debug-build
+name: android-release-build
 
 on:
   push:
@@ -39,14 +39,22 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Build debug APK
-        run: cd android && ./gradlew assembleDebug --no-daemon
+      - name: Restore release keystore
+        env:
+          KEYSTORE_B64: ${{ secrets.APK_KEYSTORE_B64 }}
+        run: echo "$KEYSTORE_B64" | base64 -d > android/app/anythingpocket-release.keystore
+
+      - name: Build release APK (installable, JS bundled)
+        env:
+          APP_RELEASE_STORE_PASSWORD: ${{ secrets.APK_STORE_PASSWORD }}
+          APP_RELEASE_KEY_PASSWORD: ${{ secrets.APK_KEY_PASSWORD }}
+        run: cd android && ./gradlew assembleRelease --no-daemon
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: app-release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
           retention-days: 90
 
       - name: Publish to "latest" release
@@ -56,6 +64,6 @@ jobs:
         run: |
           gh release delete latest --yes --cleanup-tag 2>/dev/null || true
           gh release create latest \
-            android/app/build/outputs/apk/debug/app-debug.apk \
-            --title "Debug build (main)" \
+            android/app/build/outputs/apk/release/app-release.apk \
+            --title "AnythingPocket build (main)" \
             --notes "Otomatis dari commit ${{ github.sha }} — ${{ github.event.head_commit.message }}"

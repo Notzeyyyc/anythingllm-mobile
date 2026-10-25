@@ -37,7 +37,7 @@ const agent = new HarnessAgent({
         name: '9router',
         baseUrl: 'http://127.0.0.1:20128/v1',
         // key dibaca dari file saat runtime — tidak pernah masuk kode/log/trace
-        apiKey: fs.readFileSync('/root/.secrets/9router_local_key.txt', 'utf8').trim(),
+        apiKey: fs.readFileSync(process.env.SPIKE_API_KEY_FILE ?? '/root/.secrets/9router_local_key.txt', 'utf8').trim(),
         models: [
           {
             id: 'ngd/ngodeai/gemini-3.8-flash',
