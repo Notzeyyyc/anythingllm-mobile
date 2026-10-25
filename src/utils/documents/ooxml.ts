@@ -84,7 +84,7 @@ export function corePropertiesXml({ title, creator, description }: { title: stri
 
 export function appPropertiesXml(application: string): string {
     return `${XML_DECLARATION}<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">` +
-        `<Application>${escapeXml(application)}</Application><Company>AnythingLLM</Company></Properties>`;
+        `<Application>${escapeXml(application)}</Application><Company>AnythingPocket</Company></Properties>`;
 }
 
 /** Decode a base64 string into raw bytes (JSZip wants bytes for binary parts) */

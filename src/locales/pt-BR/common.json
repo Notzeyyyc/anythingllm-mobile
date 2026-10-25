@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "Ferramentas Especiais",
-      "ask_with_anythingllm": "\"Perguntar com AnythingLLM\"",
+      "ask_with_anythingllm": "\"Perguntar com AnythingPocket\"",
       "page_title": "Ferramentas especiais",
-      "added_toast": "Perguntar com AnythingLLM adicionado aos menus de seleção de texto",
-      "removed_toast": "Perguntar com AnythingLLM removido dos menus de seleção de texto",
+      "added_toast": "Perguntar com AnythingPocket adicionado aos menus de seleção de texto",
+      "removed_toast": "Perguntar com AnythingPocket removido dos menus de seleção de texto",
       "context_awareness": "Conscientização de contexto",
-      "ask_with_anythingllm_toggle": "Perguntar com AnythingLLM",
+      "ask_with_anythingllm_toggle": "Perguntar com AnythingPocket",
       "android_only": "Apenas Android",
-      "description_available": "Adiciona \"Perguntar com AnythingLLM\" ao menu que aparece quando você seleciona texto em qualquer aplicativo. Use-o para polir, encurtar ou corrigir o que está escrevendo, ou para resumir, explicar e pesquisar o que está lendo - com o modelo que você selecionou aqui.",
-      "description_unavailable": "No Android, AnythingLLM pode aparecer no menu que mostra quando você seleciona texto em qualquer aplicativo, para editar ou resumir com seu modelo escolhido. iOS não oferece aos aplicativos esse gancho.",
+      "description_available": "Adiciona \"Perguntar com AnythingPocket\" ao menu que aparece quando você seleciona texto em qualquer aplicativo. Use-o para polir, encurtar ou corrigir o que está escrevendo, ou para resumir, explicar e pesquisar o que está lendo - com o modelo que você selecionou aqui.",
+      "description_unavailable": "No Android, AnythingPocket pode aparecer no menu que mostra quando você seleciona texto em qualquer aplicativo, para editar ou resumir com seu modelo escolhido. iOS não oferece aos aplicativos esse gancho.",
       "assistant": "Assistente do dispositivo"
     },
     "assistant": {
       "page_title": "Assistente do dispositivo",
       "status_title": "Assistente padrão",
-      "status_on": "AnythingLLM é seu assistente padrão",
-      "status_off": "AnythingLLM não é seu assistente padrão",
+      "status_on": "AnythingPocket é seu assistente padrão",
+      "status_off": "AnythingPocket não é seu assistente padrão",
       "set_up": "Configurar",
       "change": "Alterar",
-      "setup_steps": "Nas configurações Android que abrir, toque em \"Aplicativo de assistente digital padrão\" e selecione AnythingLLM. A página pode estar em \"Aplicativos > Aplicativos padrão\". Retorne aqui quando terminar.",
-      "description": "Abra AnythingLLM em qualquer aplicativo usando o gesto do assistente do seu telefone (geralmente um toque longo no botão de início ou na barra de navegação) e faça a pergunta com o modelo selecionado, seja no dispositivo ou no seu próprio servidor. Substitui a função Gemini. Você pode reverter para a configuração Android a qualquer momento.",
-      "description_unavailable": "Em Android, AnythingLLM pode ser o assistente do seu telefone, substituindo o Gemini, que é acessado através de qualquer aplicativo com o gesto do assistente. iOS impede que aplicativos substituam o Siri.",
+      "setup_steps": "Nas configurações Android que abrir, toque em \"Aplicativo de assistente digital padrão\" e selecione AnythingPocket. A página pode estar em \"Aplicativos > Aplicativos padrão\". Retorne aqui quando terminar.",
+      "description": "Abra AnythingPocket em qualquer aplicativo usando o gesto do assistente do seu telefone (geralmente um toque longo no botão de início ou na barra de navegação) e faça a pergunta com o modelo selecionado, seja no dispositivo ou no seu próprio servidor. Substitui a função Gemini. Você pode reverter para a configuração Android a qualquer momento.",
+      "description_unavailable": "Em Android, AnythingPocket pode ser o assistente do seu telefone, substituindo o Gemini, que é acessado através de qualquer aplicativo com o gesto do assistente. iOS impede que aplicativos substituam o Siri.",
       "need_help": "Precisa de ajuda para configurar?",
       "circle_to_search_note": "Se tocar e manter pressionado o botão de início abrir o Circule para Pesquisar, desative-o em Configurações do Android > Tela > Barra de navegação. Enquanto estiver ativado, o Android sempre atribui esse gesto ao Google, independentemente do assistente escolhido.",
       "open_settings_failed": "Não foi possível abrir as configurações de Android",
@@ -144,13 +144,13 @@
       "privacy": "Política de Privacidade"
     },
     "reset": {
-      "title": "Redefinir AnythingLLM",
-      "confirm_message": "Tem certeza de que deseja redefinir AnythingLLM? Isso excluirá todos os seus espaços de trabalho, chats, modelos instalados e preferências.",
+      "title": "Redefinir AnythingPocket",
+      "confirm_message": "Tem certeza de que deseja redefinir AnythingPocket? Isso excluirá todos os seus espaços de trabalho, chats, modelos instalados e preferências.",
       "confirm_button": "Sim, Redefinir Tudo"
     },
     "update_failed": "Não foi possível atualizar a configuração",
     "version": {
-      "about": "Sobre AnythingLLM",
+      "about": "Sobre AnythingPocket",
       "update_available_title": "Atualização Disponível",
       "update_available_message": "Versão {{version}} está disponível. Por favor, atualize para a versão mais recente.",
       "go_to_app_store": "Ir para app store"
@@ -160,7 +160,7 @@
       "disabled_toast": "Telemetria anônima desativada",
       "usage_data": "Dados de uso",
       "share_toggle": "Compartilhar telemetria anônima",
-      "description_events": "AnythingLLM envia um pequeno número de eventos anônimos, como \"um chat foi concluído\" ou \"uma ferramenta foi usada\", para vermos quais recursos importam e onde as coisas quebram.",
+      "description_events": "AnythingPocket envia um pequeno número de eventos anônimos, como \"um chat foi concluído\" ou \"uma ferramenta foi usada\", para vermos quais recursos importam e onde as coisas quebram.",
       "description_privacy": "Isso nunca inclui seus chats, documentos, prompts ou nada específico sobre como você usa o aplicativo. Não há conta e nada que o identifique.",
       "description_opt_out": "Deixar isso ativado nos ajuda a construir um aplicativo melhor. Você pode desativar a qualquer momento e nada mais será enviado."
     },
@@ -334,7 +334,7 @@
       "all_day": "Durante todo o dia",
       "open_failed": "Não foi possível abrir o aplicativo de calendário.",
       "saved": "Adicionado ao seu calendário",
-      "permission_denied": "Permita o acesso ao calendário para AnythingLLM nas configurações para adicionar eventos.",
+      "permission_denied": "Permita o acesso ao calendário para AnythingPocket nas configurações para adicionar eventos.",
       "add_with": "Adicionar",
       "save_ics": "Salvar arquivo .ics",
       "save_failed": "Não foi possível salvar o arquivo do evento.",
@@ -455,8 +455,8 @@
     },
     "could_not_start": "Não foi possível iniciar Ações Rápidas",
     "dismiss": "Descartar",
-    "setup_needed": "Termine de configurar AnythingLLM para usá-lo no menu de seleção.",
-    "open_anythingllm": "Abrir AnythingLLM",
+    "setup_needed": "Termine de configurar AnythingPocket para usá-lo no menu de seleção.",
+    "open_anythingllm": "Abrir AnythingPocket",
     "select_model": "Selecione um modelo acima para começar.",
     "copied_paste": "Copiado - cole sobre sua seleção",
     "copy_and_close": "Copiar e fechar",
@@ -471,10 +471,10 @@
   "assistant": {
     "could_not_start": "Não foi possível iniciar o assistente",
     "dismiss": "Cancelar",
-    "setup_needed": "Termine de configurar o AnythingLLM para usá-lo como seu assistente.",
-    "open_anythingllm": "Abrir AnythingLLM",
+    "setup_needed": "Termine de configurar o AnythingPocket para usá-lo como seu assistente.",
+    "open_anythingllm": "Abrir AnythingPocket",
     "select_model": "Selecione um modelo acima para começar.",
-    "placeholder": "Pergunte AnythingLLM",
+    "placeholder": "Pergunte AnythingPocket",
     "placeholder_followup": "Faça uma pergunta adicional…",
     "listening": "Tocando…",
     "share_screen": "Compartilhar tela",
@@ -515,19 +515,19 @@
     "play_video": "Reproduzir vídeo",
     "pause_video": "Pausar vídeo",
     "whats_new": "Novidades",
-    "tour_title": "O que AnythingLLM pode fazer",
+    "tour_title": "O que AnythingPocket pode fazer",
     "device_assistant": {
       "title": "Substitua Gemini pelo seu próprio modelo de IA",
-      "body": "Torne o AnythingLLM o assistente do seu celular e abra-o em qualquer aplicativo com o mesmo gesto que você usa para o Gemini. Pergunte sobre o que está na tela - respondido pelo modelo que você escolheu.",
+      "body": "Torne o AnythingPocket o assistente do seu celular e abra-o em qualquer aplicativo com o mesmo gesto que você usa para o Gemini. Pergunte sobre o que está na tela - respondido pelo modelo que você escolheu.",
       "cta": "Configurar Assistente de Dispositivo"
     },
     "quick_actions": {
-      "title": "Pergunte com AnythingLLM em qualquer lugar",
-      "body": "Selecione texto em qualquer aplicativo e toque em \"Perguntar com AnythingLLM\" para polir, encurtar, resumir ou explicar com seu modelo. Desative a qualquer momento em Configurações > Ferramentas especiais."
+      "title": "Pergunte com AnythingPocket em qualquer lugar",
+      "body": "Selecione texto em qualquer aplicativo e toque em \"Perguntar com AnythingPocket\" para polir, encurtar, resumir ou explicar com seu modelo. Desative a qualquer momento em Configurações > Ferramentas especiais."
     },
     "share_sheet": {
       "title": "Compartilhe qualquer coisa em um chat",
-      "body": "Envie fotos, documentos e links de qualquer aplicativo diretamente para AnythingLLM. Eles chegam em uma nova thread, anexados e prontos para perguntar."
+      "body": "Envie fotos, documentos e links de qualquer aplicativo diretamente para AnythingPocket. Eles chegam em uma nova thread, anexados e prontos para perguntar."
     },
     "scheduled_jobs": {
       "title": "Trabalhos agendados",
@@ -550,13 +550,13 @@
     },
     "location": {
       "downloads": "Downloads",
-      "ios_exports": "Arquivos > Em Meu iPhone > AnythingLLM > Exportações",
+      "ios_exports": "Arquivos > Em Meu iPhone > AnythingPocket > Exportações",
       "open_downloads": "Abrir em Downloads",
       "open_files": "Abrir em Arquivos"
     },
     "storage_permission": {
       "title": "Salvar em Downloads",
-      "message": "AnythingLLM precisa de acesso ao armazenamento para salvar o arquivo em sua pasta Downloads."
+      "message": "AnythingPocket precisa de acesso ao armazenamento para salvar o arquivo em sua pasta Downloads."
     },
     "export": {
       "text_label": "Texto",
@@ -642,7 +642,7 @@
     "calendar_event_reading": {
       "name": "Ler Calendário",
       "description": "Use o assistente para ler seus eventos de calendário.",
-      "permission_denied": "O acesso ao calendário não está permitido. Ative-o para AnythingLLM nas configurações do seu telefone para visualizar seu calendário.",
+      "permission_denied": "O acesso ao calendário não está permitido. Ative-o para AnythingPocket nas configurações do seu telefone para visualizar seu calendário.",
       "status_date": "Lendo seu calendário para {{date}}",
       "status_today": "Lendo seu calendário para hoje",
       "status_tomorrow": "Lendo seu calendário para amanhã",
@@ -709,7 +709,7 @@
       "name": "Alarmes e lembretes",
       "description": "Defina alarmes e temporizadores no seu aplicativo de relógio, após a aprovação. Lembretes com mais de um dia de antecedência são adicionados ao seu calendário.",
       "default_label": "Lembrete",
-      "calendar_notes": "Lembrete definido a partir de AnythingLLM",
+      "calendar_notes": "Lembrete definido a partir de AnythingPocket",
       "status_asking": "Pedindo para definir o lembrete \"{{label}}\"",
       "approval_alarm": "Definir um alarme \"{{label}}\" para {{when}}?",
       "approval_timer": "Iniciar um timer de {{duration}} \"{{label}}\"? Ele termina {{when}}.",
@@ -902,7 +902,7 @@
     },
     "speech_to_text": {
       "permission_title": "Acesso ao microfone",
-      "permission_message": "AnythingLLM precisa de acesso ao microfone para transcrever sua fala em um prompt.",
+      "permission_message": "AnythingPocket precisa de acesso ao microfone para transcrever sua fala em um prompt.",
       "permission_required_title": "Acesso ao microfone necessário",
       "permission_required_message": "Ative o acesso ao microfone nas configurações do seu dispositivo para usar fala para texto."
     },
@@ -918,7 +918,7 @@
       "attach": "Anexar",
       "create_failed": "Falha ao criar documento para anexo",
       "camera_permission_title": "Acesso à câmera",
-      "camera_permission_message": "AnythingLLM precisa da câmera para tirar uma foto para seu prompt.",
+      "camera_permission_message": "AnythingPocket precisa da câmera para tirar uma foto para seu prompt.",
       "max_reached_many": "Você pode anexar até {{count}} itens por prompt",
       "max_reached_one": "Você pode anexar até {{count}} item por prompt",
       "max_reached_other": "Você pode anexar até {{count}} itens por prompt",
@@ -947,7 +947,7 @@
     },
     "low_memory": {
       "title": "Pouca memória",
-      "advice": "Quando a memória acaba, o seu telefone pode fechar AnythingLLM no meio da resposta para liberar espaço, o que pode parecer um erro. Feche outros aplicativos ou use uma conexão remota para obter respostas mais confiáveis.",
+      "advice": "Quando a memória acaba, o seu telefone pode fechar AnythingPocket no meio da resposta para liberar espaço, o que pode parecer um erro. Feche outros aplicativos ou use uma conexão remota para obter respostas mais confiáveis.",
       "free": "Livre",
       "total": "Total",
       "model_loaded": "Modelo (carregado)",
@@ -1052,7 +1052,7 @@
       "plan_hint": "Requer um plano ChatGPT Plus ou Pro. O uso conta para os limites do seu plano.",
       "experimental_note": "Experimental: o suporte da OpenAI para usar seu plano do ChatGPT em outros apps ainda está em prévia e pode mudar ou parar de funcionar.",
       "notice_title": "Use seu plano do ChatGPT",
-      "notice_body": "Solicitações de IA elegíveis no AnythingLLM usarão seu plano do ChatGPT. Você pode gerenciar o uso a qualquer momento nas configurações do ChatGPT.",
+      "notice_body": "Solicitações de IA elegíveis no AnythingPocket usarão seu plano do ChatGPT. Você pode gerenciar o uso a qualquer momento nas configurações do ChatGPT.",
       "notice_confirm": "Entendi",
       "signed_in_as": "Conectado como {{email}}",
       "your_account": "sua conta do ChatGPT",
@@ -1064,7 +1064,7 @@
       "denied": "A conexão com o ChatGPT não foi permitida. Se o ChatGPT informou que uma permissão necessária não está disponível, seu plano não pode ser usado aqui - o login com o ChatGPT requer um plano Plus ou Pro.",
       "errors": {
         "not_eligible": "Sua conta do ChatGPT não pode ser usada aqui. O login com o ChatGPT requer um plano Plus ou Pro.",
-        "usage_limit": "Você atingiu o limite de uso do AnythingLLM no seu plano do ChatGPT. Gerencie o uso em {{url}}",
+        "usage_limit": "Você atingiu o limite de uso do AnythingPocket no seu plano do ChatGPT. Gerencie o uso em {{url}}",
         "usage_unavailable": "O uso do plano do ChatGPT está temporariamente indisponível. Tente novamente em instantes.",
         "unsupported": "Esta solicitação usa um recurso que não está disponível no seu plano do ChatGPT."
       }
@@ -1135,7 +1135,7 @@
       "url_must_be_gguf": "A URL deve terminar com .gguf"
     },
     "survey": {
-      "title": "Como o AnythingLLM pode ajud�-lo?",
+      "title": "Como o AnythingPocket pode ajud�-lo?",
       "description": "Selecione a opção que melhor se aplica a você.",
       "options": {
         "productivity": "Aumente a produtividade",
@@ -1147,14 +1147,14 @@
     },
     "data_handling": {
       "title": "Gerenciamento de dados e privacidade",
-      "description": "Com AnythingLLM, todas as conversas, documentos e outros dados são processados e armazenados no seu dispositivo.",
+      "description": "Com AnythingPocket, todas as conversas, documentos e outros dados são processados e armazenados no seu dispositivo.",
       "local_chats_title": "Chats locais",
       "local_chats_description": "Todas as conversas são armazenadas no seu dispositivo.",
       "embedding_title": "Incorporação de documentos",
       "embedding_description": "Todos os documentos e processos são realizados no seu dispositivo.",
       "agents_title": "Agentes de IA",
       "agents_description": "Todos os agentes funcionam no seu dispositivo e utilizam a internet apenas quando necessário (ex: pesquisa na web)",
-      "experience": "Experimente o AnythingLLM",
+      "experience": "Experimente o AnythingPocket",
       "setting_up": "Configurar seu primeiro espaço de trabalho",
       "default_workspace_name": "Meu espaço de trabalho"
     }
@@ -1455,13 +1455,13 @@
     "channels": {
       "download_progress": "Progresso do Download",
       "chat_replies": "Respostas de Chat",
-      "chat_replies_description": "Alertas quando uma resposta termina enquanto AnythingLLM está em segundo plano",
+      "chat_replies_description": "Alertas quando uma resposta termina enquanto AnythingPocket está em segundo plano",
       "scheduled_jobs": "Trabalhos Agendados",
       "scheduled_jobs_description": "Alertas quando um trabalho agendado termina de ser executado"
     },
     "blocked_nudge": {
       "title": "Seja notificado quando as respostas terminarem",
-      "message": "As notificações estão desativadas para AnythingLLM. Ative-as para receber um aviso quando uma resposta terminar enquanto seu telefone está bloqueado.",
+      "message": "As notificações estão desativadas para AnythingPocket. Ative-as para receber um aviso quando uma resposta terminar enquanto seu telefone está bloqueado.",
       "not_now": "Não agora",
       "open_settings": "Abrir configurações"
     },
@@ -1477,17 +1477,17 @@
     }
   },
   "home": {
-    "welcome_title": "Bem-vindo a AnythingLLM",
+    "welcome_title": "Bem-vindo a AnythingPocket",
     "get_started": "Comece criando um novo espaço de trabalho.",
     "create_workspace": "Criar Espaço de Trabalho",
     "default_workspace_name": "Meu Espaço de Trabalho"
   },
   "share": {
-    "unsupported_content": "Apenas arquivos, imagens e links podem ser compartilhados com AnythingLLM",
-    "finish_onboarding": "Termine de configurar AnythingLLM antes de compartilhar com ele",
+    "unsupported_content": "Apenas arquivos, imagens e links podem ser compartilhados com AnythingPocket",
+    "finish_onboarding": "Termine de configurar AnythingPocket antes de compartilhar com ele",
     "open_failed": "Não foi possível abrir o conteúdo compartilhado"
   },
   "deep_links": {
-    "finish_onboarding": "Termine de configurar AnythingLLM antes de abrir links para ele"
+    "finish_onboarding": "Termine de configurar AnythingPocket antes de abrir links para ele"
   }
 }

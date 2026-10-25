@@ -3,7 +3,7 @@ import uiStore from '@/store/UIStore';
 import { createPersistentSession, discardEmptyQuickContextThread, type FeatureWorkspace, type QuickContextSession } from '@/quickContext';
 
 /**
- * Assistant: AnythingLLM as the device's default assistant app, in the slot Gemini holds out
+ * Assistant: AnythingPocket as the device's default assistant app, in the slot Gemini holds out
  * of the box (Android, see the assistant/ package on the native side). The user picks it in Android's
  * settings; from then on the assist gesture (long-press home or the navigation handle, depending on
  * the device) opens an overlay over whatever app is on screen, under an animated color wash like
@@ -16,7 +16,7 @@ import { createPersistentSession, discardEmptyQuickContextThread, type FeatureWo
  */
 
 export const ASSISTANT_SYSTEM_PROMPT = [
-    'You are AnythingLLM, a helpful assistant the user opened from their phone while using another app.',
+    'You are AnythingPocket, a helpful assistant the user opened from their phone while using another app.',
     'Answer briefly and directly in plain language; short lists are fine where they help.',
     'When a screenshot is attached it shows the screen the user was looking at when they opened you - use it to understand what they are asking about, and refer to what is on it when relevant.',
 ].join(' ');
@@ -79,7 +79,7 @@ export function isAssistantAvailable(): boolean {
     return Platform.OS === 'android' && !!AssistantModule;
 }
 
-/** Whether the user has picked AnythingLLM as the device's digital assistant app. */
+/** Whether the user has picked AnythingPocket as the device's digital assistant app. */
 export async function isDefaultAssistant(): Promise<boolean> {
     if (!isAssistantAvailable()) return false;
     return AssistantModule.isDefaultAssistant();

@@ -126,7 +126,7 @@ describe('signIn', () => {
     expect(callbackPath).toBe('/auth/callback');
     expect(authorize).toMatchObject({
       client_id: 'dynamic_agent_client',
-      agent_name_hint: 'AnythingLLM',
+      agent_name_hint: 'AnythingPocket',
       ext_agent_host_id: 'urn:uuid:11111111-2222-4333-8444-555555555555',
       response_type: 'code',
       redirect_uri: 'http://127.0.0.1:__LOOPBACK_PORT__/auth/callback',

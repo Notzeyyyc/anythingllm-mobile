@@ -7,6 +7,7 @@ const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.3.2',
     content: [
+      '- **AnythingPocket** — rebranding of AnythingLLM Mobile (fork by Notzeyyyc, GPLv3)',
       '- **Onboarding fix** — if setup was interrupted, the app now picks up where you left off instead of skipping the last step',
     ].join('\n'),
   },

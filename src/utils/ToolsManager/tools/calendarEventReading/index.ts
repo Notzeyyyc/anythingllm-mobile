@@ -58,7 +58,7 @@ export default {
                 : i18n.t(READING_STATUS[search]));
 
             // Normally granted when the tool was switched on - access can be revoked in settings since.
-            if (!(await ensureCalendarPermission(true))) return 'Calendar access is not granted, so the calendar could not be read. Tell the user to allow calendar access for AnythingLLM in their phone settings.';
+            if (!(await ensureCalendarPermission(true))) return 'Calendar access is not granted, so the calendar could not be read. Tell the user to allow calendar access for AnythingPocket in their phone settings.';
 
             const events = await RNCalendarEvents.fetchAllEvents(startDate, endDate);
             if (!events?.length) return `There are no events in the user's calendar for ${search === 'specific date' ? specificDate : search}.`;

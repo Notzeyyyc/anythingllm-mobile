@@ -114,7 +114,7 @@ const tool = {
                 else eventId = await saveCalendarReminder(fireAt, label);
             } catch (error: any) {
                 console.error('[setReminder] could not set it', error);
-                if (error?.message === 'calendar_permission_denied') return 'Calendar access was not allowed, so the reminder could not be added. It is more than a day away, which the clock app cannot hold. Tell the user to allow calendar access for AnythingLLM in their phone settings.';
+                if (error?.message === 'calendar_permission_denied') return 'Calendar access was not allowed, so the reminder could not be added. It is more than a day away, which the clock app cannot hold. Tell the user to allow calendar access for AnythingPocket in their phone settings.';
                 if (error?.message === 'no_writable_calendar') return 'The user has no calendar that can be written to, so the reminder could not be added. It is more than a day away, which the clock app cannot hold.';
                 if (error?.code === 'clock_unavailable') return 'No clock app is installed that accepts alarms or timers, so no reminder was set.';
                 return `Could not set the reminder: ${error?.message ?? 'unknown error'}.`;

@@ -62,7 +62,7 @@ export const RERANKER_MODEL = {
 export const EMBEDDING_MODEL = {
     id: 'default',
     name: 'Default',
-    description: 'The default embedding model for AnythingLLM.',
+    description: 'The default embedding model for AnythingPocket.',
     size: '84.1MB',
 
     // Nomic Embed Text works best, all the All-MiniLM-L6-v2 models are too compressed and suck.

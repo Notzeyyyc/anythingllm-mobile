@@ -102,14 +102,14 @@ export default {
     },
 
     /**
-     * Identifies this client to search providers, eg: `AnythingLLMMobile/1.1.0`.
+     * Identifies this client to search providers, eg: `AnythingPocketMobile/1.1.0`.
      */
     _getUserAgent(): string {
         let version = 'unknown';
         try {
             version = DeviceInfo.getVersion() || version;
         } catch { }
-        return `AnythingLLMMobile/${version}`;
+        return `AnythingPocketMobile/${version}`;
     },
 
     /**

@@ -125,7 +125,7 @@ export function MainView({ goToPage }: MainViewProps) {
     });
     return true;
   }
-  async function resetAnythingLLM() {
+  async function resetAnythingPocket() {
     const confirm = await AwaitableAlert(
       t('settings.reset.title'),
       t('settings.reset.confirm_message'),
@@ -268,7 +268,7 @@ export function MainView({ goToPage }: MainViewProps) {
             </View>
           )}
 
-          {/* About AnythingLLM */}
+          {/* About AnythingPocket */}
           <View className="w-full flex flex-col" style={{ gap: 12 }}>
             <ApkVersion />
             <View
@@ -279,6 +279,12 @@ export function MainView({ goToPage }: MainViewProps) {
                 gap: 12,
                 borderRadius: 8,
               }}>
+              <SupportItem
+                title="Fork of AnythingLLM Mobile by Mintplex Labs (GPLv3)"
+                link="https://github.com/Mintplex-Labs/anythingllm-mobile"
+                icon={<GithubLogo size={18} color="#FFF" />}
+                borderBottom={Boolean(changelogEntry || ABOUT_LINKS.length > 0)}
+              />
               {changelogEntry && (
                 <SupportItem
                   title={t('settings.about.release_notes', { version: changelogEntry.version })}
@@ -381,7 +387,7 @@ export function MainView({ goToPage }: MainViewProps) {
 
         <View className="w-full flex flex-col" style={{ gap: 12 }}>
           <TouchableOpacity
-            onPress={resetAnythingLLM}
+            onPress={resetAnythingPocket}
             style={{ backgroundColor: 'rgba(122,39,26,0.2)' }}
             className="flex flex-row items-center justify-center rounded-lg p-4 mb-4">
             <Text style={{ color: '#F97066' }} className="text-lg font-medium">

@@ -98,15 +98,15 @@ try {
     const apksOutputPath = `android/app/build/outputs/apks/app-release-v${version}-universal.apks`;
 
     console.log('Validating keystore files exist...');
-    const keystorePath = 'android/app/anythingllm-upload-key.keystore';
+    const keystorePath = 'android/app/anythingpocket-release.keystore';
     const keystorePassword = process.env.APP_RELEASE_STORE_PASSWORD;
-    const keystoreAlias = 'anythingllm-keystore';
+    const keystoreAlias = 'anythingpocket';
     if (!keystorePassword) {
         console.error('APP_RELEASE_STORE_PASSWORD environment variable is not set.');
         process.exit(1);
     }
     if (!fs.existsSync(keystorePath)) {
-        console.error('Keystore file not found. Please ensure the keystore file exists at android/app/anythingllm-upload-key.keystore');
+        console.error('Keystore file not found. Please ensure the keystore file exists at android/app/anythingpocket-release.keystore');
         process.exit(1);
     }
 
@@ -139,7 +139,7 @@ try {
 
     // Rename the APK to app-release-v${version}-universal.apk
     const apkPath = path.join(outputDir, `universal.apk`);
-    fs.renameSync(apkPath, path.join(outputDir, `anythingllm-universal.apk`));
+    fs.renameSync(apkPath, path.join(outputDir, `anythingpocket-universal.apk`));
 
     // Clean up zip file
     fs.unlinkSync(zipPath);
@@ -151,18 +151,18 @@ try {
     // Create release folder
     const releaseFolder = `release/v${version}`;
     if (!fs.existsSync(releaseFolder)) fs.mkdirSync(releaseFolder, { recursive: true });
-    fs.copyFileSync(aabPath, path.join(releaseFolder, `anythingllm-v${version}.aab`));
+    fs.copyFileSync(aabPath, path.join(releaseFolder, `anythingpocket-v${version}.aab`));
 
     // Copy APK to cdn/**
     const cdnFolder = path.join(releaseFolder, `cdn`);
     if (!fs.existsSync(cdnFolder)) fs.mkdirSync(cdnFolder, { recursive: true });
-    fs.copyFileSync(path.join(outputDir, `anythingllm-universal.apk`), path.join(cdnFolder, `anythingllm-universal.apk`));
+    fs.copyFileSync(path.join(outputDir, `anythingpocket-universal.apk`), path.join(cdnFolder, `anythingpocket-universal.apk`));
     fs.writeFileSync(path.join(cdnFolder, `version.txt`), version);
 
     console.log(`✅ Android release build completed successfully!`);
     console.log(`📱 Universal APK extracted to: ${releaseFolder}`);
-    console.log(`📦 AAB bundle: ${path.join(releaseFolder, `anythingllm-v${version}.aab`)}`);
-    console.log(`🎯 Final APK: ${path.join(cdnFolder, `anythingllm-universal.apk`)}`);
+    console.log(`📦 AAB bundle: ${path.join(releaseFolder, `anythingpocket-v${version}.aab`)}`);
+    console.log(`🎯 Final APK: ${path.join(cdnFolder, `anythingpocket-universal.apk`)}`);
 } catch (error) {
     console.error('❌ Build failed:', error);
     process.exit(1);

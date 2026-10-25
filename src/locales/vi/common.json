@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "Công cụ đặc biệt",
-      "ask_with_anythingllm": "\"Hỏi với AnythingLLM\"",
+      "ask_with_anythingllm": "\"Hỏi với AnythingPocket\"",
       "page_title": "Công cụ đặc biệt",
-      "added_toast": "Đã thêm \"Hỏi với AnythingLLM\" vào menu lựa chọn văn bản",
-      "removed_toast": "Đã xóa \"Hỏi với AnythingLLM\" khỏi menu lựa chọn văn bản",
+      "added_toast": "Đã thêm \"Hỏi với AnythingPocket\" vào menu lựa chọn văn bản",
+      "removed_toast": "Đã xóa \"Hỏi với AnythingPocket\" khỏi menu lựa chọn văn bản",
       "context_awareness": "Nhận biết ngữ cảnh",
-      "ask_with_anythingllm_toggle": "Hỏi với AnythingLLM",
+      "ask_with_anythingllm_toggle": "Hỏi với AnythingPocket",
       "android_only": "Chỉ Android",
-      "description_available": "Thêm \"Hỏi với AnythingLLM\" vào menu xuất hiện khi bạn chọn văn bản trong bất kỳ ứng dụng nào. Sử dụng nó để hoàn thiện, rút ngắn hoặc sửa những gì bạn đang viết, hoặc để tóm tắt, giải thích và nghiên cứu những gì bạn đang đọc - với bất kỳ mô hình nào bạn đã chọn ở đây.",
-      "description_unavailable": "Trên Android, AnythingLLM có thể xuất hiện trong menu hiển thị khi bạn chọn văn bản trong bất kỳ ứng dụng nào, để chỉnh sửa hoặc tóm tắt nó bằng mô hình bạn chọn. iOS không cung cấp hook này cho các ứng dụng.",
+      "description_available": "Thêm \"Hỏi với AnythingPocket\" vào menu xuất hiện khi bạn chọn văn bản trong bất kỳ ứng dụng nào. Sử dụng nó để hoàn thiện, rút ngắn hoặc sửa những gì bạn đang viết, hoặc để tóm tắt, giải thích và nghiên cứu những gì bạn đang đọc - với bất kỳ mô hình nào bạn đã chọn ở đây.",
+      "description_unavailable": "Trên Android, AnythingPocket có thể xuất hiện trong menu hiển thị khi bạn chọn văn bản trong bất kỳ ứng dụng nào, để chỉnh sửa hoặc tóm tắt nó bằng mô hình bạn chọn. iOS không cung cấp hook này cho các ứng dụng.",
       "assistant": "Trợ lý thiết bị"
     },
     "assistant": {
       "page_title": "Trợ lý thiết bị",
       "status_title": "Trợ lý mặc định",
-      "status_on": "AnythingLLM là trợ lý mặc định của bạn",
-      "status_off": "AnythingLLM không phải là trợ lý mặc định của bạn",
+      "status_on": "AnythingPocket là trợ lý mặc định của bạn",
+      "status_off": "AnythingPocket không phải là trợ lý mặc định của bạn",
       "set_up": "Thiết lập",
       "change": "Thay đổi",
-      "setup_steps": "Trong cài đặt Android, hãy chọn \"Ứng dụng trợ lý số mặc định\" và chọn AnythingLLM. Trang này có thể nằm trong mục \"Ứng dụng\" > \"Ứng dụng mặc định\". Quay lại đây khi bạn đã hoàn thành.",
-      "description": "Mở AnythingLLM trên bất kỳ ứng dụng nào bằng cử chỉ trợ lý của điện thoại – thường là nhấn giữ nút \"Trang chủ\" hoặc thanh điều hướng – và hỏi với mô hình bạn đã chọn, trên thiết bị hoặc trên máy chủ của bạn. Nó thay thế Gemini; bạn có thể chuyển lại bất kỳ lúc nào trong cùng một cài đặt Android.",
-      "description_unavailable": "Trên Android, AnythingLLM có thể là trợ lý của điện thoại, thay thế cho Gemini, có thể mở bằng cử chỉ trên bất kỳ ứng dụng nào. iOS không cho phép các ứng dụng thay thế Siri.",
+      "setup_steps": "Trong cài đặt Android, hãy chọn \"Ứng dụng trợ lý số mặc định\" và chọn AnythingPocket. Trang này có thể nằm trong mục \"Ứng dụng\" > \"Ứng dụng mặc định\". Quay lại đây khi bạn đã hoàn thành.",
+      "description": "Mở AnythingPocket trên bất kỳ ứng dụng nào bằng cử chỉ trợ lý của điện thoại – thường là nhấn giữ nút \"Trang chủ\" hoặc thanh điều hướng – và hỏi với mô hình bạn đã chọn, trên thiết bị hoặc trên máy chủ của bạn. Nó thay thế Gemini; bạn có thể chuyển lại bất kỳ lúc nào trong cùng một cài đặt Android.",
+      "description_unavailable": "Trên Android, AnythingPocket có thể là trợ lý của điện thoại, thay thế cho Gemini, có thể mở bằng cử chỉ trên bất kỳ ứng dụng nào. iOS không cho phép các ứng dụng thay thế Siri.",
       "need_help": "Cần hỗ trợ?",
       "circle_to_search_note": "Nếu nhấn giữ nút Trang chủ lại mở Khoanh tròn để tìm kiếm, hãy tắt Khoanh tròn để tìm kiếm trong Cài đặt Android > Màn hình > Thanh điều hướng. Khi tính năng này đang bật, Android luôn dành cử chỉ đó cho Google, bất kể bạn chọn trợ lý nào.",
       "open_settings_failed": "Không thể mở Android",
@@ -144,13 +144,13 @@
       "privacy": "Chính sách quyền riêng tư"
     },
     "reset": {
-      "title": "Đặt lại AnythingLLM",
-      "confirm_message": "Bạn có chắc chắn muốn đặt lại AnythingLLM không? Điều này sẽ xóa tất cả không gian làm việc, trò chuyện, mô hình đã cài đặt và tùy chọn của bạn.",
+      "title": "Đặt lại AnythingPocket",
+      "confirm_message": "Bạn có chắc chắn muốn đặt lại AnythingPocket không? Điều này sẽ xóa tất cả không gian làm việc, trò chuyện, mô hình đã cài đặt và tùy chọn của bạn.",
       "confirm_button": "Có, Đặt lại tất cả"
     },
     "update_failed": "Không thể cập nhật cài đặt",
     "version": {
-      "about": "Về AnythingLLM",
+      "about": "Về AnythingPocket",
       "update_available_title": "Có bản cập nhật",
       "update_available_message": "Phiên bản {{version}} có sẵn. Vui lòng cập nhật lên phiên bản mới nhất.",
       "go_to_app_store": "Đi đến cửa hàng ứng dụng"
@@ -160,7 +160,7 @@
       "disabled_toast": "Đã tắt dữ liệu viễn cảm ẩn danh",
       "usage_data": "Dữ liệu sử dụng",
       "share_toggle": "Chia sẻ dữ liệu viễn cảm ẩn danh",
-      "description_events": "AnythingLLM gửi một số lượng nhỏ các sự kiện ẩn danh, chẳng hạn như \"một trò chuyện đã hoàn thành\" hoặc \"một công cụ được sử dụng\", để chúng ta có thể thấy tính năng nào quan trọng và nơi có sự cố.",
+      "description_events": "AnythingPocket gửi một số lượng nhỏ các sự kiện ẩn danh, chẳng hạn như \"một trò chuyện đã hoàn thành\" hoặc \"một công cụ được sử dụng\", để chúng ta có thể thấy tính năng nào quan trọng và nơi có sự cố.",
       "description_privacy": "Điều này không bao giờ bao gồm các trò chuyện, tài liệu, lời nhắc hoặc bất cứ điều gì cụ thể về cách bạn sử dụng ứng dụng của bạn. Không có tài khoản và không có gì xác định bạn.",
       "description_opt_out": "Để lại điều này giúp chúng tôi xây dựng một ứng dụng tốt hơn. Bạn có thể tắt nó bất cứ lúc nào và sẽ không có gì khác được gửi."
     },
@@ -322,7 +322,7 @@
       "all_day": "Cả ngày",
       "open_failed": "Không thể mở ứng dụng lịch",
       "saved": "Đã thêm vào lịch",
-      "permission_denied": "Cho phép quyền truy cập lịch cho AnythingLLM trong Cài đặt để thêm sự kiện.",
+      "permission_denied": "Cho phép quyền truy cập lịch cho AnythingPocket trong Cài đặt để thêm sự kiện.",
       "add_with": "Thêm",
       "save_ics": "Lưu tệp .ics",
       "save_failed": "Không thể lưu tệp sự kiện",
@@ -429,8 +429,8 @@
     },
     "could_not_start": "Không thể bắt đầu Hành động nhanh",
     "dismiss": "Bỏ qua",
-    "setup_needed": "Kết thúc cài đặt AnythingLLM để sử dụng nó từ menu lựa chọn.",
-    "open_anythingllm": "Mở AnythingLLM",
+    "setup_needed": "Kết thúc cài đặt AnythingPocket để sử dụng nó từ menu lựa chọn.",
+    "open_anythingllm": "Mở AnythingPocket",
     "select_model": "Chọn một mô hình ở trên để bắt đầu.",
     "copied_paste": "Đã sao chép - dán nó trên lựa chọn của bạn",
     "copy_and_close": "Sao chép & đóng",
@@ -445,10 +445,10 @@
   "assistant": {
     "could_not_start": "Không thể khởi động trợ lý",
     "dismiss": "Bỏ qua",
-    "setup_needed": "Hoàn thành việc thiết lập AnythingLLM để sử dụng nó như trợ lý của bạn.",
-    "open_anythingllm": "Mở AnythingLLM",
+    "setup_needed": "Hoàn thành việc thiết lập AnythingPocket để sử dụng nó như trợ lý của bạn.",
+    "open_anythingllm": "Mở AnythingPocket",
     "select_model": "Chọn một mô hình để bắt đầu.",
-    "placeholder": "Hỏi AnythingLLM",
+    "placeholder": "Hỏi AnythingPocket",
     "placeholder_followup": "Hỏi thêm...",
     "listening": "Đang nghe…",
     "share_screen": "Chia sẻ màn hình",
@@ -487,19 +487,19 @@
     "play_video": "Phát video",
     "pause_video": "Tạm dừng video",
     "whats_new": "Có gì mới",
-    "tour_title": "AnythingLLM có thể làm gì",
+    "tour_title": "AnythingPocket có thể làm gì",
     "device_assistant": {
       "title": "Thay thế Gemini bằng AI của bạn",
-      "body": "Biến AnythingLLM thành trợ lý cho điện thoại của bạn và mở nó từ bất kỳ ứng dụng nào bằng cử chỉ giống như bạn sử dụng cho Gemini. Hỏi về nội dung trên màn hình - được trả lời bởi mô hình bạn đã chọn.",
+      "body": "Biến AnythingPocket thành trợ lý cho điện thoại của bạn và mở nó từ bất kỳ ứng dụng nào bằng cử chỉ giống như bạn sử dụng cho Gemini. Hỏi về nội dung trên màn hình - được trả lời bởi mô hình bạn đã chọn.",
       "cta": "Cài đặt trợ lý thiết bị"
     },
     "quick_actions": {
-      "title": "Hỏi với AnythingLLM ở bất cứ nơi nào",
-      "body": "Chọn văn bản trong bất kỳ ứng dụng nào và nhấn \"Hỏi với AnythingLLM\" để đánh bóng, rút ngắn, tóm tắt hoặc giải thích nó bằng mô hình của bạn. Tắt nó bất cứ lúc nào trong Cài đặt > Công cụ đặc biệt."
+      "title": "Hỏi với AnythingPocket ở bất cứ nơi nào",
+      "body": "Chọn văn bản trong bất kỳ ứng dụng nào và nhấn \"Hỏi với AnythingPocket\" để đánh bóng, rút ngắn, tóm tắt hoặc giải thích nó bằng mô hình của bạn. Tắt nó bất cứ lúc nào trong Cài đặt > Công cụ đặc biệt."
     },
     "share_sheet": {
       "title": "Chia sẻ bất cứ điều gì vào cuộc trò chuyện",
-      "body": "Gửi ảnh, tài liệu và liên kết từ bất kỳ ứng dụng nào trực tiếp đến AnythingLLM. Chúng sẽ đi vào một luồng mới, được đính kèm và sẵn sàng để hỏi."
+      "body": "Gửi ảnh, tài liệu và liên kết từ bất kỳ ứng dụng nào trực tiếp đến AnythingPocket. Chúng sẽ đi vào một luồng mới, được đính kèm và sẵn sàng để hỏi."
     },
     "scheduled_jobs": {
       "title": "Công việc được lên lịch",
@@ -522,13 +522,13 @@
     },
     "location": {
       "downloads": "Tải xuống",
-      "ios_exports": "Tệp > Trên iPhone của tôi > AnythingLLM > Xuất",
+      "ios_exports": "Tệp > Trên iPhone của tôi > AnythingPocket > Xuất",
       "open_downloads": "Mở trong Tải xuống",
       "open_files": "Mở trong Tệp"
     },
     "storage_permission": {
       "title": "Lưu vào Tải xuống",
-      "message": "AnythingLLM cần quyền truy cập lưu trữ để lưu tệp vào thư mục Tải xuống của bạn."
+      "message": "AnythingPocket cần quyền truy cập lưu trữ để lưu tệp vào thư mục Tải xuống của bạn."
     },
     "export": {
       "text_label": "Văn bản",
@@ -600,7 +600,7 @@
     "calendar_event_reading": {
       "name": "Đọc lịch",
       "description": "Sử dụng trợ lý để đọc các sự kiện lịch của bạn.",
-      "permission_denied": "Quyền truy cập lịch không được cho phép. Bật quyền này cho AnythingLLM trong cài đặt điện thoại để đọc lịch của bạn.",
+      "permission_denied": "Quyền truy cập lịch không được cho phép. Bật quyền này cho AnythingPocket trong cài đặt điện thoại để đọc lịch của bạn.",
       "status_date": "Đang đọc lịch của bạn cho {{date}}",
       "status_today": "Đang đọc lịch của bạn cho hôm nay",
       "status_tomorrow": "Đang đọc lịch của bạn cho ngày mai",
@@ -653,7 +653,7 @@
       "name": "Cảnh báo và nhắc nhở",
       "description": "Thiết lập báo thức và hẹn giờ trong ứng dụng đồng hồ của bạn, sau khi bạn đã xác nhận. Các thông báo với thời gian hơn một ngày sẽ được thêm vào lịch của bạn.",
       "default_label": "Nhắc nhở",
-      "calendar_notes": "Đặt nhắc nhở từ AnythingLLM",
+      "calendar_notes": "Đặt nhắc nhở từ AnythingPocket",
       "status_asking": "Yêu cầu đặt lời nhắc {{label}}",
       "approval_alarm": "Đặt báo thức lúc {{label}} cho {{when}}?",
       "approval_timer": "Bắt đầu hẹn giờ {{duration}} \"{{label}}\"? Hẹn giờ kết thúc {{when}}.",
@@ -834,7 +834,7 @@
     },
     "speech_to_text": {
       "permission_title": "Quyền truy cập micrô",
-      "permission_message": "AnythingLLM cần quyền truy cập micrô để chuyển đổi bài phát biểu của bạn thành lời nhắc.",
+      "permission_message": "AnythingPocket cần quyền truy cập micrô để chuyển đổi bài phát biểu của bạn thành lời nhắc.",
       "permission_required_title": "Cần quyền truy cập micrô",
       "permission_required_message": "Kích hoạt quyền truy cập micrô trong cài đặt thiết bị của bạn để sử dụng chuyển đổi giọng nói thành văn bản."
     },
@@ -850,7 +850,7 @@
       "attach": "Đính kèm",
       "create_failed": "Không thể tạo tài liệu để đính kèm",
       "camera_permission_title": "Quyền truy cập camera",
-      "camera_permission_message": "AnythingLLM cần camera để chụp ảnh cho lời nhắc của bạn.",
+      "camera_permission_message": "AnythingPocket cần camera để chụp ảnh cho lời nhắc của bạn.",
       "max_reached_other": "Bạn có thể đính kèm tới {{count}} mục trên mỗi lời nhắc",
       "camera_permission_required": "Quyền truy cập camera được yêu cầu để chụp ảnh",
       "camera_open_failed": "Không thể mở camera",
@@ -871,7 +871,7 @@
     },
     "low_memory": {
       "title": "Ít bộ nhớ",
-      "advice": "Khi bộ nhớ hết, điện thoại có thể đóng AnythingLLM giữa lúc đang trả lời để giải phóng, trông giống như bị treo. Đóng các ứng dụng khác, hoặc chuyển sang kết nối với mô hình từ xa để có phản hồi ổn định hơn.",
+      "advice": "Khi bộ nhớ hết, điện thoại có thể đóng AnythingPocket giữa lúc đang trả lời để giải phóng, trông giống như bị treo. Đóng các ứng dụng khác, hoặc chuyển sang kết nối với mô hình từ xa để có phản hồi ổn định hơn.",
       "free": "Còn trống",
       "total": "Tổng",
       "model_loaded": "Mô hình (đã tải)",
@@ -970,7 +970,7 @@
       "plan_hint": "Yêu cầu gói ChatGPT Plus hoặc Pro. Mức sử dụng được tính vào giới hạn của gói.",
       "experimental_note": "Thử nghiệm: hỗ trợ của OpenAI cho việc dùng gói ChatGPT trong các ứng dụng khác vẫn đang ở bản xem trước và có thể thay đổi hoặc ngừng hoạt động.",
       "notice_title": "Sử dụng gói ChatGPT của bạn",
-      "notice_body": "Các yêu cầu AI đủ điều kiện trong AnythingLLM sẽ sử dụng gói ChatGPT của bạn. Bạn có thể quản lý mức sử dụng bất cứ lúc nào trong cài đặt ChatGPT.",
+      "notice_body": "Các yêu cầu AI đủ điều kiện trong AnythingPocket sẽ sử dụng gói ChatGPT của bạn. Bạn có thể quản lý mức sử dụng bất cứ lúc nào trong cài đặt ChatGPT.",
       "notice_confirm": "Đã hiểu",
       "signed_in_as": "Đã đăng nhập với {{email}}",
       "your_account": "tài khoản ChatGPT của bạn",
@@ -982,7 +982,7 @@
       "denied": "Kết nối tới ChatGPT không được cho phép. Nếu ChatGPT báo rằng một quyền bắt buộc không khả dụng, gói của bạn không thể dùng ở đây - đăng nhập bằng ChatGPT cần gói Plus hoặc Pro.",
       "errors": {
         "not_eligible": "Tài khoản ChatGPT của bạn không thể dùng ở đây. Đăng nhập bằng ChatGPT cần gói Plus hoặc Pro.",
-        "usage_limit": "Bạn đã đạt giới hạn sử dụng AnythingLLM trên gói ChatGPT của mình. Quản lý mức sử dụng tại {{url}}",
+        "usage_limit": "Bạn đã đạt giới hạn sử dụng AnythingPocket trên gói ChatGPT của mình. Quản lý mức sử dụng tại {{url}}",
         "usage_unavailable": "Tạm thời không thể sử dụng gói ChatGPT. Vui lòng thử lại sau giây lát.",
         "unsupported": "Yêu cầu này dùng một tính năng không khả dụng với gói ChatGPT của bạn."
       }
@@ -1053,7 +1053,7 @@
       "url_must_be_gguf": "URL phải kết thúc bằng .gguf"
     },
     "survey": {
-      "title": "AnythingLLM có thể giúp bạn điều gì?",
+      "title": "AnythingPocket có thể giúp bạn điều gì?",
       "description": "Chọn cái áp dụng nhất cho bạn.",
       "options": {
         "productivity": "Tăng năng suất",
@@ -1065,14 +1065,14 @@
     },
     "data_handling": {
       "title": "Xử lý dữ liệu & Quyền riêng tư",
-      "description": "Với AnythingLLM, tất cả trò chuyện, tài liệu và dữ liệu khác được xử lý và lưu trữ trên thiết bị của bạn.",
+      "description": "Với AnythingPocket, tất cả trò chuyện, tài liệu và dữ liệu khác được xử lý và lưu trữ trên thiết bị của bạn.",
       "local_chats_title": "Trò chuyện hoàn toàn cục bộ",
       "local_chats_description": "Tất cả trò chuyện được lưu trữ trên thiết bị của bạn.",
       "embedding_title": "Nhúng tài liệu",
       "embedding_description": "Tất cả tài liệu và xử lý được thực hiện trên thiết bị của bạn.",
       "agents_title": "Tác nhân AI",
       "agents_description": "Tất cả các tác nhân được chạy trên thiết bị của bạn và chỉ sử dụng internet khi cần (ví dụ: tìm kiếm web)",
-      "experience": "Trải nghiệm AnythingLLM",
+      "experience": "Trải nghiệm AnythingPocket",
       "setting_up": "Thiết lập không gian làm việc đầu tiên của bạn",
       "default_workspace_name": "Không gian làm việc của tôi"
     }
@@ -1363,13 +1363,13 @@
     "channels": {
       "download_progress": "Tiến trình tải xuống",
       "chat_replies": "Phản hồi trò chuyện",
-      "chat_replies_description": "Cảnh báo khi một phản hồi kết thúc khi AnythingLLM ở chế độ nền",
+      "chat_replies_description": "Cảnh báo khi một phản hồi kết thúc khi AnythingPocket ở chế độ nền",
       "scheduled_jobs": "Công việc được lên lịch",
       "scheduled_jobs_description": "Cảnh báo khi công việc được lên lịch hoàn thành chạy"
     },
     "blocked_nudge": {
       "title": "Nhận thông báo khi các phản hồi hoàn thành",
-      "message": "Thông báo bị tắt cho AnythingLLM. Bật chúng để nhận cảnh báo khi câu trả lời hoàn thành khi điện thoại của bạn bị khóa.",
+      "message": "Thông báo bị tắt cho AnythingPocket. Bật chúng để nhận cảnh báo khi câu trả lời hoàn thành khi điện thoại của bạn bị khóa.",
       "not_now": "Không phải bây giờ",
       "open_settings": "Mở cài đặt"
     },
@@ -1385,17 +1385,17 @@
     }
   },
   "home": {
-    "welcome_title": "Chào mừng đến với AnythingLLM",
+    "welcome_title": "Chào mừng đến với AnythingPocket",
     "get_started": "Bắt đầu bằng cách tạo một không gian làm việc mới.",
     "create_workspace": "Tạo không gian làm việc",
     "default_workspace_name": "Không gian làm việc của tôi"
   },
   "share": {
-    "unsupported_content": "Chỉ các tệp, hình ảnh và liên kết có thể được chia sẻ với AnythingLLM",
-    "finish_onboarding": "Kết thúc cài đặt AnythingLLM trước khi chia sẻ nó",
+    "unsupported_content": "Chỉ các tệp, hình ảnh và liên kết có thể được chia sẻ với AnythingPocket",
+    "finish_onboarding": "Kết thúc cài đặt AnythingPocket trước khi chia sẻ nó",
     "open_failed": "Không thể mở nội dung được chia sẻ"
   },
   "deep_links": {
-    "finish_onboarding": "Kết thúc cài đặt AnythingLLM trước khi mở các liên kết đến nó"
+    "finish_onboarding": "Kết thúc cài đặt AnythingPocket trước khi mở các liên kết đến nó"
   }
 }

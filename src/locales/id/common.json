@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "Alat Khusus",
-      "ask_with_anythingllm": "\"Tanya dengan AnythingLLM\"",
+      "ask_with_anythingllm": "\"Tanya dengan AnythingPocket\"",
       "page_title": "Alat khusus",
-      "added_toast": "Tanya dengan AnythingLLM ditambahkan ke menu pemilihan teks",
-      "removed_toast": "Tanya dengan AnythingLLM dihapus dari menu pemilihan teks",
+      "added_toast": "Tanya dengan AnythingPocket ditambahkan ke menu pemilihan teks",
+      "removed_toast": "Tanya dengan AnythingPocket dihapus dari menu pemilihan teks",
       "context_awareness": "Kesadaran konteks",
-      "ask_with_anythingllm_toggle": "Tanya dengan AnythingLLM",
+      "ask_with_anythingllm_toggle": "Tanya dengan AnythingPocket",
       "android_only": "Hanya Android",
-      "description_available": "Menambahkan \"Tanya dengan AnythingLLM\" ke menu yang muncul saat Anda memilih teks di aplikasi apa pun. Gunakan untuk menyempurnakan, memendekkan, atau memperbaiki apa yang Anda tulis, atau untuk merangkum, menjelaskan, dan meneliti apa yang Anda baca - dengan model apa pun yang Anda pilih di sini.",
-      "description_unavailable": "Di Android, AnythingLLM dapat muncul di menu yang ditampilkan saat Anda memilih teks di aplikasi apa pun, untuk mengedit atau merangkumnya dengan model pilihan Anda. iOS tidak menawarkan aplikasi hook ini.",
+      "description_available": "Menambahkan \"Tanya dengan AnythingPocket\" ke menu yang muncul saat Anda memilih teks di aplikasi apa pun. Gunakan untuk menyempurnakan, memendekkan, atau memperbaiki apa yang Anda tulis, atau untuk merangkum, menjelaskan, dan meneliti apa yang Anda baca - dengan model apa pun yang Anda pilih di sini.",
+      "description_unavailable": "Di Android, AnythingPocket dapat muncul di menu yang ditampilkan saat Anda memilih teks di aplikasi apa pun, untuk mengedit atau merangkumnya dengan model pilihan Anda. iOS tidak menawarkan aplikasi hook ini.",
       "assistant": "Bantuan Perangkat"
     },
     "assistant": {
       "page_title": "Bantuan Perangkat",
       "status_title": "Asisten bawaan",
-      "status_on": "AnythingLLM adalah asisten Anda secara default",
-      "status_off": "AnythingLLM bukanlah asisten utama Anda",
+      "status_on": "AnythingPocket adalah asisten Anda secara default",
+      "status_off": "AnythingPocket bukanlah asisten utama Anda",
       "set_up": "Konfigurasi",
       "change": "Ubah",
-      "setup_steps": "Di pengaturan Android yang terbuka, ketuk \"Aplikasi asisten digital default\" dan pilih AnythingLLM. Halaman ini terkadang berada di > Aplikasi > Aplikasi default. Kembali ke sini setelah selesai.",
-      "description": "Buka AnythingLLM melalui aplikasi apa pun dengan gerakan asisten di ponsel Anda – biasanya dengan menekan lama tombol beranda atau bilah navigasi – dan tanyakan dengan model yang Anda pilih, baik di perangkat atau di server Anda sendiri. Ini menggantikan Gemini; Anda dapat kembali ke pengaturan yang sama di Android kapan saja.",
-      "description_unavailable": "Pada Android, AnythingLLM dapat menjadi asisten ponsel Anda, menggantikan Gemini, yang dapat diakses melalui gestur apa pun di dalam aplikasi. iOS tidak memungkinkan aplikasi menggantikan Siri.",
+      "setup_steps": "Di pengaturan Android yang terbuka, ketuk \"Aplikasi asisten digital default\" dan pilih AnythingPocket. Halaman ini terkadang berada di > Aplikasi > Aplikasi default. Kembali ke sini setelah selesai.",
+      "description": "Buka AnythingPocket melalui aplikasi apa pun dengan gerakan asisten di ponsel Anda – biasanya dengan menekan lama tombol beranda atau bilah navigasi – dan tanyakan dengan model yang Anda pilih, baik di perangkat atau di server Anda sendiri. Ini menggantikan Gemini; Anda dapat kembali ke pengaturan yang sama di Android kapan saja.",
+      "description_unavailable": "Pada Android, AnythingPocket dapat menjadi asisten ponsel Anda, menggantikan Gemini, yang dapat diakses melalui gestur apa pun di dalam aplikasi. iOS tidak memungkinkan aplikasi menggantikan Siri.",
       "need_help": "Butuh bantuan untuk memulai?",
       "circle_to_search_note": "Jika menekan lama tombol beranda malah membuka Circle to Search, nonaktifkan Circle to Search di Setelan Android > Tampilan > Menu navigasi. Selama fitur ini aktif, Android selalu memberikan gerakan tersebut ke Google, apa pun asisten yang Anda pilih.",
       "open_settings_failed": "Tidak dapat membuka pengaturan Android",
@@ -144,13 +144,13 @@
       "privacy": "Kebijakan Privasi"
     },
     "reset": {
-      "title": "Atur Ulang AnythingLLM",
-      "confirm_message": "Apakah Anda yakin ingin mengatur ulang AnythingLLM? Ini akan menghapus semua ruang kerja, obrolan, model terpasang, dan preferensi Anda.",
+      "title": "Atur Ulang AnythingPocket",
+      "confirm_message": "Apakah Anda yakin ingin mengatur ulang AnythingPocket? Ini akan menghapus semua ruang kerja, obrolan, model terpasang, dan preferensi Anda.",
       "confirm_button": "Ya, Atur Ulang Semuanya"
     },
     "update_failed": "Tidak dapat memperbarui pengaturan",
     "version": {
-      "about": "Tentang AnythingLLM",
+      "about": "Tentang AnythingPocket",
       "update_available_title": "Pembaruan Tersedia",
       "update_available_message": "Versi {{version}} tersedia. Silakan perbarui ke versi terbaru.",
       "go_to_app_store": "Buka toko aplikasi"
@@ -160,7 +160,7 @@
       "disabled_toast": "Telemetri anonim dinonaktifkan",
       "usage_data": "Data penggunaan",
       "share_toggle": "Bagikan telemetri anonim",
-      "description_events": "AnythingLLM mengirim sejumlah kecil acara anonim, seperti \"obrolan selesai\" atau \"alat digunakan\", sehingga kami dapat melihat fitur mana yang penting dan di mana hal-hal rusak.",
+      "description_events": "AnythingPocket mengirim sejumlah kecil acara anonim, seperti \"obrolan selesai\" atau \"alat digunakan\", sehingga kami dapat melihat fitur mana yang penting dan di mana hal-hal rusak.",
       "description_privacy": "Ini tidak pernah mencakup obrolan, dokumen, prompt, atau apa pun yang spesifik tentang cara Anda menggunakan aplikasi. Tidak ada akun dan tidak ada yang mengidentifikasi Anda.",
       "description_opt_out": "Membiarkan ini tetap aktif membantu kami membangun aplikasi yang lebih baik. Anda dapat mematikannya kapan saja dan tidak ada yang akan dikirim lagi."
     },
@@ -322,7 +322,7 @@
       "all_day": "Sepanjang hari",
       "open_failed": "Tidak dapat membuka aplikasi kalender",
       "saved": "Ditambahkan ke kalender Anda",
-      "permission_denied": "Izinkan akses kalender untuk AnythingLLM di Pengaturan untuk menambahkan acara.",
+      "permission_denied": "Izinkan akses kalender untuk AnythingPocket di Pengaturan untuk menambahkan acara.",
       "add_with": "Tambahkan",
       "save_ics": "Simpan file .ics",
       "save_failed": "Gagal menyimpan file acara",
@@ -429,8 +429,8 @@
     },
     "could_not_start": "Tidak dapat memulai Tindakan Cepat",
     "dismiss": "Tutup",
-    "setup_needed": "Selesaikan pengaturan AnythingLLM untuk menggunakannya dari menu pemilihan.",
-    "open_anythingllm": "Buka AnythingLLM",
+    "setup_needed": "Selesaikan pengaturan AnythingPocket untuk menggunakannya dari menu pemilihan.",
+    "open_anythingllm": "Buka AnythingPocket",
     "select_model": "Pilih model di atas untuk memulai.",
     "copied_paste": "Tersalin - tempel di atas pilihan Anda",
     "copy_and_close": "Salin & tutup",
@@ -445,10 +445,10 @@
   "assistant": {
     "could_not_start": "Tidak dapat memulai asisten",
     "dismiss": "Tutup",
-    "setup_needed": "Selesaikan pengaturan AnythingLLM agar dapat menggunakannya sebagai asisten Anda.",
-    "open_anythingllm": "Buka AnythingLLM",
+    "setup_needed": "Selesaikan pengaturan AnythingPocket agar dapat menggunakannya sebagai asisten Anda.",
+    "open_anythingllm": "Buka AnythingPocket",
     "select_model": "Pilih model di atas untuk memulai.",
-    "placeholder": "Ajukan pertanyaan AnythingLLM",
+    "placeholder": "Ajukan pertanyaan AnythingPocket",
     "placeholder_followup": "Ajukan pertanyaan lanjutan…",
     "listening": "Sedang mendengarkan…",
     "share_screen": "Bagikan layar",
@@ -487,19 +487,19 @@
     "play_video": "Putar video",
     "pause_video": "Jeda video",
     "whats_new": "Apa yang baru",
-    "tour_title": "Apa yang dapat dilakukan AnythingLLM",
+    "tour_title": "Apa yang dapat dilakukan AnythingPocket",
     "device_assistant": {
       "title": "Ganti Gemini dengan AI Anda sendiri",
-      "body": "Jadikan AnythingLLM sebagai asisten ponsel Anda dan buka dari aplikasi apa pun dengan gerakan yang sama seperti yang Anda gunakan untuk Gemini. Tanyakan tentang apa yang ada di layar – dijawab oleh model yang Anda pilih.",
+      "body": "Jadikan AnythingPocket sebagai asisten ponsel Anda dan buka dari aplikasi apa pun dengan gerakan yang sama seperti yang Anda gunakan untuk Gemini. Tanyakan tentang apa yang ada di layar – dijawab oleh model yang Anda pilih.",
       "cta": "Siapkan Asisten Perangkat"
     },
     "quick_actions": {
-      "title": "Tanya dengan AnythingLLM di mana saja",
-      "body": "Pilih teks di aplikasi apa pun dan ketuk \"Tanya dengan AnythingLLM\" untuk menyempurnakan, memendekkan, merangkum, atau menjelaskannya dengan model Anda. Matikan kapan saja di Pengaturan > Alat Khusus."
+      "title": "Tanya dengan AnythingPocket di mana saja",
+      "body": "Pilih teks di aplikasi apa pun dan ketuk \"Tanya dengan AnythingPocket\" untuk menyempurnakan, memendekkan, merangkum, atau menjelaskannya dengan model Anda. Matikan kapan saja di Pengaturan > Alat Khusus."
     },
     "share_sheet": {
       "title": "Bagikan apa pun ke obrolan",
-      "body": "Kirim foto, dokumen, dan tautan dari aplikasi apa pun langsung ke AnythingLLM. Mereka mendarat di thread baru, terlampir dan siap untuk ditanyakan."
+      "body": "Kirim foto, dokumen, dan tautan dari aplikasi apa pun langsung ke AnythingPocket. Mereka mendarat di thread baru, terlampir dan siap untuk ditanyakan."
     },
     "scheduled_jobs": {
       "title": "Pekerjaan terjadwal",
@@ -522,13 +522,13 @@
     },
     "location": {
       "downloads": "Unduhan",
-      "ios_exports": "File > Di iPhone Saya > AnythingLLM > Ekspor",
+      "ios_exports": "File > Di iPhone Saya > AnythingPocket > Ekspor",
       "open_downloads": "Buka di Unduhan",
       "open_files": "Buka di File"
     },
     "storage_permission": {
       "title": "Simpan ke Unduhan",
-      "message": "AnythingLLM memerlukan akses penyimpanan untuk menyimpan file ke folder Unduhan Anda."
+      "message": "AnythingPocket memerlukan akses penyimpanan untuk menyimpan file ke folder Unduhan Anda."
     },
     "export": {
       "text_label": "Teks",
@@ -600,7 +600,7 @@
     "calendar_event_reading": {
       "name": "Baca Kalender",
       "description": "Gunakan asisten untuk membaca acara kalender Anda.",
-      "permission_denied": "Akses kalender tidak diizinkan. Aktifkan untuk AnythingLLM di pengaturan ponsel Anda untuk membaca kalender Anda.",
+      "permission_denied": "Akses kalender tidak diizinkan. Aktifkan untuk AnythingPocket di pengaturan ponsel Anda untuk membaca kalender Anda.",
       "status_date": "Membaca kalender Anda untuk {{date}}",
       "status_today": "Membaca kalender Anda untuk hari ini",
       "status_tomorrow": "Membaca kalender Anda untuk besok",
@@ -653,7 +653,7 @@
       "name": "Pengingat & Alarm",
       "description": "Atur alarm dan timer di aplikasi jam Anda setelah Anda menyetujuinya. Pengingat yang lebih dari satu hari di masa mendatang akan ditambahkan ke kalender Anda.",
       "default_label": "Pengingat",
-      "calendar_notes": "Pengingat diatur dari AnythingLLM",
+      "calendar_notes": "Pengingat diatur dari AnythingPocket",
       "status_asking": "Meminta untuk mengatur pengingat {{label}}",
       "approval_alarm": "Atur alarm pada {{label}} untuk {{when}}?",
       "approval_timer": "Mulai timer {{duration}} \"{{label}}\"? Timer ini berakhir pada {{when}}.",
@@ -834,7 +834,7 @@
     },
     "speech_to_text": {
       "permission_title": "Akses mikrofon",
-      "permission_message": "AnythingLLM memerlukan akses mikrofon untuk mentranskripsikan ucapan Anda menjadi prompt.",
+      "permission_message": "AnythingPocket memerlukan akses mikrofon untuk mentranskripsikan ucapan Anda menjadi prompt.",
       "permission_required_title": "Akses mikrofon diperlukan",
       "permission_required_message": "Aktifkan akses mikrofon di pengaturan perangkat Anda untuk menggunakan speech-to-text."
     },
@@ -850,7 +850,7 @@
       "attach": "Lampirkan",
       "create_failed": "Gagal membuat dokumen untuk lampiran",
       "camera_permission_title": "Akses kamera",
-      "camera_permission_message": "AnythingLLM memerlukan kamera untuk mengambil foto untuk prompt Anda.",
+      "camera_permission_message": "AnythingPocket memerlukan kamera untuk mengambil foto untuk prompt Anda.",
       "max_reached_other": "Anda dapat melampirkan hingga {{count}} item per prompt",
       "camera_permission_required": "Izin kamera diperlukan untuk mengambil foto",
       "camera_open_failed": "Tidak dapat membuka kamera",
@@ -871,7 +871,7 @@
     },
     "low_memory": {
       "title": "Kapasitas memori terbatas",
-      "advice": "Jika memori habis, ponsel Anda mungkin menutup AnythingLLM di tengah-tengah balasan untuk menghemat memori, yang terlihat seperti terjadi kesalahan. Tutup aplikasi lain, atau gunakan koneksi model jarak jauh untuk respons yang lebih stabil.",
+      "advice": "Jika memori habis, ponsel Anda mungkin menutup AnythingPocket di tengah-tengah balasan untuk menghemat memori, yang terlihat seperti terjadi kesalahan. Tutup aplikasi lain, atau gunakan koneksi model jarak jauh untuk respons yang lebih stabil.",
       "free": "Tersedia",
       "total": "Total",
       "model_loaded": "Model (dimuat)",
@@ -970,7 +970,7 @@
       "plan_hint": "Memerlukan paket ChatGPT Plus atau Pro. Penggunaan dihitung dalam batas paket Anda.",
       "experimental_note": "Eksperimental: dukungan OpenAI untuk menggunakan paket ChatGPT Anda di aplikasi lain masih dalam pratinjau dan dapat berubah atau berhenti berfungsi.",
       "notice_title": "Gunakan paket ChatGPT Anda",
-      "notice_body": "Permintaan AI yang memenuhi syarat di AnythingLLM akan menggunakan paket ChatGPT Anda. Anda dapat mengelola penggunaan kapan saja di pengaturan ChatGPT.",
+      "notice_body": "Permintaan AI yang memenuhi syarat di AnythingPocket akan menggunakan paket ChatGPT Anda. Anda dapat mengelola penggunaan kapan saja di pengaturan ChatGPT.",
       "notice_confirm": "Mengerti",
       "signed_in_as": "Masuk sebagai {{email}}",
       "your_account": "akun ChatGPT Anda",
@@ -982,7 +982,7 @@
       "denied": "Koneksi ke ChatGPT tidak diizinkan. Jika ChatGPT menyatakan izin yang diperlukan tidak tersedia, paket Anda tidak dapat digunakan di sini - masuk dengan ChatGPT memerlukan paket Plus atau Pro.",
       "errors": {
         "not_eligible": "Akun ChatGPT Anda tidak dapat digunakan di sini. Masuk dengan ChatGPT memerlukan paket Plus atau Pro.",
-        "usage_limit": "Anda telah mencapai batas penggunaan AnythingLLM pada paket ChatGPT Anda. Kelola penggunaan di {{url}}",
+        "usage_limit": "Anda telah mencapai batas penggunaan AnythingPocket pada paket ChatGPT Anda. Kelola penggunaan di {{url}}",
         "usage_unavailable": "Penggunaan paket ChatGPT untuk sementara tidak tersedia. Silakan coba lagi sebentar lagi.",
         "unsupported": "Permintaan ini menggunakan fitur yang tidak tersedia dengan paket ChatGPT Anda."
       }
@@ -1053,7 +1053,7 @@
       "url_must_be_gguf": "URL harus diakhiri dengan .gguf"
     },
     "survey": {
-      "title": "Apa yang dapat dibantu AnythingLLM?",
+      "title": "Apa yang dapat dibantu AnythingPocket?",
       "description": "Pilih yang paling berlaku untuk Anda.",
       "options": {
         "productivity": "Tingkatkan Produktivitas",
@@ -1065,14 +1065,14 @@
     },
     "data_handling": {
       "title": "Penanganan Data & Privasi",
-      "description": "Dengan AnythingLLM, semua obrolan, dokumen, dan data lainnya diproses dan disimpan di perangkat Anda.",
+      "description": "Dengan AnythingPocket, semua obrolan, dokumen, dan data lainnya diproses dan disimpan di perangkat Anda.",
       "local_chats_title": "Obrolan Sepenuhnya Lokal",
       "local_chats_description": "Semua obrolan disimpan di perangkat Anda.",
       "embedding_title": "Penyematan Dokumen",
       "embedding_description": "Semua dokumen dan pemrosesan dilakukan di perangkat Anda.",
       "agents_title": "Agen AI",
       "agents_description": "Semua agen berjalan di perangkat Anda dan hanya menggunakan internet jika diperlukan (misalnya: Pencarian web)",
-      "experience": "Alami AnythingLLM",
+      "experience": "Alami AnythingPocket",
       "setting_up": "Menyiapkan ruang kerja pertama Anda",
       "default_workspace_name": "Ruang Kerja Saya"
     }
@@ -1363,13 +1363,13 @@
     "channels": {
       "download_progress": "Kemajuan Unduhan",
       "chat_replies": "Balasan Obrolan",
-      "chat_replies_description": "Pemberitahuan saat balasan selesai saat AnythingLLM di latar belakang",
+      "chat_replies_description": "Pemberitahuan saat balasan selesai saat AnythingPocket di latar belakang",
       "scheduled_jobs": "Pekerjaan Terjadwal",
       "scheduled_jobs_description": "Pemberitahuan saat pekerjaan terjadwal selesai berjalan"
     },
     "blocked_nudge": {
       "title": "Dapatkan notifikasi saat balasan selesai",
-      "message": "Notifikasi dimatikan untuk AnythingLLM. Nyalakan untuk mendapatkan buzz saat balasan selesai saat ponsel Anda terkunci.",
+      "message": "Notifikasi dimatikan untuk AnythingPocket. Nyalakan untuk mendapatkan buzz saat balasan selesai saat ponsel Anda terkunci.",
       "not_now": "Tidak sekarang",
       "open_settings": "Buka pengaturan"
     },
@@ -1385,17 +1385,17 @@
     }
   },
   "home": {
-    "welcome_title": "Selamat Datang di AnythingLLM",
+    "welcome_title": "Selamat Datang di AnythingPocket",
     "get_started": "Mulai dengan membuat ruang kerja baru.",
     "create_workspace": "Buat Ruang Kerja",
     "default_workspace_name": "Ruang Kerja Saya"
   },
   "share": {
-    "unsupported_content": "Hanya file, gambar, dan tautan yang dapat dibagikan ke AnythingLLM",
-    "finish_onboarding": "Selesaikan pengaturan AnythingLLM sebelum berbagi ke dalamnya",
+    "unsupported_content": "Hanya file, gambar, dan tautan yang dapat dibagikan ke AnythingPocket",
+    "finish_onboarding": "Selesaikan pengaturan AnythingPocket sebelum berbagi ke dalamnya",
     "open_failed": "Tidak dapat membuka konten yang dibagikan"
   },
   "deep_links": {
-    "finish_onboarding": "Selesaikan pengaturan AnythingLLM sebelum membuka tautan ke dalamnya"
+    "finish_onboarding": "Selesaikan pengaturan AnythingPocket sebelum membuka tautan ke dalamnya"
   }
 }

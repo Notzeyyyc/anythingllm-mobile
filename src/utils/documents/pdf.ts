@@ -9,8 +9,8 @@ import { applyBranding } from '@/utils/chat/export/pdf/branding';
 export async function markdownToPdfBase64({ content, title }: { content: string; title: string }): Promise<string> {
     const doc = await PDFDocument.create();
     doc.setTitle(title);
-    doc.setCreator('AnythingLLM Mobile');
-    doc.setProducer('AnythingLLM Mobile');
+    doc.setCreator('AnythingPocket Mobile');
+    doc.setProducer('AnythingPocket Mobile');
     const now = new Date();
     doc.setCreationDate(now);
     doc.setModificationDate(now);

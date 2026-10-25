@@ -9,7 +9,7 @@ import { resetToWhenReady } from '@/utils/navigationRef';
 import { QUICK_CONTEXT_SYSTEM_PROMPT, type QuickMode } from './actions';
 
 /**
- * Quick Actions: highlight text in any app, tap "Ask with AnythingLLM" in the selection toolbar and
+ * Quick Actions: highlight text in any app, tap "Ask with AnythingPocket" in the selection toolbar and
  * work on it in a card over that app (Android, see quickcontext/QuickContextActivity.kt). Edit mode
  * rewrites the text to copy and paste over the still-selected original; Summarize mode explains,
  * summarizes or researches it.
@@ -160,7 +160,7 @@ export function isQuickContextAvailable(): boolean {
 }
 
 /**
- * Whether "Ask with AnythingLLM" is currently offered in other apps' selection toolbars. On by default;
+ * Whether "Ask with AnythingPocket" is currently offered in other apps' selection toolbars. On by default;
  * the user can turn it off under Settings > Special tools > Context awareness.
  */
 export async function isQuickContextEnabled(): Promise<boolean> {

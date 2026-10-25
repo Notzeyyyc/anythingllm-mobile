@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "特別なツール",
-      "ask_with_anythingllm": "\"AnythingLLMで質問\"",
+      "ask_with_anythingllm": "\"AnythingPocketで質問\"",
       "page_title": "特別なツール",
-      "added_toast": "AnythingLLMでの質問がテキスト選択メニューに追加されました",
-      "removed_toast": "AnythingLLMでの質問がテキスト選択メニューから削除されました",
+      "added_toast": "AnythingPocketでの質問がテキスト選択メニューに追加されました",
+      "removed_toast": "AnythingPocketでの質問がテキスト選択メニューから削除されました",
       "context_awareness": "コンテキスト認識",
-      "ask_with_anythingllm_toggle": "AnythingLLMで質問",
+      "ask_with_anythingllm_toggle": "AnythingPocketで質問",
       "android_only": "Androidのみ",
-      "description_available": "任意のアプリでテキストを選択したときに表示されるメニューに「AnythingLLMで質問」を追加します。選択したモデルを使用して、書いている内容を磨く、短縮、修正したり、読んでいる内容を要約、説明、調査したりするために使用できます。",
-      "description_unavailable": "Androidでは、任意のアプリでテキストを選択したときに表示されるメニューにAnythingLLMが表示され、選択したモデルで編集または要約できます。iOSはアプリにこのフックを提供しません。",
+      "description_available": "任意のアプリでテキストを選択したときに表示されるメニューに「AnythingPocketで質問」を追加します。選択したモデルを使用して、書いている内容を磨く、短縮、修正したり、読んでいる内容を要約、説明、調査したりするために使用できます。",
+      "description_unavailable": "Androidでは、任意のアプリでテキストを選択したときに表示されるメニューにAnythingPocketが表示され、選択したモデルで編集または要約できます。iOSはアプリにこのフックを提供しません。",
       "assistant": "デバイスアシスタント"
     },
     "assistant": {
       "page_title": "デバイスアシスタント",
       "status_title": "デフォルトアシスタント",
-      "status_on": "AnythingLLM は、デフォルトのアシスタント",
-      "status_off": "AnythingLLM は、あなたの標準的なアシスタントではありません",
+      "status_on": "AnythingPocket は、デフォルトのアシスタント",
+      "status_off": "AnythingPocket は、あなたの標準的なアシスタントではありません",
       "set_up": "設定",
       "change": "変更",
-      "setup_steps": "開いた Android の設定で「デフォルトのデジタル アシスタント アプリ」をタップし、AnythingLLM を選択してください。このページは「アプリ」>「デフォルトのアプリ」にある場合もあります。完了したらここに戻ってください。",
-      "description": "スマートフォンのアシスタント ジェスチャー（通常はホームボタンまたはナビゲーション バーの長押し）で、どのアプリの上からでも AnythingLLM を開き、選択中のモデル（デバイス上またはご自身のサーバー）に質問できます。Gemini の代わりになりますが、同じ Android の設定でいつでも元に戻せます。",
-      "description_unavailable": "Android、AnythingLLMは、Geminiの代わりに、任意のアプリからジェスチャーで起動できる、スマートフォンのアシスタントとして機能します。ただし、iOSは、Siriを他のアプリで置き換えることはできません。",
+      "setup_steps": "開いた Android の設定で「デフォルトのデジタル アシスタント アプリ」をタップし、AnythingPocket を選択してください。このページは「アプリ」>「デフォルトのアプリ」にある場合もあります。完了したらここに戻ってください。",
+      "description": "スマートフォンのアシスタント ジェスチャー（通常はホームボタンまたはナビゲーション バーの長押し）で、どのアプリの上からでも AnythingPocket を開き、選択中のモデル（デバイス上またはご自身のサーバー）に質問できます。Gemini の代わりになりますが、同じ Android の設定でいつでも元に戻せます。",
+      "description_unavailable": "Android、AnythingPocketは、Geminiの代わりに、任意のアプリからジェスチャーで起動できる、スマートフォンのアシスタントとして機能します。ただし、iOSは、Siriを他のアプリで置き換えることはできません。",
       "need_help": "設定方法がわからない場合は",
       "circle_to_search_note": "ホームボタンを長押しすると「かこって検索」が開いてしまう場合は、Android の設定 >「ディスプレイ」>「ナビゲーション バー」で「かこって検索」をオフにしてください。オンの間は、どのアシスタントを選んでも、Android はこのジェスチャーを常に Google に割り当てます。",
       "open_settings_failed": "Androidの設定を開けませんでした",
@@ -144,13 +144,13 @@
       "privacy": "プライバシーポリシー"
     },
     "reset": {
-      "title": "AnythingLLMをリセット",
-      "confirm_message": "AnythingLLMをリセットしてもよろしいですか？これにより、すべてのワークスペース、チャット、インストール済みモデル、および環境設定が削除されます。",
+      "title": "AnythingPocketをリセット",
+      "confirm_message": "AnythingPocketをリセットしてもよろしいですか？これにより、すべてのワークスペース、チャット、インストール済みモデル、および環境設定が削除されます。",
       "confirm_button": "はい、すべてをリセット"
     },
     "update_failed": "設定を更新できませんでした",
     "version": {
-      "about": "AnythingLLMについて",
+      "about": "AnythingPocketについて",
       "update_available_title": "更新利用可能",
       "update_available_message": "バージョン{{version}}が利用可能です。最新バージョンに更新してください。",
       "go_to_app_store": "アプリストアに移動"
@@ -160,7 +160,7 @@
       "disabled_toast": "匿名テレメトリが無効になりました",
       "usage_data": "使用データ",
       "share_toggle": "匿名テレメトリを共有",
-      "description_events": "AnythingLLMは「チャットが完了した」や「ツールが使用された」などの小数の匿名イベントを送信し、どの機能が重要であり、どこで問題が発生しているかを確認できます。",
+      "description_events": "AnythingPocketは「チャットが完了した」や「ツールが使用された」などの小数の匿名イベントを送信し、どの機能が重要であり、どこで問題が発生しているかを確認できます。",
       "description_privacy": "これはチャット、ドキュメント、プロンプト、またはアプリの使用方法に関する具体的な情報を含みません。アカウントはなく、あなたを特定するものは何もありません。",
       "description_opt_out": "これをオンのままにすると、より良いアプリケーションの構築に役立ちます。いつでも無効にでき、それ以上何も送信されません。"
     },
@@ -322,7 +322,7 @@
       "all_day": "終日",
       "open_failed": "カレンダーアプリを開けられません",
       "saved": "カレンダーに追加",
-      "permission_denied": "設定で、イベントを追加するために、AnythingLLM へのカレンダーへのアクセスを許可する。",
+      "permission_denied": "設定で、イベントを追加するために、AnythingPocket へのカレンダーへのアクセスを許可する。",
       "add_with": "追加する",
       "save_ics": ".ics ファイルを保存する",
       "save_failed": "イベントファイルの保存に失敗しました",
@@ -429,8 +429,8 @@
     },
     "could_not_start": "クイックアクションを開始できませんでした",
     "dismiss": "閉じる",
-    "setup_needed": "AnythingLLMをセットアップして、選択メニューから使用できるようにしてください。",
-    "open_anythingllm": "AnythingLLMを開く",
+    "setup_needed": "AnythingPocketをセットアップして、選択メニューから使用できるようにしてください。",
+    "open_anythingllm": "AnythingPocketを開く",
     "select_model": "上記でモデルを選択して開始してください。",
     "copied_paste": "コピーしました-選択内容に貼り付けてください",
     "copy_and_close": "コピーして閉じる",
@@ -445,10 +445,10 @@
   "assistant": {
     "could_not_start": "アシスタントの起動に失敗",
     "dismiss": "閉じる",
-    "setup_needed": "AnythingLLM を設定して、アシスタントとして使用を開始してください。",
-    "open_anythingllm": "開く AnythingLLM",
+    "setup_needed": "AnythingPocket を設定して、アシスタントとして使用を開始してください。",
+    "open_anythingllm": "開く AnythingPocket",
     "select_model": "上記からモデルを選択して、開始してください。",
-    "placeholder": "質問する AnythingLLM",
+    "placeholder": "質問する AnythingPocket",
     "placeholder_followup": "詳細を尋ねる…",
     "listening": "再生中…",
     "share_screen": "画面共有",
@@ -487,19 +487,19 @@
     "play_video": "ビデオを再生",
     "pause_video": "ビデオを一時停止",
     "whats_new": "新機能",
-    "tour_title": "AnythingLLMができること",
+    "tour_title": "AnythingPocketができること",
     "device_assistant": {
       "title": "Gemini を、ご自身のAIに置き換えてください",
-      "body": "AnythingLLM を、スマートフォンのアシスタントとして設定し、Gemini で使用している同じジェスチャーで、任意のアプリから起動します。画面に表示されている内容について質問してください。回答は、選択したモデルが提供します。",
+      "body": "AnythingPocket を、スマートフォンのアシスタントとして設定し、Gemini で使用している同じジェスチャーで、任意のアプリから起動します。画面に表示されている内容について質問してください。回答は、選択したモデルが提供します。",
       "cta": "デバイスアシスタントの設定"
     },
     "quick_actions": {
-      "title": "AnythingLLMで質問どこでも",
-      "body": "任意のアプリでテキストを選択し、「AnythingLLMで質問」をタップして、モデルを使用して磨く、短くする、要約、または説明します。設定 > 特別なツールで常にオフにできます。"
+      "title": "AnythingPocketで質問どこでも",
+      "body": "任意のアプリでテキストを選択し、「AnythingPocketで質問」をタップして、モデルを使用して磨く、短くする、要約、または説明します。設定 > 特別なツールで常にオフにできます。"
     },
     "share_sheet": {
       "title": "チャットに何かを共有",
-      "body": "任意のアプリから写真、ドキュメント、リンクをAnythingLLMに直接送信します。新しいスレッドに表示され、添付され、質問する準備ができています。"
+      "body": "任意のアプリから写真、ドキュメント、リンクをAnythingPocketに直接送信します。新しいスレッドに表示され、添付され、質問する準備ができています。"
     },
     "scheduled_jobs": {
       "title": "スケジュール済みジョブ",
@@ -522,13 +522,13 @@
     },
     "location": {
       "downloads": "ダウンロード",
-      "ios_exports": "ファイル > iPhone上 > AnythingLLM > エクスポート",
+      "ios_exports": "ファイル > iPhone上 > AnythingPocket > エクスポート",
       "open_downloads": "ダウンロードで開く",
       "open_files": "ファイルで開く"
     },
     "storage_permission": {
       "title": "ダウンロードに保存",
-      "message": "AnythingLLMはストレージにアクセスしてファイルをダウンロードフォルダに保存する必要があります。"
+      "message": "AnythingPocketはストレージにアクセスしてファイルをダウンロードフォルダに保存する必要があります。"
     },
     "export": {
       "text_label": "テキスト",
@@ -600,7 +600,7 @@
     "calendar_event_reading": {
       "name": "カレンダーを読む",
       "description": "アシスタントを使用してカレンダーイベントを読んでもらいます。",
-      "permission_denied": "カレンダーへのアクセスは許可されていません。「AnythingLLM」の設定で、電話の設定を開き、カレンダーを読み取れるように設定してください。",
+      "permission_denied": "カレンダーへのアクセスは許可されていません。「AnythingPocket」の設定で、電話の設定を開き、カレンダーを読み取れるように設定してください。",
       "status_date": "{{date}}のカレンダーを読み中",
       "status_today": "今日のカレンダーを読み中",
       "status_tomorrow": "明日のカレンダーを読み中",
@@ -653,7 +653,7 @@
       "name": "アラームとリマインダー",
       "description": "時計アプリでアラームやタイマーを設定し、承認後、リマインダーをカレンダーに追加します（1日以上先）。",
       "default_label": "リマインダー",
-      "calendar_notes": "AnythingLLM に設定",
+      "calendar_notes": "AnythingPocket に設定",
       "status_asking": "リマインダーを設定する{{label}}",
       "approval_alarm": "{{when}} にアラーム「{{label}}」を設定しますか？",
       "approval_timer": "{{duration}} のタイマー「{{label}}」を開始しますか？ {{when}} に終了します。",
@@ -834,7 +834,7 @@
     },
     "speech_to_text": {
       "permission_title": "マイクアクセス",
-      "permission_message": "AnythingLLMはマイクにアクセスしてスピーチをプロンプトに変換する必要があります。",
+      "permission_message": "AnythingPocketはマイクにアクセスしてスピーチをプロンプトに変換する必要があります。",
       "permission_required_title": "マイクアクセスが必要",
       "permission_required_message": "音声テキスト変換を使用するには、デバイス設定でマイクアクセスを有効にしてください。"
     },
@@ -850,7 +850,7 @@
       "attach": "添付",
       "create_failed": "添付ファイル用のドキュメント作成に失敗しました",
       "camera_permission_title": "カメラアクセス",
-      "camera_permission_message": "AnythingLLMはカメラで写真を撮ってプロンプトに追加する必要があります。",
+      "camera_permission_message": "AnythingPocketはカメラで写真を撮ってプロンプトに追加する必要があります。",
       "max_reached_other": "プロンプトごとに最大{{count}}個のアイテムを添付できます",
       "camera_permission_required": "写真を撮るにはカメラの許可が必要です",
       "camera_open_failed": "カメラを開くことができませんでした",
@@ -871,7 +871,7 @@
     },
     "low_memory": {
       "title": "メモリ不足",
-      "advice": "メモリが不足すると、携帯電話がAnythingLLMを応答の途中で閉じてクラッシュして見えることがあります。他のアプリを閉じるか、より信頼性の高い応答のためにリモートモデル接続に切り替えてください。",
+      "advice": "メモリが不足すると、携帯電話がAnythingPocketを応答の途中で閉じてクラッシュして見えることがあります。他のアプリを閉じるか、より信頼性の高い応答のためにリモートモデル接続に切り替えてください。",
       "free": "空き",
       "total": "合計",
       "model_loaded": "モデル (読み込み済み)",
@@ -970,7 +970,7 @@
       "plan_hint": "ChatGPT Plus または Pro プランが必要です。使用量はプランの上限にカウントされます。",
       "experimental_note": "試験運用: 他のアプリで ChatGPT プランを使用するための OpenAI のサポートはまだプレビュー段階のため、変更されたり動作しなくなったりする可能性があります。",
       "notice_title": "ChatGPT プランを使用",
-      "notice_body": "AnythingLLM の対象となる AI リクエストには ChatGPT プランが使用されます。使用量は ChatGPT の設定からいつでも管理できます。",
+      "notice_body": "AnythingPocket の対象となる AI リクエストには ChatGPT プランが使用されます。使用量は ChatGPT の設定からいつでも管理できます。",
       "notice_confirm": "OK",
       "signed_in_as": "{{email}} としてサインイン中",
       "your_account": "ChatGPT アカウント",
@@ -982,7 +982,7 @@
       "denied": "ChatGPT への接続が許可されませんでした。必要な権限が利用できないと ChatGPT に表示された場合、お使いのプランはここでは使用できません - ChatGPT でのサインインには Plus または Pro プランが必要です。",
       "errors": {
         "not_eligible": "お使いの ChatGPT アカウントはここでは使用できません。ChatGPT でのサインインには Plus または Pro プランが必要です。",
-        "usage_limit": "ChatGPT プランでの AnythingLLM の使用上限に達しました。{{url}} で使用量を管理してください",
+        "usage_limit": "ChatGPT プランでの AnythingPocket の使用上限に達しました。{{url}} で使用量を管理してください",
         "usage_unavailable": "ChatGPT プランの使用は一時的に利用できません。しばらくしてからもう一度お試しください。",
         "unsupported": "このリクエストは、お使いの ChatGPT プランでは利用できない機能を使用しています。"
       }
@@ -1053,7 +1053,7 @@
       "url_must_be_gguf": "URLは.ggufで終わる必要があります"
     },
     "survey": {
-      "title": "AnythingLLMは何であなたを手伝うことができますか？",
+      "title": "AnythingPocketは何であなたを手伝うことができますか？",
       "description": "あなたに最も適用されるものを選択してください。",
       "options": {
         "productivity": "生産性を向上させる",
@@ -1065,14 +1065,14 @@
     },
     "data_handling": {
       "title": "データ処理とプライバシー",
-      "description": "AnythingLLMを使用すると、すべてのチャット、ドキュメント、その他のデータはデバイスで処理および保存されます。",
+      "description": "AnythingPocketを使用すると、すべてのチャット、ドキュメント、その他のデータはデバイスで処理および保存されます。",
       "local_chats_title": "完全にローカルチャット",
       "local_chats_description": "すべてのチャットはデバイスに保存されます。",
       "embedding_title": "ドキュメント埋め込み",
       "embedding_description": "すべてのドキュメントと処理はデバイスで実行されます。",
       "agents_title": "AIエージェント",
       "agents_description": "すべてのエージェントはデバイスで実行され、必要な場合（例：ウェブ検索）のみインターネットを使用します",
-      "experience": "AnythingLLMを体験",
+      "experience": "AnythingPocketを体験",
       "setting_up": "最初のワークスペースをセットアップ",
       "default_workspace_name": "マイワークスペース"
     }
@@ -1363,13 +1363,13 @@
     "channels": {
       "download_progress": "ダウンロード進行状況",
       "chat_replies": "チャット返信",
-      "chat_replies_description": "AnythingLLMがバックグラウンドにある場合、返信が完了したときにアラート",
+      "chat_replies_description": "AnythingPocketがバックグラウンドにある場合、返信が完了したときにアラート",
       "scheduled_jobs": "スケジュール済みジョブ",
       "scheduled_jobs_description": "スケジュール済みジョブが実行を終了したときにアラート"
     },
     "blocked_nudge": {
       "title": "返信が完了したときに通知を受け取ります",
-      "message": "AnythingLLMの通知が無効になっています。電話がロックされている間に返信が完了したときにバズを取得するためにそれらをオンにします。",
+      "message": "AnythingPocketの通知が無効になっています。電話がロックされている間に返信が完了したときにバズを取得するためにそれらをオンにします。",
       "not_now": "今すぐではなく",
       "open_settings": "設定を開く"
     },
@@ -1385,17 +1385,17 @@
     }
   },
   "home": {
-    "welcome_title": "AnythingLLMへようこそ",
+    "welcome_title": "AnythingPocketへようこそ",
     "get_started": "新しいワークスペースを作成して開始してください。",
     "create_workspace": "ワークスペースを作成",
     "default_workspace_name": "マイワークスペース"
   },
   "share": {
-    "unsupported_content": "ファイル、画像、リンクのみがAnythingLLMに共有できます",
-    "finish_onboarding": "共有する前にAnythingLLMのセットアップを完了",
+    "unsupported_content": "ファイル、画像、リンクのみがAnythingPocketに共有できます",
+    "finish_onboarding": "共有する前にAnythingPocketのセットアップを完了",
     "open_failed": "共有コンテンツを開くことができませんでした"
   },
   "deep_links": {
-    "finish_onboarding": "リンクを開く前にAnythingLLMのセットアップを完了"
+    "finish_onboarding": "リンクを開く前にAnythingPocketのセットアップを完了"
   }
 }

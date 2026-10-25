@@ -22,8 +22,8 @@ export async function buildThreadPdfBase64(ctx: ThreadExportContext): Promise<st
   const doc = await PDFDocument.create();
   doc.setTitle(thread.name);
   doc.setSubject(`Chat transcript from the "${workspace.name}" workspace`);
-  doc.setCreator('AnythingLLM Mobile');
-  doc.setProducer('AnythingLLM Mobile');
+  doc.setCreator('AnythingPocket Mobile');
+  doc.setProducer('AnythingPocket Mobile');
   doc.setCreationDate(new Date(exportedAt));
   doc.setModificationDate(new Date(exportedAt));
 

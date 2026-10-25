@@ -14,5 +14,12 @@
         "src/types/intent-launcher.d.ts"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "sidecar"
+  ]
 }

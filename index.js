@@ -30,10 +30,10 @@ AppRegistry.registerHeadlessTask(SCHEDULED_JOBS_HEADLESS_TASK, () => runHeadless
 // real message and stack, instead of a generic `"AnythingLLM" has not been registered` crash that hides it.
 AppRegistry.registerComponent(appName, () => require('./App').default);
 
-// Quick Actions card (Android): the "Ask with AnythingLLM" entry in the text-selection toolbar of other apps.
+// Quick Actions card (Android): the "Ask with AnythingPocket" entry in the text-selection toolbar of other apps.
 // Rendered by quickcontext/QuickContextActivity.kt in the same JS runtime as the main app.
-AppRegistry.registerComponent('AnythingLLMQuickContext', () => require('./src/quickContext/QuickContextApp').default);
+AppRegistry.registerComponent('AnythingPocketQuickContext', () => require('./src/quickContext/QuickContextApp').default);
 
-// Digital assistant overlay (Android): opened by the assist gesture once AnythingLLM is the default assistant app.
+// Digital assistant overlay (Android): opened by the assist gesture once AnythingPocket is the default assistant app.
 // Rendered by assistant/AssistantActivity.kt in the same JS runtime as the main app.
-AppRegistry.registerComponent('AnythingLLMAssistant', () => require('./src/assistant/AssistantApp').default);
+AppRegistry.registerComponent('AnythingPocketAssistant', () => require('./src/assistant/AssistantApp').default);

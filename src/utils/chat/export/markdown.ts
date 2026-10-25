@@ -32,6 +32,6 @@ export function buildThreadMarkdown(ctx: ThreadExportContext): string {
   }
 
   lines.push(`_${generatedWithLine(modelName)}_  `);
-  lines.push('_Exported from AnythingLLM Mobile_');
+  lines.push('_Exported from AnythingPocket Mobile_');
   return lines.join('\n');
 }

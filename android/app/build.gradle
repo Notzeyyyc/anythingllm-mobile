@@ -37,9 +37,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.anythingllm"
+    namespace "com.anythingpocket"
     defaultConfig {
-        applicationId "com.anythingllm"
+        applicationId "com.anythingpocket"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 93

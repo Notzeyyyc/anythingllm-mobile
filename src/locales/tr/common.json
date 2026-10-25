@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "Özel Araçlar",
-      "ask_with_anythingllm": "\"AnythingLLM ile Sor\"",
+      "ask_with_anythingllm": "\"AnythingPocket ile Sor\"",
       "page_title": "Özel araçlar",
-      "added_toast": "AnythingLLM ile Sor, metin seçimi menülerine eklendi",
-      "removed_toast": "AnythingLLM ile Sor, metin seçimi menülerinden kaldırıldı",
+      "added_toast": "AnythingPocket ile Sor, metin seçimi menülerine eklendi",
+      "removed_toast": "AnythingPocket ile Sor, metin seçimi menülerinden kaldırıldı",
       "context_awareness": "İçerik Farkındalığı",
-      "ask_with_anythingllm_toggle": "AnythingLLM ile Sor",
+      "ask_with_anythingllm_toggle": "AnythingPocket ile Sor",
       "android_only": "Yalnızca Android",
-      "description_available": "Herhangi bir uygulamada metni seçtiğinizde görünen menüye \"AnythingLLM ile Sor\" öğesini ekler. Yazdığınız şeyi cilalayabilir, kısaltabilir veya düzeltebilir, ya da buraya seçtiğiniz modeldi kullanarak okuduğunuz şeyi özetleyebilir, açıklayabilir ve araştırabilirsiniz.",
-      "description_unavailable": "Android'de AnythingLLM, herhangi bir uygulamada metin seçtiğinizde gösterilen menüde görünebilir ve seçtiğiniz modeldi onu düzenlemek veya özetlemek için kullanabilirsiniz. iOS uygulamalar için bu hook sunmuyor.",
+      "description_available": "Herhangi bir uygulamada metni seçtiğinizde görünen menüye \"AnythingPocket ile Sor\" öğesini ekler. Yazdığınız şeyi cilalayabilir, kısaltabilir veya düzeltebilir, ya da buraya seçtiğiniz modeldi kullanarak okuduğunuz şeyi özetleyebilir, açıklayabilir ve araştırabilirsiniz.",
+      "description_unavailable": "Android'de AnythingPocket, herhangi bir uygulamada metin seçtiğinizde gösterilen menüde görünebilir ve seçtiğiniz modeldi onu düzenlemek veya özetlemek için kullanabilirsiniz. iOS uygulamalar için bu hook sunmuyor.",
       "assistant": "Cihaz Yardımcı"
     },
     "assistant": {
       "page_title": "Cihaz Yardımcı",
       "status_title": "Varsayılan asistan",
-      "status_on": "AnythingLLM, varsayılan asistanınız",
-      "status_off": "AnythingLLM, varsayılan asistanınız değil",
+      "status_on": "AnythingPocket, varsayılan asistanınız",
+      "status_off": "AnythingPocket, varsayılan asistanınız değil",
       "set_up": "Kurulum",
       "change": "Değiştir",
-      "setup_steps": "Açılan Android ayarlarında, \"Varsayılan dijital asistan uygulaması\" seçeneğine dokunun ve AnythingLLM'ı seçin. Bu sayfa bazen \"Uygulamalar > Varsayılan uygulamalar\" altında bulunabilir. Tamamladığınızda buraya geri dönün.",
-      "description": "AnythingLLM'ı telefonunuzdaki asistan özelliğiyle (genellikle ana ekran düğmesine veya navigasyon çubuğuna uzun basma) herhangi bir uygulamada açın ve seçtiğiniz modelle (cihaz üzerinde veya kendi sunucunuzda) sorgulayın. Bu, Gemini'nin yerini alır; aynı Android' ayarında istediğiniz zaman geri dönebilirsiniz.",
-      "description_unavailable": "Android, AnythingLLM, telefonunuzun Gemini'si yerine, herhangi bir uygulama üzerinden kolayca erişebileceğiniz bir asistan olarak kullanılabilir. iOS, uygulamaların Siri'yi değiştirmesine izin vermez.",
+      "setup_steps": "Açılan Android ayarlarında, \"Varsayılan dijital asistan uygulaması\" seçeneğine dokunun ve AnythingPocket'ı seçin. Bu sayfa bazen \"Uygulamalar > Varsayılan uygulamalar\" altında bulunabilir. Tamamladığınızda buraya geri dönün.",
+      "description": "AnythingPocket'ı telefonunuzdaki asistan özelliğiyle (genellikle ana ekran düğmesine veya navigasyon çubuğuna uzun basma) herhangi bir uygulamada açın ve seçtiğiniz modelle (cihaz üzerinde veya kendi sunucunuzda) sorgulayın. Bu, Gemini'nin yerini alır; aynı Android' ayarında istediğiniz zaman geri dönebilirsiniz.",
+      "description_unavailable": "Android, AnythingPocket, telefonunuzun Gemini'si yerine, herhangi bir uygulama üzerinden kolayca erişebileceğiniz bir asistan olarak kullanılabilir. iOS, uygulamaların Siri'yi değiştirmesine izin vermez.",
       "need_help": "Yardıma mı ihtiyacınız var?",
       "circle_to_search_note": "Ana ekran düğmesine uzun basmak bunun yerine Seçerek Ara'yı açıyorsa, Android Ayarları > Ekran > Gezinme çubuğu bölümünden Seçerek Ara'yı kapatın. Bu özellik açık olduğu sürece, hangi asistanı seçerseniz seçin Android bu hareketi her zaman Google'a verir.",
       "open_settings_failed": "Android ayarlarını açamadım",
@@ -144,13 +144,13 @@
       "privacy": "Gizlilik Politikası"
     },
     "reset": {
-      "title": "AnythingLLM'i Sıfırla",
-      "confirm_message": "AnythingLLM'i sıfırlamak istediğinizden emin misiniz? Bu, tüm çalışma alanlarınız, sohbetleriniz, yüklü modelleriniz ve tercihlelerinizi silecektir.",
+      "title": "AnythingPocket'i Sıfırla",
+      "confirm_message": "AnythingPocket'i sıfırlamak istediğinizden emin misiniz? Bu, tüm çalışma alanlarınız, sohbetleriniz, yüklü modelleriniz ve tercihlelerinizi silecektir.",
       "confirm_button": "Evet, Her Şeyi Sıfırla"
     },
     "update_failed": "Ayar güncellenemedi",
     "version": {
-      "about": "AnythingLLM Hakkında",
+      "about": "AnythingPocket Hakkında",
       "update_available_title": "Güncelleme Mevcut",
       "update_available_message": "{{version}} sürümü mevcut. Lütfen en son sürüme güncelleyin.",
       "go_to_app_store": "Uygulama Mağazasına Git"
@@ -160,7 +160,7 @@
       "disabled_toast": "Anonim telemetri devre dışı bırakıldı",
       "usage_data": "Kullanım Verileri",
       "share_toggle": "Anonim telemetri paylaş",
-      "description_events": "AnythingLLM, \"bir sohbet tamamlandı\" veya \"bir araç kullanıldı\" gibi az sayıda anonim etkinlik gönderir, böylece hangi özelliklerin önemli olduğunu ve nerede bir sorun olduğunu görebiliriz.",
+      "description_events": "AnythingPocket, \"bir sohbet tamamlandı\" veya \"bir araç kullanıldı\" gibi az sayıda anonim etkinlik gönderir, böylece hangi özelliklerin önemli olduğunu ve nerede bir sorun olduğunu görebiliriz.",
       "description_privacy": "Bu hiçbir zaman sohbetlerinizi, belgelerinizi, istemlerinizi veya uygulamayı nasıl kullandığınız hakkında herhangi bir özel şey içermez. Hiçbir hesap yok ve sizi tanımlayan hiçbir şey yok.",
       "description_opt_out": "Bunu açık tutmak daha iyi bir uygulama oluşturmamıza yardımcı olur. İstediğiniz zaman kapatabilirsiniz ve başka hiçbir şey gönderilmeyecektir."
     },
@@ -328,7 +328,7 @@
       "all_day": "Tüm gün boyunca",
       "open_failed": "Takvim uygulamasını açamadım",
       "saved": "Takviminize eklendi",
-      "permission_denied": "Ayar menüsünden, \"AnythingLLM\" için takvim erişimini etkinleştirerek etkinlik ekleyin.",
+      "permission_denied": "Ayar menüsünden, \"AnythingPocket\" için takvim erişimini etkinleştirerek etkinlik ekleyin.",
       "add_with": "Ekle",
       "save_ics": ".ics dosyasını kaydet",
       "save_failed": "Etkinlik dosyasını kaydedemedi.",
@@ -442,8 +442,8 @@
     },
     "could_not_start": "Hızlı Eylemler başlatılamadı",
     "dismiss": "Kapat",
-    "setup_needed": "AnythingLLM'i seçim menüsünde kullanmak için kurulumunu tamamlayın.",
-    "open_anythingllm": "AnythingLLM'i Aç",
+    "setup_needed": "AnythingPocket'i seçim menüsünde kullanmak için kurulumunu tamamlayın.",
+    "open_anythingllm": "AnythingPocket'i Aç",
     "select_model": "Başlamak için yukarıda bir model seçin.",
     "copied_paste": "Kopyalandı - seçiminizin üzerine yapıştırın",
     "copy_and_close": "Kopyala ve kapat",
@@ -458,10 +458,10 @@
   "assistant": {
     "could_not_start": "Yardımcı başlatılamadı",
     "dismiss": "İptal et",
-    "setup_needed": "AnythingLLM'ı ayarlama işlemini tamamlayın ve onu asistanınız olarak kullanın.",
-    "open_anythingllm": "AnythingLLM'i aç",
+    "setup_needed": "AnythingPocket'ı ayarlama işlemini tamamlayın ve onu asistanınız olarak kullanın.",
+    "open_anythingllm": "AnythingPocket'i aç",
     "select_model": "Başlamak için yukarıdaki bir modeli seçin.",
-    "placeholder": "Soruyu gönderin AnythingLLM",
+    "placeholder": "Soruyu gönderin AnythingPocket",
     "placeholder_followup": "Daha fazla bilgi için…",
     "listening": "Dinleniyor…",
     "share_screen": "Ekranı paylaş",
@@ -501,19 +501,19 @@
     "play_video": "Videoyu oynat",
     "pause_video": "Videoyu Duraklat",
     "whats_new": "Yeni Neler Var",
-    "tour_title": "AnythingLLM'in neler yapabileceği",
+    "tour_title": "AnythingPocket'in neler yapabileceği",
     "device_assistant": {
       "title": "Gemini alanına kendi yapay zeka uygulamanızı ekleyin",
-      "body": "AnythingLLM'yi telefonunuzun asistanı yapın ve Gemini'de kullandığınız aynı hareketiyle herhangi bir uygulamadan açın. Ekrandaki içeri hakkında bilgi alın - seçtiğiniz model tarafından yanıtlanacaktır.",
+      "body": "AnythingPocket'yi telefonunuzun asistanı yapın ve Gemini'de kullandığınız aynı hareketiyle herhangi bir uygulamadan açın. Ekrandaki içeri hakkında bilgi alın - seçtiğiniz model tarafından yanıtlanacaktır.",
       "cta": "Cihaz Yardımcısını Ayarla"
     },
     "quick_actions": {
-      "title": "Herhangi bir yerden AnythingLLM ile sor",
-      "body": "Herhangi bir uygulamada metni seçin ve modelinizle cilalaması, kısaltması, özetlemesi veya açıklaması için \"AnythingLLM ile Sor\" tuşuna dokunun. Ayarlar > Özel araçlar'dan istediğiniz zaman kapatabilirsiniz."
+      "title": "Herhangi bir yerden AnythingPocket ile sor",
+      "body": "Herhangi bir uygulamada metni seçin ve modelinizle cilalaması, kısaltması, özetlemesi veya açıklaması için \"AnythingPocket ile Sor\" tuşuna dokunun. Ayarlar > Özel araçlar'dan istediğiniz zaman kapatabilirsiniz."
     },
     "share_sheet": {
       "title": "Herhangi bir şeyi bir sohbete paylaşın",
-      "body": "Fotoğrafları, belgeleri ve bağlantıları herhangi bir uygulamadan doğrudan AnythingLLM'e gönderin. Yeni bir iş parçacığına giriş yaparlar, ekli ve sorulmaya hazırdırlar."
+      "body": "Fotoğrafları, belgeleri ve bağlantıları herhangi bir uygulamadan doğrudan AnythingPocket'e gönderin. Yeni bir iş parçacığına giriş yaparlar, ekli ve sorulmaya hazırdırlar."
     },
     "scheduled_jobs": {
       "title": "Zamanlanmış işler",
@@ -536,13 +536,13 @@
     },
     "location": {
       "downloads": "İndirilenler",
-      "ios_exports": "Dosyalar > iPhone'umda > AnythingLLM > Dışa Aktarımlar",
+      "ios_exports": "Dosyalar > iPhone'umda > AnythingPocket > Dışa Aktarımlar",
       "open_downloads": "İndirilenler'de Aç",
       "open_files": "Dosyalar'da Aç"
     },
     "storage_permission": {
       "title": "İndirilenler'e Kaydet",
-      "message": "AnythingLLM, dosyayı İndirilenler klasörünüze kaydetmek için depolama erişimine ihtiyaç duyuyor."
+      "message": "AnythingPocket, dosyayı İndirilenler klasörünüze kaydetmek için depolama erişimine ihtiyaç duyuyor."
     },
     "export": {
       "text_label": "Metin",
@@ -621,7 +621,7 @@
     "calendar_event_reading": {
       "name": "Takvimi Oku",
       "description": "Asistan'ı kullanarak takvim etkinliklerinizi okuyun.",
-      "permission_denied": "Takvim erişimi engellendi. Telefon ayarlarınızda AnythingLLM için etkinleştirerek takviminizi görüntüleyebilirsiniz.",
+      "permission_denied": "Takvim erişimi engellendi. Telefon ayarlarınızda AnythingPocket için etkinleştirerek takviminizi görüntüleyebilirsiniz.",
       "status_date": "{{date}} için takvim okuyor",
       "status_today": "Bugün için takvim okuyor",
       "status_tomorrow": "Yarın için takvim okuyor",
@@ -681,7 +681,7 @@
       "name": "Uyarılar ve Hatırlatıcılar",
       "description": "Saat uygulamanızda alarm ve zamanlayıcıları ayarlayın ve onayladıktan sonra. Bir günden daha uzun süre sonra gelen hatırlatıcılar takviminizde yer alır.",
       "default_label": "Hatırlatıcı",
-      "calendar_notes": "Hatırlatıcı AnythingLLM'dan ayarlandı",
+      "calendar_notes": "Hatırlatıcı AnythingPocket'dan ayarlandı",
       "status_asking": "Hatırlatıcı ayarlama isteği \"{{label}}\"",
       "approval_alarm": "{{when}} için \"{{label}}\" alarmı kurulsun mu?",
       "approval_timer": "{{duration}} süreli \"{{label}}\" zamanlayıcısı başlatılsın mı? {{when}} sona erecek.",
@@ -868,7 +868,7 @@
     },
     "speech_to_text": {
       "permission_title": "Mikrofon erişimi",
-      "permission_message": "AnythingLLM'ın, konuşmanızı metne dönüştürebilmesi için mikrofon erişimine ihtiyacı vardır.",
+      "permission_message": "AnythingPocket'ın, konuşmanızı metne dönüştürebilmesi için mikrofon erişimine ihtiyacı vardır.",
       "permission_required_title": "Mikrofon erişimi gereklidir",
       "permission_required_message": "Sesli metne dönüştürme özelliğini kullanmak için cihazınızın ayarlarında mikrofon erişimini etkinleştirin."
     },
@@ -884,7 +884,7 @@
       "attach": "Ekleyin",
       "create_failed": "Belge oluşturma başarısız oldu",
       "camera_permission_title": "Kamera erişimi",
-      "camera_permission_message": "AnythingLLM'ın, isteğinizi yerine getirmek için fotoğraf çekmesi gerekiyor.",
+      "camera_permission_message": "AnythingPocket'ın, isteğinizi yerine getirmek için fotoğraf çekmesi gerekiyor.",
       "max_reached_one": "Her sorguya {{count}} kadar farklı öğe ekleyebilirsiniz.",
       "max_reached_other": "Her sorguya {{count}} kadar farklı öğe ekleyebilirsiniz.",
       "camera_permission_required": "Foto çekmek için kamera izni gereklidir.",
@@ -909,7 +909,7 @@
     },
     "low_memory": {
       "title": "Düşük bellek",
-      "advice": "Bellek dolduğunda telefonunuz, yanıtı tamamlamak için AnythingLLM kapatabilir ve bu, bir çöküş gibi görünebilir. Diğer uygulamaları kapatın veya daha güvenilir yanıtlar için uzak bir bağlantı kullanın.",
+      "advice": "Bellek dolduğunda telefonunuz, yanıtı tamamlamak için AnythingPocket kapatabilir ve bu, bir çöküş gibi görünebilir. Diğer uygulamaları kapatın veya daha güvenilir yanıtlar için uzak bir bağlantı kullanın.",
       "free": "Boş",
       "total": "Toplam",
       "model_loaded": "Model (Yüklenmiş)",
@@ -1011,7 +1011,7 @@
       "plan_hint": "ChatGPT Plus veya Pro planı gerektirir. Kullanım, planınızın limitlerinden düşülür.",
       "experimental_note": "Deneysel: ChatGPT planınızın diğer uygulamalarda kullanılmasına yönelik OpenAI desteği hâlâ önizleme aşamasındadır ve değişebilir veya çalışmayı durdurabilir.",
       "notice_title": "ChatGPT planınızı kullanın",
-      "notice_body": "AnythingLLM'deki uygun yapay zekâ istekleri ChatGPT planınızı kullanacak. Kullanımı istediğiniz zaman ChatGPT ayarlarınızdan yönetebilirsiniz.",
+      "notice_body": "AnythingPocket'deki uygun yapay zekâ istekleri ChatGPT planınızı kullanacak. Kullanımı istediğiniz zaman ChatGPT ayarlarınızdan yönetebilirsiniz.",
       "notice_confirm": "Anladım",
       "signed_in_as": "{{email}} olarak oturum açıldı",
       "your_account": "ChatGPT hesabınız",
@@ -1023,7 +1023,7 @@
       "denied": "ChatGPT bağlantısına izin verilmedi. ChatGPT gerekli bir iznin kullanılamadığını belirttiyse planınız burada kullanılamaz - ChatGPT ile oturum açmak için Plus veya Pro planı gerekir.",
       "errors": {
         "not_eligible": "ChatGPT hesabınız burada kullanılamaz. ChatGPT ile oturum açmak için Plus veya Pro planı gerekir.",
-        "usage_limit": "ChatGPT planınızda AnythingLLM kullanım limitine ulaştınız. Kullanımı {{url}} adresinden yönetin",
+        "usage_limit": "ChatGPT planınızda AnythingPocket kullanım limitine ulaştınız. Kullanımı {{url}} adresinden yönetin",
         "usage_unavailable": "ChatGPT planı kullanımı geçici olarak kullanılamıyor. Lütfen birazdan tekrar deneyin.",
         "unsupported": "Bu istek, ChatGPT planınızda bulunmayan bir özelliği kullanıyor."
       }
@@ -1094,7 +1094,7 @@
       "url_must_be_gguf": "URL'ün \".gguf\" ile bitmesi gerekir."
     },
     "survey": {
-      "title": "AnythingLLM size nasıl yardımcı olabilir?",
+      "title": "AnythingPocket size nasıl yardımcı olabilir?",
       "description": "Size en uygun olanı seçin.",
       "options": {
         "productivity": "Verimliliği Artır",
@@ -1106,14 +1106,14 @@
     },
     "data_handling": {
       "title": "Veri Yönetimi ve Gizlilik",
-      "description": "AnythingLLM ile, tüm sohbetler, belgeler ve diğer veriler cihazınızda işlenir ve saklanır.",
+      "description": "AnythingPocket ile, tüm sohbetler, belgeler ve diğer veriler cihazınızda işlenir ve saklanır.",
       "local_chats_title": "Yerel Sohbetler",
       "local_chats_description": "Tüm sohbetler cihazınızda saklanır.",
       "embedding_title": "Belge Entegrasyonu",
       "embedding_description": "Tüm belgeler ve işlemler cihazınızda gerçekleştirilir.",
       "agents_title": "AI Destek",
       "agents_description": "Tüm ajanlar, cihazınızda çalışır ve yalnızca gerekli durumlarda (örneğin, web araması) interneti kullanır.",
-      "experience": "Deneyin AnythingLLM",
+      "experience": "Deneyin AnythingPocket",
       "setting_up": "İlk çalışma alanınızı oluşturma",
       "default_workspace_name": "Çalışma Alanım"
     }
@@ -1409,13 +1409,13 @@
     "channels": {
       "download_progress": "İndirme durumu",
       "chat_replies": "Yanıtlar",
-      "chat_replies_description": "Yanıtın tamamlandığında AnythingLLM arka planda olduğunda bildirim",
+      "chat_replies_description": "Yanıtın tamamlandığında AnythingPocket arka planda olduğunda bildirim",
       "scheduled_jobs": "Planlanan Görevler",
       "scheduled_jobs_description": "Planlanan görev bittiğinde bildirim"
     },
     "blocked_nudge": {
       "title": "Yanıtların tamamlandığında bildirim alın",
-      "message": "AnythingLLM için bildirimler kapalı. Telefonunuz kilitliyken yanıtın tamamlandığını bildirimle almak için açın.",
+      "message": "AnythingPocket için bildirimler kapalı. Telefonunuz kilitliyken yanıtın tamamlandığını bildirimle almak için açın.",
       "not_now": "Şimdi değil",
       "open_settings": "Ayarları aç"
     },
@@ -1431,17 +1431,17 @@
     }
   },
   "home": {
-    "welcome_title": "Hoş geldiniz AnythingLLM",
+    "welcome_title": "Hoş geldiniz AnythingPocket",
     "get_started": "Yeni bir çalışma alanı oluşturarak başlayın.",
     "create_workspace": "Çalışma Alanı Oluştur",
     "default_workspace_name": "Çalışma Alanım"
   },
   "share": {
-    "unsupported_content": "Sadece dosyalar, resimler ve bağlantılar paylaşılabilir. AnythingLLM",
-    "finish_onboarding": "AnythingLLM'u tamamlamadan paylaşmayın",
+    "unsupported_content": "Sadece dosyalar, resimler ve bağlantılar paylaşılabilir. AnythingPocket",
+    "finish_onboarding": "AnythingPocket'u tamamlamadan paylaşmayın",
     "open_failed": "Paylaşılan içeriye erişilemedi"
   },
   "deep_links": {
-    "finish_onboarding": "AnythingLLM'u kurmayı tamamlamadan bağlantıları açmayın."
+    "finish_onboarding": "AnythingPocket'u kurmayı tamamlamadan bağlantıları açmayın."
   }
 }

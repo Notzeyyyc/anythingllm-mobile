@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "特殊工具",
-      "ask_with_anythingllm": "\"使用 AnythingLLM 询问\"",
+      "ask_with_anythingllm": "\"使用 AnythingPocket 询问\"",
       "page_title": "特殊工具",
-      "added_toast": "已将\"使用 AnythingLLM 询问\"添加到文本选择菜单",
-      "removed_toast": "已从文本选择菜单中移除\"使用 AnythingLLM 询问\"",
+      "added_toast": "已将\"使用 AnythingPocket 询问\"添加到文本选择菜单",
+      "removed_toast": "已从文本选择菜单中移除\"使用 AnythingPocket 询问\"",
       "context_awareness": "上下文感知",
-      "ask_with_anythingllm_toggle": "使用 AnythingLLM 询问",
+      "ask_with_anythingllm_toggle": "使用 AnythingPocket 询问",
       "android_only": "仅 Android",
-      "description_available": "在任何应用程序中选择文本时，将\"使用 AnythingLLM 询问\"添加到显示的菜单中。使用它来完善、缩短或修复您正在写的内容，或者用您选择的模型来总结、解释和研究您正在读的内容。",
-      "description_unavailable": "在 Android 上，当您在任何应用程序中选择文本时，AnythingLLM 可以出现在显示的菜单中，以使用您选择的模型编辑或总结它。iOS 不为应用程序提供此钩子。",
+      "description_available": "在任何应用程序中选择文本时，将\"使用 AnythingPocket 询问\"添加到显示的菜单中。使用它来完善、缩短或修复您正在写的内容，或者用您选择的模型来总结、解释和研究您正在读的内容。",
+      "description_unavailable": "在 Android 上，当您在任何应用程序中选择文本时，AnythingPocket 可以出现在显示的菜单中，以使用您选择的模型编辑或总结它。iOS 不为应用程序提供此钩子。",
       "assistant": "设备助手"
     },
     "assistant": {
       "page_title": "设备助手",
       "status_title": "默认助手",
-      "status_on": "AnythingLLM 是您的默认助手",
-      "status_off": "AnythingLLM 不是你的默认助手",
+      "status_on": "AnythingPocket 是您的默认助手",
+      "status_off": "AnythingPocket 不是你的默认助手",
       "set_up": "设置",
       "change": "修改",
-      "setup_steps": "在打开的Android设置中，点击“默认数字助手应用”，然后选择AnythingLLM。 此页面有时位于“应用”>“默认应用”中。 完成后，请返回此处。",
-      "description": "使用手机的助手手势（通常是长按主屏幕按钮或导航栏）在任何应用上打开 AnythingLLM，并使用您选择的模型提问，无论是设备端还是您自己的服务器。它将取代 Gemini；您可以随时在同一 Android 设置中切换回来。",
-      "description_unavailable": "在 Android 上，AnythingLLM 可以作为你的手机助手，代替 Gemini，通过任何应用中的助手手势进行操作。iOS 不允许应用取代 Siri。",
+      "setup_steps": "在打开的Android设置中，点击“默认数字助手应用”，然后选择AnythingPocket。 此页面有时位于“应用”>“默认应用”中。 完成后，请返回此处。",
+      "description": "使用手机的助手手势（通常是长按主屏幕按钮或导航栏）在任何应用上打开 AnythingPocket，并使用您选择的模型提问，无论是设备端还是您自己的服务器。它将取代 Gemini；您可以随时在同一 Android 设置中切换回来。",
+      "description_unavailable": "在 Android 上，AnythingPocket 可以作为你的手机助手，代替 Gemini，通过任何应用中的助手手势进行操作。iOS 不允许应用取代 Siri。",
       "need_help": "需要帮助设置？",
       "circle_to_search_note": "如果长按主屏幕按钮打开的是“圈定即搜”，请在 Android 设置 > 显示 > 导航栏中关闭“圈定即搜”。只要该功能处于开启状态，无论您选择哪个助手，Android 都会将该手势交给 Google。",
       "open_settings_failed": "无法打开 Android 设置",
@@ -144,13 +144,13 @@
       "privacy": "隐私政策"
     },
     "reset": {
-      "title": "重置 AnythingLLM",
-      "confirm_message": "您确定要重置 AnythingLLM 吗？这将删除您的所有工作区、聊天记录、已安装的模型和偏好。",
+      "title": "重置 AnythingPocket",
+      "confirm_message": "您确定要重置 AnythingPocket 吗？这将删除您的所有工作区、聊天记录、已安装的模型和偏好。",
       "confirm_button": "是的，重置所有内容"
     },
     "update_failed": "无法更新设置",
     "version": {
-      "about": "关于 AnythingLLM",
+      "about": "关于 AnythingPocket",
       "update_available_title": "有可用的更新",
       "update_available_message": "版本 {{version}} 可用。请更新到最新版本。",
       "go_to_app_store": "转到应用商店"
@@ -160,7 +160,7 @@
       "disabled_toast": "匿名遥测已禁用",
       "usage_data": "使用数据",
       "share_toggle": "分享匿名遥测",
-      "description_events": "AnythingLLM 发送少量匿名事件，例如\"完成了一次聊天\"或\"使用了一个工具\"，以便我们可以看到哪些功能重要，以及在哪些地方出现了问题。",
+      "description_events": "AnythingPocket 发送少量匿名事件，例如\"完成了一次聊天\"或\"使用了一个工具\"，以便我们可以看到哪些功能重要，以及在哪些地方出现了问题。",
       "description_privacy": "这永远不包括您的聊天、文档、提示或有关您如何使用应用程序的任何特定信息。没有帐户，也没有任何可以识别您的信息。",
       "description_opt_out": "保持这个启用可以帮助我们构建更好的应用程序。您可以随时关闭它，不会有任何进一步的信息被发送。"
     },
@@ -322,7 +322,7 @@
       "all_day": "全天",
       "open_failed": "无法打开日历应用",
       "saved": "已添加到您的日历",
-      "permission_denied": "在“设置”中，允许AnythingLLM访问日历，以便添加活动。",
+      "permission_denied": "在“设置”中，允许AnythingPocket访问日历，以便添加活动。",
       "add_with": "添加",
       "save_ics": "保存 .ics 文件",
       "save_failed": "无法保存活动文件",
@@ -429,8 +429,8 @@
     },
     "could_not_start": "无法启动快速操作",
     "dismiss": "关闭",
-    "setup_needed": "完成设置 AnythingLLM 以从选择菜单中使用它。",
-    "open_anythingllm": "打开 AnythingLLM",
+    "setup_needed": "完成设置 AnythingPocket 以从选择菜单中使用它。",
+    "open_anythingllm": "打开 AnythingPocket",
     "select_model": "选择上面的模型以开始。",
     "copied_paste": "已复制 - 粘贴到您的选择上",
     "copy_and_close": "复制并关闭",
@@ -445,10 +445,10 @@
   "assistant": {
     "could_not_start": "无法启动助手",
     "dismiss": "取消",
-    "setup_needed": "完成设置 AnythingLLM，以便您使用它作为您的助手。",
-    "open_anythingllm": "打开 AnythingLLM",
+    "setup_needed": "完成设置 AnythingPocket，以便您使用它作为您的助手。",
+    "open_anythingllm": "打开 AnythingPocket",
     "select_model": "选择一个模型开始使用。",
-    "placeholder": "提问 AnythingLLM",
+    "placeholder": "提问 AnythingPocket",
     "placeholder_followup": "提出后续问题…",
     "listening": "正在播放…",
     "share_screen": "共享屏幕",
@@ -487,19 +487,19 @@
     "play_video": "播放视频",
     "pause_video": "暂停视频",
     "whats_new": "新增功能",
-    "tour_title": "AnythingLLM 可以做什么",
+    "tour_title": "AnythingPocket 可以做什么",
     "device_assistant": {
       "title": "用你自己的 AI 替换 Gemini",
-      "body": "让AnythingLLM成为你的手机助手，并使用与Gemini相同的手势从任何应用中打开它。 询问屏幕上的内容，答案将来自你选择的模型。",
+      "body": "让AnythingPocket成为你的手机助手，并使用与Gemini相同的手势从任何应用中打开它。 询问屏幕上的内容，答案将来自你选择的模型。",
       "cta": "设置设备助手"
     },
     "quick_actions": {
-      "title": "在任何地方使用 AnythingLLM 询问",
-      "body": "在任何应用中选择文本并点击\"使用 AnythingLLM 询问\"来使用您的模型修饰、缩短、总结或解释它。您可以随时在设置 > 特殊工具下关闭它。"
+      "title": "在任何地方使用 AnythingPocket 询问",
+      "body": "在任何应用中选择文本并点击\"使用 AnythingPocket 询问\"来使用您的模型修饰、缩短、总结或解释它。您可以随时在设置 > 特殊工具下关闭它。"
     },
     "share_sheet": {
       "title": "将任何内容分享到聊天",
-      "body": "将照片、文档和链接从任何应用直接发送到 AnythingLLM。它们会进入新线程，已附加并准备好提问。"
+      "body": "将照片、文档和链接从任何应用直接发送到 AnythingPocket。它们会进入新线程，已附加并准备好提问。"
     },
     "scheduled_jobs": {
       "title": "计划任务",
@@ -522,13 +522,13 @@
     },
     "location": {
       "downloads": "下载",
-      "ios_exports": "文件 > 我的 iPhone > AnythingLLM > 导出",
+      "ios_exports": "文件 > 我的 iPhone > AnythingPocket > 导出",
       "open_downloads": "在下载中打开",
       "open_files": "在文件中打开"
     },
     "storage_permission": {
       "title": "保存到下载",
-      "message": "AnythingLLM 需要存储访问权限才能将文件保存到您的下载文件夹。"
+      "message": "AnythingPocket 需要存储访问权限才能将文件保存到您的下载文件夹。"
     },
     "export": {
       "text_label": "文本",
@@ -600,7 +600,7 @@
     "calendar_event_reading": {
       "name": "阅读日历",
       "description": "使用助手阅读您的日历事件。",
-      "permission_denied": "日历访问权限未被允许。请在手机设置中为AnythingLLM开启此权限，以便读取您的日历。",
+      "permission_denied": "日历访问权限未被允许。请在手机设置中为AnythingPocket开启此权限，以便读取您的日历。",
       "status_date": "读取您的日历上的 {{date}}",
       "status_today": "读取您的日历上的今天",
       "status_tomorrow": "读取您的日历上的明天",
@@ -653,7 +653,7 @@
       "name": "闹钟和提醒",
       "description": "在你的时钟应用中设置闹钟和计时器，确认后。超过一天的提醒会添加到你的日历中。",
       "default_label": "提醒",
-      "calendar_notes": "设置提醒：AnythingLLM",
+      "calendar_notes": "设置提醒：AnythingPocket",
       "status_asking": "设置提醒 \"{{label}}\"",
       "approval_alarm": "设置闹钟 \"{{label}}\" 在 {{when}}？",
       "approval_timer": "开始{{duration}}计时器{{label}}？ 计时结束于{{when}}。",
@@ -834,7 +834,7 @@
     },
     "speech_to_text": {
       "permission_title": "麦克风访问",
-      "permission_message": "AnythingLLM 需要麦克风访问权限才能将您的语音转录为提示。",
+      "permission_message": "AnythingPocket 需要麦克风访问权限才能将您的语音转录为提示。",
       "permission_required_title": "需要麦克风访问权限",
       "permission_required_message": "在您的设备设置中启用麦克风访问权限以使用语音转文字。"
     },
@@ -850,7 +850,7 @@
       "attach": "附加",
       "create_failed": "无法为附件创建文档",
       "camera_permission_title": "相机访问权限",
-      "camera_permission_message": "AnythingLLM 需要相机来为您的提示拍照。",
+      "camera_permission_message": "AnythingPocket 需要相机来为您的提示拍照。",
       "max_reached_other": "每个提示最多可以附加 {{count}} 个项目",
       "camera_permission_required": "需要相机权限才能拍照",
       "camera_open_failed": "无法打开相机",
@@ -871,7 +871,7 @@
     },
     "low_memory": {
       "title": "内存不足",
-      "advice": "当内存不足时，您的手机可能会在 AnythingLLM 回复的过程中关闭它以回收内存，这看起来就像崩溃。请关闭其他应用，或切换到远程模型连接以获得更可靠的响应。",
+      "advice": "当内存不足时，您的手机可能会在 AnythingPocket 回复的过程中关闭它以回收内存，这看起来就像崩溃。请关闭其他应用，或切换到远程模型连接以获得更可靠的响应。",
       "free": "可用",
       "total": "总计",
       "model_loaded": "模型（已加载）",
@@ -970,7 +970,7 @@
       "plan_hint": "需要 ChatGPT Plus 或 Pro 套餐。使用量计入你的套餐限额。",
       "experimental_note": "实验性：OpenAI 对在其他应用中使用 ChatGPT 套餐的支持仍处于预览阶段，可能会发生变化或停止工作。",
       "notice_title": "使用你的 ChatGPT 套餐",
-      "notice_body": "AnythingLLM 中符合条件的 AI 请求将使用你的 ChatGPT 套餐。你可以随时在 ChatGPT 设置中管理使用量。",
+      "notice_body": "AnythingPocket 中符合条件的 AI 请求将使用你的 ChatGPT 套餐。你可以随时在 ChatGPT 设置中管理使用量。",
       "notice_confirm": "知道了",
       "signed_in_as": "已登录为 {{email}}",
       "your_account": "你的 ChatGPT 账户",
@@ -982,7 +982,7 @@
       "denied": "未允许连接到 ChatGPT。如果 ChatGPT 提示所需权限不可用，则无法在此使用你的套餐 - 使用 ChatGPT 登录需要 Plus 或 Pro 套餐。",
       "errors": {
         "not_eligible": "你的 ChatGPT 账户无法在此使用。使用 ChatGPT 登录需要 Plus 或 Pro 套餐。",
-        "usage_limit": "你的 ChatGPT 套餐已达到 AnythingLLM 的使用限额。请在 {{url}} 管理使用量",
+        "usage_limit": "你的 ChatGPT 套餐已达到 AnythingPocket 的使用限额。请在 {{url}} 管理使用量",
         "usage_unavailable": "ChatGPT 套餐使用暂时不可用。请稍后重试。",
         "unsupported": "此请求使用了你的 ChatGPT 套餐不支持的功能。"
       }
@@ -1053,7 +1053,7 @@
       "url_must_be_gguf": "URL 必须以 .gguf 结尾"
     },
     "survey": {
-      "title": "AnythingLLM 可以如何帮助您？",
+      "title": "AnythingPocket 可以如何帮助您？",
       "description": "选择最适用于您的。",
       "options": {
         "productivity": "提高生产力",
@@ -1065,14 +1065,14 @@
     },
     "data_handling": {
       "title": "数据处理和隐私",
-      "description": "使用 AnythingLLM，所有聊天、文档和其他数据都在您的设备上处理和存储。",
+      "description": "使用 AnythingPocket，所有聊天、文档和其他数据都在您的设备上处理和存储。",
       "local_chats_title": "完全本地聊天",
       "local_chats_description": "所有聊天都存储在您的设备上。",
       "embedding_title": "文档嵌入",
       "embedding_description": "所有文档和处理都在您的设备上完成。",
       "agents_title": "AI 代理",
       "agents_description": "所有代理都在您的设备上运行，仅在需要时使用互联网（例如：网络搜索）",
-      "experience": "体验 AnythingLLM",
+      "experience": "体验 AnythingPocket",
       "setting_up": "设置您的第一个工作区",
       "default_workspace_name": "我的工作区"
     }
@@ -1363,13 +1363,13 @@
     "channels": {
       "download_progress": "下载进度",
       "chat_replies": "聊天回复",
-      "chat_replies_description": "当回复完成且 AnythingLLM 在后台时发出警报",
+      "chat_replies_description": "当回复完成且 AnythingPocket 在后台时发出警报",
       "scheduled_jobs": "计划任务",
       "scheduled_jobs_description": "当计划任务完成运行时发出警报"
     },
     "blocked_nudge": {
       "title": "在回复完成时收到通知",
-      "message": "AnythingLLM 的通知已关闭。打开它们以在您的手机被锁定时回复完成时获得通知。",
+      "message": "AnythingPocket 的通知已关闭。打开它们以在您的手机被锁定时回复完成时获得通知。",
       "not_now": "现在不",
       "open_settings": "打开设置"
     },
@@ -1385,17 +1385,17 @@
     }
   },
   "home": {
-    "welcome_title": "欢迎来到 AnythingLLM",
+    "welcome_title": "欢迎来到 AnythingPocket",
     "get_started": "通过创建新工作区来开始。",
     "create_workspace": "创建工作区",
     "default_workspace_name": "我的工作区"
   },
   "share": {
-    "unsupported_content": "只有文件、图像和链接可以分享到 AnythingLLM",
-    "finish_onboarding": "在分享之前完成 AnythingLLM 的设置",
+    "unsupported_content": "只有文件、图像和链接可以分享到 AnythingPocket",
+    "finish_onboarding": "在分享之前完成 AnythingPocket 的设置",
     "open_failed": "无法打开共享内容"
   },
   "deep_links": {
-    "finish_onboarding": "在打开链接到它之前完成 AnythingLLM 的设置"
+    "finish_onboarding": "在打开链接到它之前完成 AnythingPocket 的设置"
   }
 }

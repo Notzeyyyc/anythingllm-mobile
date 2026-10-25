@@ -77,27 +77,27 @@
     },
     "special_tools": {
       "title": "Speciale hulpmiddelen",
-      "ask_with_anythingllm": "\"Vragen aan AnythingLLM\"",
+      "ask_with_anythingllm": "\"Vragen aan AnythingPocket\"",
       "page_title": "Speciale hulpmiddelen",
-      "added_toast": "Vragen aan AnythingLLM toegevoegd aan tekstselectiemenu's",
-      "removed_toast": "Vragen aan AnythingLLM verwijderd uit tekstselectiemenu's",
+      "added_toast": "Vragen aan AnythingPocket toegevoegd aan tekstselectiemenu's",
+      "removed_toast": "Vragen aan AnythingPocket verwijderd uit tekstselectiemenu's",
       "context_awareness": "Contextbewustzijn",
-      "ask_with_anythingllm_toggle": "Vragen aan AnythingLLM",
+      "ask_with_anythingllm_toggle": "Vragen aan AnythingPocket",
       "android_only": "Alleen Android",
-      "description_available": "Voegt \"Vragen aan AnythingLLM\" toe aan het menu dat verschijnt wanneer je tekst selecteert in een app. Gebruik het om wat je schrijft op te polijsten, in te korten of te corrigeren, of om wat je leest samen te vatten, uit te leggen en te onderzoeken - met welk model je hier hebt geselecteerd.",
-      "description_unavailable": "Op Android kan AnythingLLM verschijnen in het menu dat wordt weergegeven wanneer je tekst selecteert in een app, om het met je gekozen model te bewerken of samen te vatten. iOS biedt apps deze hook niet.",
+      "description_available": "Voegt \"Vragen aan AnythingPocket\" toe aan het menu dat verschijnt wanneer je tekst selecteert in een app. Gebruik het om wat je schrijft op te polijsten, in te korten of te corrigeren, of om wat je leest samen te vatten, uit te leggen en te onderzoeken - met welk model je hier hebt geselecteerd.",
+      "description_unavailable": "Op Android kan AnythingPocket verschijnen in het menu dat wordt weergegeven wanneer je tekst selecteert in een app, om het met je gekozen model te bewerken of samen te vatten. iOS biedt apps deze hook niet.",
       "assistant": "Apparaatassistent"
     },
     "assistant": {
       "page_title": "Assistent",
       "status_title": "Standaardassistent",
-      "status_on": "AnythingLLM is uw standaard assistent",
-      "status_off": "AnythingLLM is geen standaardassistent",
+      "status_on": "AnythingPocket is uw standaard assistent",
+      "status_off": "AnythingPocket is geen standaardassistent",
       "set_up": "Instellen",
       "change": "Wijzigen",
-      "setup_steps": "In de Android instellingen, tik op \"Standaard digitale assistent app\" en kies AnythingLLM. De pagina bevindt zich soms onder Apps > Standaard apps. Ga terug wanneer je klaar bent.",
-      "description": "Open AnythingLLM met de assistentfunctie van je telefoon (meestal door lang op de startknop of de navigatiebalk te drukken) en vraag met het model dat je hebt geselecteerd, of het op je apparaat of op je eigen server draait. Dit vervangt Gemini. Je kunt op elk moment terugkeren naar dezelfde instelling in Android.",
-      "description_unavailable": "Op Android kan AnythingLLM je telefoonassistent zijn, in plaats van Gemini, die via elke app geopend kan worden met een specifieke handeling. iOS zorgt ervoor dat apps Siri niet kunnen vervangen.",
+      "setup_steps": "In de Android instellingen, tik op \"Standaard digitale assistent app\" en kies AnythingPocket. De pagina bevindt zich soms onder Apps > Standaard apps. Ga terug wanneer je klaar bent.",
+      "description": "Open AnythingPocket met de assistentfunctie van je telefoon (meestal door lang op de startknop of de navigatiebalk te drukken) en vraag met het model dat je hebt geselecteerd, of het op je apparaat of op je eigen server draait. Dit vervangt Gemini. Je kunt op elk moment terugkeren naar dezelfde instelling in Android.",
+      "description_unavailable": "Op Android kan AnythingPocket je telefoonassistent zijn, in plaats van Gemini, die via elke app geopend kan worden met een specifieke handeling. iOS zorgt ervoor dat apps Siri niet kunnen vervangen.",
       "need_help": "Heb je hulp nodig bij de installatie?",
       "circle_to_search_note": "Als lang drukken op de startknop in plaats daarvan Circle to Search opent, zet Circle to Search dan uit via Android-instellingen > Display > Navigatiebalk. Zolang het aan staat, geeft Android dat gebaar altijd aan Google, welke assistent je ook kiest.",
       "open_settings_failed": "Kon Android instellingen niet openen",
@@ -144,13 +144,13 @@
       "privacy": "Privacybeleid"
     },
     "reset": {
-      "title": "AnythingLLM opnieuw instellen",
-      "confirm_message": "Weet je zeker dat je AnythingLLM opnieuw wilt instellen? Dit zal al je werkruimten, chats, geïnstalleerde modellen en voorkeuren verwijderen.",
+      "title": "AnythingPocket opnieuw instellen",
+      "confirm_message": "Weet je zeker dat je AnythingPocket opnieuw wilt instellen? Dit zal al je werkruimten, chats, geïnstalleerde modellen en voorkeuren verwijderen.",
       "confirm_button": "Ja, alles opnieuw instellen"
     },
     "update_failed": "Kon de instelling niet bijwerken",
     "version": {
-      "about": "Over AnythingLLM",
+      "about": "Over AnythingPocket",
       "update_available_title": "Update beschikbaar",
       "update_available_message": "Versie {{version}} is beschikbaar. Werk alstublieft bij naar de nieuwste versie.",
       "go_to_app_store": "Ga naar app store"
@@ -160,7 +160,7 @@
       "disabled_toast": "Anonieme telemetrie uitgeschakeld",
       "usage_data": "Gebruiksgegevens",
       "share_toggle": "Anonieme telemetrie delen",
-      "description_events": "AnythingLLM verzendt een klein aantal anonieme gebeurtenissen, zoals \"een chat werd voltooid\" of \"een hulpmiddel werd gebruikt\", zodat we kunnen zien welke functies belangrijk zijn en waar dingen kapot gaan.",
+      "description_events": "AnythingPocket verzendt een klein aantal anonieme gebeurtenissen, zoals \"een chat werd voltooid\" of \"een hulpmiddel werd gebruikt\", zodat we kunnen zien welke functies belangrijk zijn en waar dingen kapot gaan.",
       "description_privacy": "Dit omvat nooit je chats, documenten, prompts of iets specifieks over hoe je de app gebruikt. Er is geen account en niets wat jou identificeert.",
       "description_opt_out": "Als je dit aanzet, help je ons een betere applicatie te bouwen. Je kunt het op elk moment uitschakelen en er zal niets meer worden verzonden."
     },
@@ -328,7 +328,7 @@
       "all_day": "Hele dag",
       "open_failed": "Kon de kalender-app niet openen",
       "saved": "Toegevoegd aan uw agenda",
-      "permission_denied": "Geef toegang tot de agenda voor AnythingLLM in de instellingen om evenementen toe te voegen.",
+      "permission_denied": "Geef toegang tot de agenda voor AnythingPocket in de instellingen om evenementen toe te voegen.",
       "add_with": "Toevoegen",
       "save_ics": "Opslaan als .ics bestand",
       "save_failed": "Kon het evenementbestand niet opslaan.",
@@ -442,8 +442,8 @@
     },
     "could_not_start": "Kon Snelle acties niet starten",
     "dismiss": "Sluiten",
-    "setup_needed": "Maak AnythingLLM af om het in het selectiemenu te gebruiken.",
-    "open_anythingllm": "Open AnythingLLM",
+    "setup_needed": "Maak AnythingPocket af om het in het selectiemenu te gebruiken.",
+    "open_anythingllm": "Open AnythingPocket",
     "select_model": "Selecteer hierboven een model om aan de slag te gaan.",
     "copied_paste": "Gekopieerd - plak het over je selectie",
     "copy_and_close": "Kopiëren en sluiten",
@@ -458,10 +458,10 @@
   "assistant": {
     "could_not_start": "Kon de assistent niet starten",
     "dismiss": "Sluiten",
-    "setup_needed": "Voltooi het instellen van AnythingLLM zodat je het kunt gebruiken als assistent.",
-    "open_anythingllm": "Open AnythingLLM",
+    "setup_needed": "Voltooi het instellen van AnythingPocket zodat je het kunt gebruiken als assistent.",
+    "open_anythingllm": "Open AnythingPocket",
     "select_model": "Kies een model hierboven om te beginnen.",
-    "placeholder": "Vraag AnythingLLM",
+    "placeholder": "Vraag AnythingPocket",
     "placeholder_followup": "Stel een vervolgvraag…",
     "listening": "Luisteren…",
     "share_screen": "Scherm delen",
@@ -501,19 +501,19 @@
     "play_video": "Video afspelen",
     "pause_video": "Video onderbreken",
     "whats_new": "Wat is nieuw",
-    "tour_title": "Wat AnythingLLM kan doen",
+    "tour_title": "Wat AnythingPocket kan doen",
     "device_assistant": {
       "title": "Vervang Gemini met jouw eigen AI",
-      "body": "Maak AnythingLLM je persoonlijke assistent en open het vanuit elke app met dezelfde beweging als je gebruikt voor Gemini. Stel vragen over wat er op het scherm staat – het antwoord komt van het model dat je hebt gekozen.",
+      "body": "Maak AnythingPocket je persoonlijke assistent en open het vanuit elke app met dezelfde beweging als je gebruikt voor Gemini. Stel vragen over wat er op het scherm staat – het antwoord komt van het model dat je hebt gekozen.",
       "cta": "Apparaatassistent instellen"
     },
     "quick_actions": {
-      "title": "Vragen aan AnythingLLM overal",
-      "body": "Selecteer tekst in een app en tik op \"Vragen aan AnythingLLM\" om het met je model op te polijsten, in te korten, samen te vatten of uit te leggen. Zet het op elk moment uit onder Instellingen > Speciale hulpmiddelen."
+      "title": "Vragen aan AnythingPocket overal",
+      "body": "Selecteer tekst in een app en tik op \"Vragen aan AnythingPocket\" om het met je model op te polijsten, in te korten, samen te vatten of uit te leggen. Zet het op elk moment uit onder Instellingen > Speciale hulpmiddelen."
     },
     "share_sheet": {
       "title": "Deel alles in een chat",
-      "body": "Stuur foto's, documenten en links van elke app rechtstreeks naar AnythingLLM. Ze belanden in een nieuw draadje, bijgevoegd en klaar om over te vragen."
+      "body": "Stuur foto's, documenten en links van elke app rechtstreeks naar AnythingPocket. Ze belanden in een nieuw draadje, bijgevoegd en klaar om over te vragen."
     },
     "scheduled_jobs": {
       "title": "Geplande taken",
@@ -536,13 +536,13 @@
     },
     "location": {
       "downloads": "Downloads",
-      "ios_exports": "Bestanden > Op mijn iPhone > AnythingLLM > Exports",
+      "ios_exports": "Bestanden > Op mijn iPhone > AnythingPocket > Exports",
       "open_downloads": "Openen in Downloads",
       "open_files": "Openen in Bestanden"
     },
     "storage_permission": {
       "title": "Opslaan naar Downloads",
-      "message": "AnythingLLM heeft opslagtoegang nodig om het bestand naar je Downloads-map op te slaan."
+      "message": "AnythingPocket heeft opslagtoegang nodig om het bestand naar je Downloads-map op te slaan."
     },
     "export": {
       "text_label": "Tekst",
@@ -621,7 +621,7 @@
     "calendar_event_reading": {
       "name": "Agenda lezen",
       "description": "Gebruik de assistent om je agendagebeurtenissen te lezen.",
-      "permission_denied": "Toegang tot de agenda is niet mogelijk. Schakel dit in voor AnythingLLM in de instellingen van je telefoon om je agenda te bekijken.",
+      "permission_denied": "Toegang tot de agenda is niet mogelijk. Schakel dit in voor AnythingPocket in de instellingen van je telefoon om je agenda te bekijken.",
       "status_date": "Je agenda lezen voor {{date}}",
       "status_today": "Je agenda lezen voor vandaag",
       "status_tomorrow": "Je agenda lezen voor morgen",
@@ -681,7 +681,7 @@
       "name": "Waarschuwingen en herinneringen",
       "description": "Stel alarmen en timers in je klok-app in, nadat je ze hebt goedgekeurd. Herinneringen die meer dan een dag vooruit liggen, worden aan je agenda toegevoegd.",
       "default_label": "Herinnering",
-      "calendar_notes": "Herinnering ingesteld vanaf AnythingLLM",
+      "calendar_notes": "Herinnering ingesteld vanaf AnythingPocket",
       "status_asking": "Vraag om een herinnering \"{{label}}\"",
       "approval_alarm": "Stel een herinnering in op {{label}} voor {{when}}?",
       "approval_timer": "Start een {{duration}} timer {{label}}? Het eindt op {{when}}.",
@@ -868,7 +868,7 @@
     },
     "speech_to_text": {
       "permission_title": "Microfontoegang",
-      "permission_message": "AnythingLLM heeft microfontoegang nodig om je spraak in een prompt om te zetten.",
+      "permission_message": "AnythingPocket heeft microfontoegang nodig om je spraak in een prompt om te zetten.",
       "permission_required_title": "Microfontoegang vereist",
       "permission_required_message": "Schakel microfontoegang in je apparaatinstellingen in om spraak-naar-tekst te gebruiken."
     },
@@ -884,7 +884,7 @@
       "attach": "Bijvoegen",
       "create_failed": "Kon document voor bijlage niet maken",
       "camera_permission_title": "Cameratoegang",
-      "camera_permission_message": "AnythingLLM heeft cameratoegang nodig om een foto voor je prompt te maken.",
+      "camera_permission_message": "AnythingPocket heeft cameratoegang nodig om een foto voor je prompt te maken.",
       "max_reached_one": "Je kunt per prompt tot {{count}} item bijvoegen",
       "max_reached_other": "Je kunt per prompt tot {{count}} items bijvoegen",
       "camera_permission_required": "Cameramachtiging is vereist om een foto te maken",
@@ -909,7 +909,7 @@
     },
     "low_memory": {
       "title": "Weinig geheugen",
-      "advice": "Als het geheugen vol raakt, kan je telefoon AnythingLLM halverwege een antwoord sluiten om geheugen vrij te maken, wat op een crash lijkt. Sluit andere apps of schakel over op een externe modelverbinding voor betrouwbaardere antwoorden.",
+      "advice": "Als het geheugen vol raakt, kan je telefoon AnythingPocket halverwege een antwoord sluiten om geheugen vrij te maken, wat op een crash lijkt. Sluit andere apps of schakel over op een externe modelverbinding voor betrouwbaardere antwoorden.",
       "free": "Vrij",
       "total": "Totaal",
       "model_loaded": "Model (geladen)",
@@ -1011,7 +1011,7 @@
       "plan_hint": "Vereist een ChatGPT Plus- of Pro-abonnement. Gebruik telt mee voor de limieten van je abonnement.",
       "experimental_note": "Experimenteel: de ondersteuning van OpenAI voor het gebruik van je ChatGPT-abonnement in andere apps is nog in preview en kan veranderen of stoppen met werken.",
       "notice_title": "Gebruik je ChatGPT-abonnement",
-      "notice_body": "In aanmerking komende AI-verzoeken in AnythingLLM gebruiken je ChatGPT-abonnement. Je kunt het gebruik altijd beheren in je ChatGPT-instellingen.",
+      "notice_body": "In aanmerking komende AI-verzoeken in AnythingPocket gebruiken je ChatGPT-abonnement. Je kunt het gebruik altijd beheren in je ChatGPT-instellingen.",
       "notice_confirm": "Begrepen",
       "signed_in_as": "Ingelogd als {{email}}",
       "your_account": "je ChatGPT-account",
@@ -1023,7 +1023,7 @@
       "denied": "De verbinding met ChatGPT werd niet toegestaan. Als ChatGPT aangaf dat een vereiste machtiging niet beschikbaar is, kan je abonnement hier niet worden gebruikt - inloggen met ChatGPT vereist een Plus- of Pro-abonnement.",
       "errors": {
         "not_eligible": "Je ChatGPT-account kan hier niet worden gebruikt. Inloggen met ChatGPT vereist een Plus- of Pro-abonnement.",
-        "usage_limit": "Je hebt de gebruikslimiet voor AnythingLLM op je ChatGPT-abonnement bereikt. Beheer het gebruik via {{url}}",
+        "usage_limit": "Je hebt de gebruikslimiet voor AnythingPocket op je ChatGPT-abonnement bereikt. Beheer het gebruik via {{url}}",
         "usage_unavailable": "Gebruik van het ChatGPT-abonnement is tijdelijk niet beschikbaar. Probeer het zo opnieuw.",
         "unsupported": "Dit verzoek gebruikt een functie die niet beschikbaar is met je ChatGPT-abonnement."
       }
@@ -1094,7 +1094,7 @@
       "url_must_be_gguf": "De url moet eindigen met .gguf"
     },
     "survey": {
-      "title": "Waarmee kan AnythingLLM je helpen?",
+      "title": "Waarmee kan AnythingPocket je helpen?",
       "description": "Selecteer degene die het meest op jou van toepassing is.",
       "options": {
         "productivity": "Productiviteit verhogen",
@@ -1106,14 +1106,14 @@
     },
     "data_handling": {
       "title": "Gegevensverwerking & Privacy",
-      "description": "Met AnythingLLM wordt alle chat, documenten en andere gegevens op je apparaat verwerkt en opgeslagen.",
+      "description": "Met AnythingPocket wordt alle chat, documenten en andere gegevens op je apparaat verwerkt en opgeslagen.",
       "local_chats_title": "Volledig lokale chats",
       "local_chats_description": "Alle chats worden op je apparaat opgeslagen.",
       "embedding_title": "Document inbedding",
       "embedding_description": "Alle documenten en verwerking worden op je apparaat gedaan.",
       "agents_title": "AI-agenten",
       "agents_description": "Alle agenten worden op je apparaat uitgevoerd en gebruiken het internet alleen wanneer nodig (bijv. webzoeken)",
-      "experience": "Ervaar AnythingLLM",
+      "experience": "Ervaar AnythingPocket",
       "setting_up": "Je eerste werkruimte instellen",
       "default_workspace_name": "Mijn werkruimte"
     }
@@ -1409,13 +1409,13 @@
     "channels": {
       "download_progress": "Download voortgang",
       "chat_replies": "Chat-antwoorden",
-      "chat_replies_description": "Waarschuwingen wanneer een antwoord wordt voltooid terwijl AnythingLLM op de achtergrond staat",
+      "chat_replies_description": "Waarschuwingen wanneer een antwoord wordt voltooid terwijl AnythingPocket op de achtergrond staat",
       "scheduled_jobs": "Geplande taken",
       "scheduled_jobs_description": "Waarschuwingen wanneer een geplande taak klaar is met draaien"
     },
     "blocked_nudge": {
       "title": "Ontvang berichten wanneer antwoorden klaar zijn",
-      "message": "Meldingen zijn uitgeschakeld voor AnythingLLM. Zet ze aan om een zoem te krijgen wanneer een antwoord wordt voltooid terwijl je telefoon vergrendeld is.",
+      "message": "Meldingen zijn uitgeschakeld voor AnythingPocket. Zet ze aan om een zoem te krijgen wanneer een antwoord wordt voltooid terwijl je telefoon vergrendeld is.",
       "not_now": "Nu niet",
       "open_settings": "Open instellingen"
     },
@@ -1431,17 +1431,17 @@
     }
   },
   "home": {
-    "welcome_title": "Welkom bij AnythingLLM",
+    "welcome_title": "Welkom bij AnythingPocket",
     "get_started": "Begin met het maken van een nieuwe werkruimte.",
     "create_workspace": "Werkruimte maken",
     "default_workspace_name": "Mijn werkruimte"
   },
   "share": {
-    "unsupported_content": "Alleen bestanden, afbeeldingen en links kunnen naar AnythingLLM worden gedeeld",
-    "finish_onboarding": "Maak AnythingLLM klaar voordat je er iets naar deelt",
+    "unsupported_content": "Alleen bestanden, afbeeldingen en links kunnen naar AnythingPocket worden gedeeld",
+    "finish_onboarding": "Maak AnythingPocket klaar voordat je er iets naar deelt",
     "open_failed": "Kon de gedeelde inhoud niet openen"
   },
   "deep_links": {
-    "finish_onboarding": "Maak AnythingLLM klaar voordat je links ernaartoe opent"
+    "finish_onboarding": "Maak AnythingPocket klaar voordat je links ernaartoe opent"
   }
 }

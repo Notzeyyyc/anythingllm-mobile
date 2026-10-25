@@ -13,7 +13,7 @@
 -keep class com.rnllama.** { *; }
 
 # react-native-config reads BuildConfig via Class.forName
--keep class com.anythingllm.BuildConfig { *; }
+-keep class com.anythingpocket.BuildConfig { *; }
 
 # pdfbox-android 2.0.27.0: JPXFilter optionally uses jp2-android (com.gemalto.jp2) for
 # JPEG 2000 images. We don't ship it, so the class is already absent at runtime;

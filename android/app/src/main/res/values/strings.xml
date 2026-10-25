@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AnythingLLM</string>
+    <string name="app_name">AnythingPocket</string>
     <!-- Label of the Quick Actions entry in other apps' text-selection toolbars -->
     <string name="quick_actions_action">Ask with AnythingLLM</string>
     <!-- Shown when the entry is picked but no text arrived with the request -->

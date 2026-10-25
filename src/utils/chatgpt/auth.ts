@@ -29,7 +29,7 @@ const SCOPES = 'openid profile email offline_access resource.invoke chatgpt.toke
 /** The scope that lets us bill requests to the user's ChatGPT plan. The consent screen lets users decline it. */
 const PLAN_USAGE_SCOPE = 'chatgpt.tokens.use.direct';
 const DYNAMIC_CLIENT_ID = 'dynamic_agent_client';
-const APP_NAME = 'AnythingLLM';
+const APP_NAME = 'AnythingPocket';
 /** Replaced by the native module with the port it is listening on. */
 const PORT_PLACEHOLDER = '__LOOPBACK_PORT__';
 /** Must stay exactly this - the docs: "`/callback` does not match `/auth/callback`". */

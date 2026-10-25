@@ -575,10 +575,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ai.AnythingLLM;
-				PRODUCT_NAME = AnythingLLM;
-				PROVISIONING_PROFILE_SPECIFIER = "match Development ai.AnythingLLM";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development ai.AnythingLLM";
+				PRODUCT_BUNDLE_IDENTIFIER = ai.AnythingPocket;
+				PRODUCT_NAME = AnythingPocket;
+				PROVISIONING_PROFILE_SPECIFIER = "match Development ai.AnythingPocket";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development ai.AnythingPocket";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -621,10 +621,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ai.AnythingLLM;
-				PRODUCT_NAME = AnythingLLM;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore ai.AnythingLLM";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore ai.AnythingLLM";
+				PRODUCT_BUNDLE_IDENTIFIER = ai.AnythingPocket;
+				PRODUCT_NAME = AnythingPocket;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore ai.AnythingPocket";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore ai.AnythingPocket";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

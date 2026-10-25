@@ -1,0 +1,63 @@
+package com.anythingpocket
+
+import android.app.Application
+import com.facebook.react.PackageList
+import com.facebook.react.ReactApplication
+import com.facebook.react.ReactHost
+import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
+import com.facebook.react.ReactNativeHost
+import com.facebook.react.ReactPackage
+import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
+import com.facebook.react.defaults.DefaultReactNativeHost
+import com.anythingpocket.download.DownloadPackage
+import com.anythingpocket.storage.StoragePackage
+import com.anythingpocket.vector.VectorBoxPackage
+import com.anythingpocket.webscraper.WebScraperPackage
+import com.anythingpocket.pdfparser.PdfParserPackage
+import com.anythingpocket.scheduledjobs.ScheduledJobsPackage
+import com.anythingpocket.sharedcontent.SharedContentPackage
+import com.anythingpocket.quickcontext.QuickContextPackage
+import com.anythingpocket.assistant.AssistantPackage
+import com.anythingpocket.messaging.MessagingPackage
+import com.anythingpocket.alarms.AlarmPackage
+import com.anythingpocket.loopbackauth.LoopbackAuthPackage
+
+class MainApplication : Application(), ReactApplication {
+
+  override val reactNativeHost: ReactNativeHost =
+      object : DefaultReactNativeHost(this) {
+        override fun getPackages(): List<ReactPackage> =
+            PackageList(this).packages.apply {
+              add(DeviceInfoPackage())
+              add(KeepAwakePackage())
+              add(ScreenLockPackage())
+              add(DownloadPackage())
+              add(StoragePackage())
+              add(VectorBoxPackage())
+              add(WebScraperPackage())
+              add(PdfParserPackage())
+              add(ScheduledJobsPackage())
+              add(SharedContentPackage())
+              add(QuickContextPackage())
+              add(AssistantPackage())
+              add(MessagingPackage())
+              add(AlarmPackage())
+              add(LoopbackAuthPackage())
+            }
+
+        override fun getJSMainModuleName(): String = "index"
+
+        override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
+
+        override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
+        override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
+      }
+
+  override val reactHost: ReactHost
+    get() = getDefaultReactHost(applicationContext, reactNativeHost)
+
+  override fun onCreate() {
+    super.onCreate()
+    loadReactNative(this)
+  }
+}

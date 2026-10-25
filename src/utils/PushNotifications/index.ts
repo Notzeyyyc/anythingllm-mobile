@@ -81,8 +81,8 @@ class PushNotifications {
     private createChannels() {
         // Primary notification channel
         notifee.createChannel({
-            id: 'anythingllm-channel',
-            name: 'AnythingLLM',
+            id: 'anythingpocket-channel',
+            name: 'AnythingPocket',
         }).then(createdChannelId => this.channels.primary = createdChannelId);
 
         // Progress channel to prevent vibration/sounds
