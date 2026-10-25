@@ -49,7 +49,6 @@ jobs:
           APP_RELEASE_STORE_PASSWORD: ${{ secrets.APK_STORE_PASSWORD }}
           APP_RELEASE_KEY_PASSWORD: ${{ secrets.APK_KEY_PASSWORD }}
         run: |
-          cd android/app
           printf 'APP_RELEASE_STORE_PASSWORD=%s\nAPP_RELEASE_KEY_PASSWORD=%s\n' \
             "$APP_RELEASE_STORE_PASSWORD" "$APP_RELEASE_KEY_PASSWORD" > .env
 

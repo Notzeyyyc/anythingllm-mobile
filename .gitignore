@@ -88,7 +88,7 @@ sourcemaps/
 # Licensed brand fonts (Fontshare FFL - no redistribution). See scripts/checkBrandFonts.js
 src/assets/fonts/ClashDisplay-*
 android/app/src/main/assets/fonts/ClashDisplay-*
-android/app/*.env
+.env
 android/app/anythingpocket-release.keystore
 spikes/pi/node_modules/
 sidecar/node_modules/
