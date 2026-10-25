@@ -44,10 +44,16 @@ jobs:
           KEYSTORE_B64: ${{ secrets.APK_KEYSTORE_B64 }}
         run: echo "$KEYSTORE_B64" | base64 -d > android/app/anythingpocket-release.keystore
 
-      - name: Build release APK (installable, JS bundled)
+      - name: Write signing config
         env:
           APP_RELEASE_STORE_PASSWORD: ${{ secrets.APK_STORE_PASSWORD }}
           APP_RELEASE_KEY_PASSWORD: ${{ secrets.APK_KEY_PASSWORD }}
+        run: |
+          cd android/app
+          printf 'APP_RELEASE_STORE_PASSWORD=%s\nAPP_RELEASE_KEY_PASSWORD=%s\n' \
+            "$APP_RELEASE_STORE_PASSWORD" "$APP_RELEASE_KEY_PASSWORD" > .env
+
+      - name: Build release APK (installable, JS bundled)
         run: cd android && ./gradlew assembleRelease --no-daemon
 
       - name: Upload artifact
