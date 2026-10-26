@@ -1,8 +1,10 @@
 <a name="readme-top"></a>
 
-> **AnythingPocket** — fork of AnythingLLM Mobile by Mintplex Labs. Licensed GPLv3 (same as upstream).
-> Changes: rebranding to AnythingPocket, removal of Firebase telemetry/crashlytics, addition of Harness Companion sidecar.
-> Upstream: https://github.com/Mintplex-Labs/anythingllm-mobile
+> **AnythingPocket** is a vibe-coded fork of [AnythingLLM Mobile](https://github.com/Mintplex-Labs/anythingllm-mobile), originally by Mintplex Labs. Licensed under GPLv3, same as upstream.
+>
+> Built iteratively with AI coding agents, human direction, and hands-on review. Changes include rebranding, removal of Firebase telemetry/crash reporting, and the self-hosted Harness Companion sidecar. AI-generated code is not assumed correct: tests and build checks are run, but review and contributions are welcome.
+>
+> **Upstream project and license:** https://github.com/Mintplex-Labs/anythingllm-mobile · [GPLv3](LICENSE) · [Change notes](docs/REBRANDING.md)
 
 <p align="center">
   <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anythingllm-mobile/blob/main/images/gh-header.png?raw=true" alt="AnythingLLM logo"></a>
