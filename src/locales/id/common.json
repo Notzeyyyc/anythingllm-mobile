@@ -1402,7 +1402,11 @@
     "status": {
       "connected": "Tersambung — aman, terenkripsi",
       "connecting": "Menyambung…",
-      "offline": "Terputus — mencoba sambung lagi di latar belakang. Riwayat tetap terbaca."
+      "offline": "Terputus — mencoba sambung lagi di latar belakang. Riwayat tetap terbaca.",
+      "connecting_to_server": "Menyambung ke server...",
+      "unreachable": "Tidak bisa terhubung ke server.",
+      "retry": "Coba lagi",
+      "change_server": "Ubah server"
     },
     "chat": {
       "empty": "Minta sesuatu ke servermu untuk mulai.",

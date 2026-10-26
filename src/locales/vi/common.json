@@ -1402,7 +1402,11 @@
     "status": {
       "connected": null,
       "connecting": null,
-      "offline": null
+      "offline": null,
+      "connecting_to_server": null,
+      "unreachable": null,
+      "retry": null,
+      "change_server": null
     },
     "chat": {
       "empty": null,

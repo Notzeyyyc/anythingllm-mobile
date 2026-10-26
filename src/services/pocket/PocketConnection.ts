@@ -80,6 +80,8 @@ export interface PocketConnectionOpts {
 }
 
 const PING_INTERVAL_MS = 20_000;
+/** Failed reconnects before surfacing an explicit offline state (~2min backoff). */
+export const MAX_RECONNECT_ATTEMPTS = 6;
 
 export class PocketConnection {
   private ws: any = null;
@@ -158,12 +160,18 @@ export class PocketConnection {
       this.stopHeartbeat();
       this.sessionStarted = false;
       this.sessionId = null;
-      if (this.wantConnected) {
-        this.setStatus('connecting');
-        this.scheduleReconnect();
-      } else {
+      if (!this.wantConnected) {
         this.setStatus('disconnected');
+        return;
       }
+      // Give up after MAX_RECONNECT_ATTEMPTS failed closes so the UI can show
+      // an explicit offline state instead of "connecting…" forever.
+      if (this.attempt >= MAX_RECONNECT_ATTEMPTS) {
+        this.setStatus('disconnected');
+        return;
+      }
+      this.setStatus('connecting');
+      this.scheduleReconnect();
     };
   }
 
@@ -284,6 +292,13 @@ export class PocketConnection {
       clearInterval(this.heartbeatHandle);
       this.heartbeatHandle = null;
     }
+  }
+
+  /** Retry after a give-up: reset backoff and open again. */
+  retry() {
+    this.attempt = 0;
+    this.wantConnected = true;
+    this.open();
   }
 
   /** True once auth.ok + session.started have both landed. */

@@ -1448,7 +1448,11 @@
     "status": {
       "connected": "Connected — safe and encrypted",
       "connecting": "Connecting…",
-      "offline": "Disconnected — retrying in the background. History is still readable."
+      "offline": "Disconnected — retrying in the background. History is still readable.",
+      "connecting_to_server": "Connecting to server...",
+      "unreachable": "Could not reach the server.",
+      "retry": "Try again",
+      "change_server": "Change server"
     },
     "chat": {
       "empty": "Ask your server something to get started.",

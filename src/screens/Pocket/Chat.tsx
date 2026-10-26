@@ -4,6 +4,7 @@
  */
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -22,6 +23,7 @@ import pocketChatStore from '@/services/pocket/chatStore';
 import { shareTrace } from '@/services/pocket/traceExport';
 import TraceDetailModal from './TraceDetailModal';
 import {
+  reconnectPocket,
   respondPocketApproval,
   sendPocketTurn,
 } from '@/services/pocket/connectionSingleton';
@@ -70,7 +72,11 @@ const ChatView = observer(function ChatView({
     <SafeView
       scrollable={false}
       safeAreaClassNames="pt-[21px]"
-      safeAreaStyle={{ backgroundColor: theme.colors.background }}>
+      safeAreaStyle={{ backgroundColor: theme.colors.background }}
+      // Without flex-1 the inner container auto-sizes; the flex:1
+      // KeyboardAvoidingView inside then collapses to 0px and the whole
+      // screen renders blank (black) on device.
+      containerClassNames="flex-1">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}>
@@ -90,6 +96,50 @@ const ChatView = observer(function ChatView({
             <Text style={{ color: theme.colors.error }} className="px-2">{t('pocket.pairing.forget')}</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Connecting / offline banner — the screen must never look dead */}
+        {!connected && (
+          <View
+            className="mx-[30px] mb-2 rounded-xl p-3 flex-row items-center"
+            style={{
+              gap: 10,
+              backgroundColor: theme.colors.surfaceContainer,
+              borderWidth: 1,
+              borderColor:
+                pocketChatStore.status === 'connecting'
+                  ? theme.colors.secondary
+                  : theme.colors.error,
+            }}>
+            {pocketChatStore.status === 'connecting' ? (
+              <>
+                <ActivityIndicator size="small" color={theme.colors.secondary} />
+                <Text style={{ color: theme.colors.text, flex: 1 }}>
+                  {t('pocket.status.connecting_to_server')}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text style={{ color: theme.colors.error, flex: 1 }}>
+                  {t('pocket.status.unreachable')}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => reconnectPocket()}
+                  className="px-3 py-2 rounded-lg"
+                  style={{ backgroundColor: theme.colors.secondary }}>
+                  <Text style={{ color: '#FFFFFF' }}>{t('pocket.status.retry')}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={onRepair}
+                  className="px-3 py-2 rounded-lg"
+                  style={{ backgroundColor: theme.colors.surfaceContainerHighest }}>
+                  <Text style={{ color: theme.colors.text }}>
+                    {t('pocket.status.change_server')}
+                  </Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
+        )}
 
         <ScrollView
           ref={scrollRef}

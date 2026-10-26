@@ -15,6 +15,9 @@ import pocketChatStore from './chatStore';
 import { loadSessionToken, saveConnection } from './tokenStore';
 
 let connection: PocketConnection | null = null;
+/** Last connect args so "Coba lagi" can retry without re-pairing. */
+let lastUrl: string | null = null;
+let lastSessionToken: string | null = null;
 
 export function connectPocket(
   url: string,
@@ -22,12 +25,15 @@ export function connectPocket(
   sessionToken: string | null,
 ) {
   disconnectPocket();
+  lastUrl = url;
+  lastSessionToken = sessionToken;
   pocketChatStore.setStatus('connecting');
   const handlers: PocketHandlers = {
     onStatusChange: (s: PocketStatus) => pocketChatStore.setStatus(s),
     onSessionStarted: () => {},
     onSessionToken: (token: string) => {
       // Keychain only — never AsyncStorage, never logs (spec §6).
+      lastSessionToken = token;
       void saveConnection(url, token);
     },
     onDelta: (turnId: string, delta: string) => pocketChatStore.appendStreaming(delta),
@@ -54,6 +60,17 @@ export function connectPocket(
  */
 export async function storeSessionToken(url: string, sessionToken: string) {
   await saveConnection(url, sessionToken);
+}
+
+/** Retry the last connection after an offline give-up. */
+export function reconnectPocket(): boolean {
+  if (connection) {
+    connection.retry();
+    return true;
+  }
+  if (!lastUrl) return false;
+  connectPocket(lastUrl, null, lastSessionToken);
+  return true;
 }
 
 export function sendPocketTurn(prompt: string): boolean {
