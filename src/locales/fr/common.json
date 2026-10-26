@@ -1535,7 +1535,17 @@
     },
     "trace": {
       "step_item": "Étape {{n}} — {{label}}",
-      "summary": "{{steps}} étapes, {{tools}} appels d'outil, {{s}}s"
+      "summary": "{{steps}} étapes, {{tools}} appels d'outil, {{s}}s",
+      "detail_tab": null,
+      "raw_tab": null,
+      "result_ok": null,
+      "result_fail": null,
+      "result_pending": null,
+      "export_md": null,
+      "export_json": null
+    },
+    "settings": {
+      "raw_mode": null
     }
   }
 }

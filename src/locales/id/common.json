@@ -1443,7 +1443,17 @@
     },
     "trace": {
       "step_item": "Langkah {{n}} — {{label}}",
-      "summary": "{{steps}} langkah, {{tools}} panggilan perkakas, {{s}} detik"
+      "summary": "{{steps}} langkah, {{tools}} panggilan perkakas, {{s}} detik",
+      "detail_tab": "Detail langkah",
+      "raw_tab": "JSON mentah",
+      "result_ok": "Selesai dalam {{ms}} ms",
+      "result_fail": "Gagal",
+      "result_pending": "Masih berjalan…",
+      "export_md": "Bagikan sebagai Markdown",
+      "export_json": "Bagikan sebagai JSON"
+    },
+    "settings": {
+      "raw_mode": "Tampilkan event trace mentah (mode belajar)"
     }
   }
 }

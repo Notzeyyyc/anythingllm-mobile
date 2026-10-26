@@ -1443,7 +1443,17 @@
     },
     "trace": {
       "step_item": "第 {{n}} 步 — {{label}}",
-      "summary": "{{steps}} 步,工具呼叫 {{tools}} 次,{{s}} 秒"
+      "summary": "{{steps}} 步,工具呼叫 {{tools}} 次,{{s}} 秒",
+      "detail_tab": null,
+      "raw_tab": null,
+      "result_ok": null,
+      "result_fail": null,
+      "result_pending": null,
+      "export_md": null,
+      "export_json": null
+    },
+    "settings": {
+      "raw_mode": null
     }
   }
 }

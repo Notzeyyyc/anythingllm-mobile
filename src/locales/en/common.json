@@ -1489,7 +1489,17 @@
     },
     "trace": {
       "step_item": "Step {{n}} — {{label}}",
-      "summary": "{{steps}} steps, {{tools}} tool calls, {{s}}s"
+      "summary": "{{steps}} steps, {{tools}} tool calls, {{s}}s",
+      "detail_tab": "Step details",
+      "raw_tab": "Raw JSON",
+      "result_ok": "Done in {{ms}} ms",
+      "result_fail": "Failed",
+      "result_pending": "Still running…",
+      "export_md": "Share as Markdown",
+      "export_json": "Share as JSON"
+    },
+    "settings": {
+      "raw_mode": "Show raw trace events (learning mode)"
     }
   }
 }

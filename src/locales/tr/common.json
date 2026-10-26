@@ -1489,7 +1489,17 @@
     },
     "trace": {
       "step_item": "Adım {{n}} — {{label}}",
-      "summary": "{{steps}} adım, {{tools}} araç çağrısı, {{s}}sn"
+      "summary": "{{steps}} adım, {{tools}} araç çağrısı, {{s}}sn",
+      "detail_tab": null,
+      "raw_tab": null,
+      "result_ok": null,
+      "result_fail": null,
+      "result_pending": null,
+      "export_md": null,
+      "export_json": null
+    },
+    "settings": {
+      "raw_mode": null
     }
   }
 }

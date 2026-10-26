@@ -1443,7 +1443,17 @@
     },
     "trace": {
       "step_item": "ステップ {{n}} — {{label}}",
-      "summary": "{{steps}}ステップ、ツール{{tools}}回、{{s}}秒"
+      "summary": "{{steps}}ステップ、ツール{{tools}}回、{{s}}秒",
+      "detail_tab": null,
+      "raw_tab": null,
+      "result_ok": null,
+      "result_fail": null,
+      "result_pending": null,
+      "export_md": null,
+      "export_json": null
+    },
+    "settings": {
+      "raw_mode": null
     }
   }
 }

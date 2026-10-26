@@ -1489,7 +1489,17 @@
     },
     "trace": {
       "step_item": "Schritt {{n}} — {{label}}",
-      "summary": "{{steps}} Schritte, {{tools}} Tool-Aufrufe, {{s}}s"
+      "summary": "{{steps}} Schritte, {{tools}} Tool-Aufrufe, {{s}}s",
+      "detail_tab": null,
+      "raw_tab": null,
+      "result_ok": null,
+      "result_fail": null,
+      "result_pending": null,
+      "export_md": null,
+      "export_json": null
+    },
+    "settings": {
+      "raw_mode": null
     }
   }
 }

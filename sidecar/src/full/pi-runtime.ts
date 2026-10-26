@@ -22,6 +22,7 @@ import { createJustBashNetworkSandboxSession } from '@ai-sdk/sandbox-just-bash';
 import { OverlayFs } from 'just-bash';
 import { z } from 'zod';
 import { resolveSandbox, createSandboxSession, type SandboxDecision } from '../sandbox.ts';
+import { loadMcpConfig } from '../mcp.ts';
 import type { HarnessRuntime, RunTurnInput, RunTurnResult, RuntimeApprovalHandler } from './HarnessRuntime.ts';
 
 // any: experimental harness callback payloads, shape documented by the spike
@@ -45,6 +46,11 @@ export interface PiRuntimeOptions {
   /** Secrets-proxy UNIX socket path bind-mounted into the bwrap sandbox —
    *  the single egress route (spec §6). */
   proxySocketPath?: string;
+  /** M2b: mcpServers config passed to Pi's NATIVE MCP support
+   *  (@ai-sdk/harness-pi createPi option `mcpServers` — tools named
+   *  mcp__<server>__<tool>, no mcp.json read by Pi itself). Auto-loaded from
+   *  POCKET_MCP_CONFIG when not set here; failures degrade to no MCP servers. */
+  mcpServers?: Record<string, unknown>;
 }
 
 function resolveInWorkspace(workspace: string, p: string): string {
@@ -157,9 +163,20 @@ export class PiRuntime implements HarnessRuntime {
         });
       }
       const providerName = this.opts.providerName ?? '9router';
+      // M2b: Pi NATIVE MCP (verified in node_modules — createPi accepts
+      // `mcpServers`; servers spawn/connect per harness session). Load our
+      // shared mcp.json; bad config degrades to no MCP servers, never crashes.
+      let mcpServers: Record<string, unknown> | undefined = this.opts.mcpServers;
+      if (mcpServers === undefined) {
+        try {
+          mcpServers = loadMcpConfig().mcpServers as Record<string, unknown>;
+          if (Object.keys(mcpServers).length === 0) mcpServers = undefined;
+        } catch { mcpServers = undefined; }
+      }
       const agent = new HarnessAgent({
         id: `pi-${input.turnId}`,
         harness: createPi({
+          ...(mcpServers ? { mcpServers } : {}),
           providers: {
             [providerName]: {
               name: providerName,

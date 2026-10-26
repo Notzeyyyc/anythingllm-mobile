@@ -3,8 +3,10 @@
  * AI SDK 5 streamText + stopWhen multi-step, tools from tools.ts,
  * trace events via the single schema (db.insertEvent). No new event names.
  */
-import { streamText, stepCountIs, type LanguageModel } from 'ai';
+import { streamText, stepCountIs, tool, jsonSchema, type LanguageModel } from 'ai';
 import { createLiteTools, argsHash, type LiteToolContext } from './tools.ts';
+import { matchSkills, skillInjection, type SkillEntry } from '../skills.ts';
+import type { McpManager } from '../mcp.ts';
 import type { EventType } from '../schema.ts';
 
 export interface LiteAgentOptions {
@@ -19,6 +21,10 @@ export interface LiteAgentOptions {
   emit: (type: EventType, payload: Record<string, unknown>) => void;
   /** Stream text deltas (WS turn.delta). CLI ignores it. */
   onDelta?: (delta: string) => void;
+  /** MCP client manager — tools merged into the tool set (M2b). */
+  mcp?: McpManager;
+  /** Skills index — deterministic contextual injection into this turn (M2b). */
+  skills?: SkillEntry[];
   /** Abort signal — aborted = interrupt mid-run (protocol v1.1 turn.interrupt). */
   signal?: AbortSignal;
 }
@@ -37,16 +43,38 @@ export async function runLiteAgent(opts: LiteAgentOptions): Promise<LiteRunResul
   let steps = 0, toolCalls = 0;
 
   const run = async (): Promise<string> => {
+    // M2b: deterministic skill injection — matched skill bodies prepended to
+    // this turn's prompt, one skill.loaded event per match.
+    let prompt = opts.prompt;
+    if (opts.skills?.length) {
+      const matches = matchSkills(opts.prompt, opts.skills);
+      for (const m of matches) opts.emit('skill.loaded', { skill: m.skill.name, matchedOn: m.matchedOn });
+      const inj = skillInjection(matches);
+      if (inj) prompt = `${inj}\n\n---\n\n${opts.prompt}`;
+    }
     const result = streamText({
       model: opts.model,
-      prompt: opts.prompt,
-      tools: createLiteTools({
-        workspace: opts.workspace,
-        sessionId: opts.sessionId,
-        turnId: opts.turnId,
-        emit: opts.emit,
-        approvalHandler: opts.approvalHandler,
-      }),
+      prompt,
+      tools: {
+        ...createLiteTools({
+          workspace: opts.workspace,
+          sessionId: opts.sessionId,
+          turnId: opts.turnId,
+          emit: opts.emit,
+          approvalHandler: opts.approvalHandler,
+        }),
+        // M2b: MCP tools proxied through the manager, names already prefixed mcp_<server>_<tool>.
+        ...Object.fromEntries(
+          (opts.mcp?.listTools() ?? []).map((t) => [
+            t.name,
+            tool({
+              description: t.description ?? `MCP tool ${t.name} on server ${t.server}`,
+              inputSchema: jsonSchema(t.inputSchema as Parameters<typeof jsonSchema>[0]),
+              execute: (args: unknown) => opts.mcp!.callTool(t.server, t.name.slice(`mcp_${t.server}_`.length), args),
+            }),
+          ]),
+        ),
+      },
       stopWhen: stepCountIs(opts.maxSteps ?? 8),
       abortSignal: opts.signal,
     });

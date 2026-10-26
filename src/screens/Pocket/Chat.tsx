@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Switch,
   Text,
   TextInput,
   TouchableOpacity,
@@ -17,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 import SafeView from '@/components/SafeView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import pocketChatStore from '@/services/pocket/chatStore';
+import { shareTrace } from '@/services/pocket/traceExport';
+import TraceDetailModal from './TraceDetailModal';
 import {
   respondPocketApproval,
   sendPocketTurn,
@@ -36,6 +39,7 @@ const ChatView = observer(function ChatView({
   const [input, setInput] = useState('');
   const [showDetails, setShowDetails] = useState(false);
   const [expandedTrace, setExpandedTrace] = useState<number | null>(null);
+  const [detail, setDetail] = useState<{ entry: number; step: number } | null>(null);
   const [now, setNow] = useState(Date.now());
   const scrollRef = useRef<ScrollView>(null);
 
@@ -117,13 +121,29 @@ const ChatView = observer(function ChatView({
                   </Text>
                   {expandedTrace === i &&
                     entry.trace.steps.map((st, j) => (
-                      <Text key={j} className="text-neutral-500 text-xs">
-                        {t('pocket.trace.step_item', {
-                          n: j + 1,
-                          label: t(st.key, { tool: st.tool }),
-                        })}
-                      </Text>
+                      <TouchableOpacity key={j} onPress={() => setDetail({ entry: i, step: j })}>
+                        <Text className="text-neutral-500 text-xs">
+                          {t('pocket.trace.step_item', {
+                            n: j + 1,
+                            label: t(st.key, { tool: st.tool }),
+                          })}
+                        </Text>
+                      </TouchableOpacity>
                     ))}
+                  {expandedTrace === i && (
+                    <View className="flex-row" style={{ gap: 12 }}>
+                      <TouchableOpacity onPress={() => void shareTrace([entry], 'markdown')}>
+                        <Text className="text-[#3B82F6] text-xs">
+                          {t('pocket.trace.export_md')}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => void shareTrace([entry], 'json')}>
+                        <Text className="text-[#3B82F6] text-xs">
+                          {t('pocket.trace.export_json')}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
                 </TouchableOpacity>
               )}
             </View>
@@ -198,11 +218,23 @@ const ChatView = observer(function ChatView({
           </Text>
         </TouchableOpacity>
         {showDetails && (
-          <Text className="px-[30px] pb-1 text-neutral-500 text-xs">
-            {t('pocket.details.host', {
-              status: pocketChatStore.status,
-            })}
-          </Text>
+          <View className="px-[30px] pb-1" style={{ gap: 6 }}>
+            <Text className="text-neutral-500 text-xs">
+              {t('pocket.details.host', {
+                status: pocketChatStore.status,
+              })}
+            </Text>
+            {/* Raw / "mode belajar" toggle (spec §7.1 level 3) */}
+            <View className="flex-row items-center justify-between">
+              <Text className="text-neutral-500 text-xs flex-1">
+                {t('pocket.settings.raw_mode')}
+              </Text>
+              <Switch
+                value={pocketChatStore.rawMode}
+                onValueChange={v => pocketChatStore.setRawMode(v)}
+              />
+            </View>
+          </View>
         )}
 
         {/* Input */}
@@ -226,6 +258,7 @@ const ChatView = observer(function ChatView({
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
+      {detail && <TraceDetailModal entryIndex={detail.entry} stepIndex={detail.step} onClose={() => setDetail(null)} />}
     </SafeView>
   );
 });

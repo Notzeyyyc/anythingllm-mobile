@@ -9,6 +9,8 @@ import * as path from 'node:path';
 import * as readline from 'node:readline';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { openDb, closeDb, createSession, insertEvent, DATA_DIR } from '../db.ts';
+import { McpManager, loadMcpConfig } from '../mcp.ts';
+import { indexSkills } from '../skills.ts';
 import { runLiteAgent } from './agent.ts';
 import { resolveInWorkspace } from './tools.ts';
 import type { ApprovalHandler } from '../runtime.ts';
@@ -79,9 +81,20 @@ export async function main(argv: string[]): Promise<number> {
   const t0 = Date.now();
   try {
     const provider = createOpenAICompatible({ name: 'pocket', baseURL: baseUrl, apiKey });
+    // M2b: MCP + skills wiring. Dead server / missing dir → warning event, run continues.
+    const mcp = new McpManager(emit);
+    const mcpConfigPath = process.env.POCKET_MCP_CONFIG ?? undefined;
+    try {
+      await mcp.connectAll(loadMcpConfig(mcpConfigPath));
+    } catch (e) {
+      emit('mcp.server.status', { server: '-', status: 'config-error', detail: (e instanceof Error ? e.message : String(e)).slice(0, 200) });
+    }
+    const skills = indexSkills();
     const result = await runLiteAgent({
       model: provider(model),
       prompt, sessionId, turnId, workspace,
+      mcp: mcp.listTools().length > 0 ? mcp : undefined,
+      skills: skills.length > 0 ? skills : undefined,
       approvalHandler: createStdinApprovalHandler(emit, { autoYes: opts.yes === true }),
       emit,
     });
