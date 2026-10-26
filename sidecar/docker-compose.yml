@@ -1,0 +1,15 @@
+# Optional alternative to install.sh — run the sidecar in Docker.
+# Docker Compose is NOT an npm dependency; this file is optional and simple.
+# Usage: docker compose up --build   (first run installs deps into the image layer)
+services:
+  sidecar:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "npm ci --omit=dev && node --experimental-strip-types src/index.ts --init-pairing"
+    environment:
+      - PORT=7443
+      - BIND=0.0.0.0 # inside container; publish only to localhost below
+    ports:
+      - "127.0.0.1:7443:7443" # bind host loopback only until TLS (M3)

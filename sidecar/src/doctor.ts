@@ -7,6 +7,7 @@ import { openSync, closeSync, unlinkSync } from 'node:fs';
 import { createConnection } from 'node:net';
 import { resolve } from 'node:path';
 import { DB_PATH, DATA_DIR } from './db.ts';
+import { createRequire } from 'node:module';
 
 export interface DoctorCheck {
   name: string;
@@ -45,6 +46,25 @@ function checkDbWritable(): DoctorCheck {
   }
 }
 
+function checkDeps(): DoctorCheck {
+  try {
+    const req = createRequire(import.meta.url);
+    req.resolve('ws');
+    req('node:sqlite'); // throws if node:sqlite unavailable
+    return {
+      name: 'Dependencies',
+      ok: true,
+      detail: 'Modul runtime tersedia / runtime modules available (ws, node:sqlite)',
+    };
+  } catch (e) {
+    return {
+      name: 'Dependencies',
+      ok: false,
+      detail: `Dependency runtime hilang / missing — jalankan / run: npm ci --omit=dev (${String(e)})`,
+    };
+  }
+}
+
 function checkPort(port: number, bind: string): Promise<DoctorCheck> {
   return new Promise((res) => {
     const s = createConnection({ port, host: bind });
@@ -54,7 +74,7 @@ function checkPort(port: number, bind: string): Promise<DoctorCheck> {
 }
 
 export async function runDoctor(port = 7443, bind = '127.0.0.1'): Promise<{ ok: boolean; checks: DoctorCheck[] }> {
-  const checks: DoctorCheck[] = [checkNode(), checkDbWritable(), await checkPort(port, bind)];
+  const checks: DoctorCheck[] = [checkNode(), checkDeps(), checkDbWritable(), await checkPort(port, bind)];
   return { ok: checks.every((c) => c.ok), checks };
 }
 
