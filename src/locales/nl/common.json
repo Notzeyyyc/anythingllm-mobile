@@ -1093,29 +1093,17 @@
       "success_message": "Het model is met succes gedownload",
       "url_must_be_gguf": "De url moet eindigen met .gguf"
     },
-    "survey": {
-      "title": "Waarmee kan AnythingPocket je helpen?",
-      "description": "Selecteer degene die het meest op jou van toepassing is.",
-      "options": {
-        "productivity": "Productiviteit verhogen",
-        "privacy": "Privacy-gericht chatten",
-        "custom_ai": "Aangepaste AI-agenten",
-        "automation": "AI-automatisering",
-        "other": "Overige"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Gegevensverwerking & Privacy",
-      "description": "Met AnythingPocket wordt alle chat, documenten en andere gegevens op je apparaat verwerkt en opgeslagen.",
-      "local_chats_title": "Volledig lokale chats",
-      "local_chats_description": "Alle chats worden op je apparaat opgeslagen.",
-      "embedding_title": "Document inbedding",
-      "embedding_description": "Alle documenten en verwerking worden op je apparaat gedaan.",
-      "agents_title": "AI-agenten",
-      "agents_description": "Alle agenten worden op je apparaat uitgevoerd en gebruiken het internet alleen wanneer nodig (bijv. webzoeken)",
-      "experience": "Ervaar AnythingPocket",
-      "setting_up": "Je eerste werkruimte instellen",
-      "default_workspace_name": "Mijn werkruimte"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

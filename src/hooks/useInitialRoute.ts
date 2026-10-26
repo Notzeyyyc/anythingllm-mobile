@@ -2,7 +2,7 @@ import { PATHS } from "@/utils/paths";
 import uiStore from "@/store/UIStore";
 import { useState, useEffect } from "react";
 import { resolveDefaultChatRoute } from "@/utils/defaultChatRoute";
-import { repairPartialOnboarding } from "@/hooks/useOnboardingHook";
+import { repairPartialOnboarding, nextOnboardingRoute, ONBOARDING_DONE_FLAG } from "@/hooks/useOnboardingHook";
 
 const DEFAULT_INITIAL_ROUTE = PATHS.home;
 
@@ -14,15 +14,8 @@ type InitialRoute = {
 async function determineInitialRoute() {
   await repairPartialOnboarding();
   const welcomeCompleted = await uiStore.getFromStorage('onboarding_welcome_completed', false);
-  const modelSelectionCompleted = await uiStore.getFromStorage('onboarding_model_selection_completed', false);
-  const surveyCompleted = await uiStore.getFromStorage('onboarding_survey_completed', false);
-  const dataHandlingCompleted = await uiStore.getFromStorage('onboarding_data_handling_completed', false);
-
-  if (!welcomeCompleted) return PATHS.onboarding.welcome;
-  else if (!modelSelectionCompleted) return PATHS.onboarding.model_selection;
-  else if (!surveyCompleted) return PATHS.onboarding.survey;
-  else if (!dataHandlingCompleted) return PATHS.onboarding.data_handling;
-  else return DEFAULT_INITIAL_ROUTE;
+  const onboardingCompleted = await uiStore.getFromStorage(ONBOARDING_DONE_FLAG, false);
+  return nextOnboardingRoute({ welcomeCompleted, onboardingCompleted });
 }
 
 /**

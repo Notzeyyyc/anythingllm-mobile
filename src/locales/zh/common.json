@@ -1052,29 +1052,17 @@
       "success_message": "模型已成功下载",
       "url_must_be_gguf": "URL 必须以 .gguf 结尾"
     },
-    "survey": {
-      "title": "AnythingPocket 可以如何帮助您？",
-      "description": "选择最适用于您的。",
-      "options": {
-        "productivity": "提高生产力",
-        "privacy": "注重隐私的聊天",
-        "custom_ai": "自定义 AI 代理",
-        "automation": "AI 自动化",
-        "other": "其他"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "数据处理和隐私",
-      "description": "使用 AnythingPocket，所有聊天、文档和其他数据都在您的设备上处理和存储。",
-      "local_chats_title": "完全本地聊天",
-      "local_chats_description": "所有聊天都存储在您的设备上。",
-      "embedding_title": "文档嵌入",
-      "embedding_description": "所有文档和处理都在您的设备上完成。",
-      "agents_title": "AI 代理",
-      "agents_description": "所有代理都在您的设备上运行，仅在需要时使用互联网（例如：网络搜索）",
-      "experience": "体验 AnythingPocket",
-      "setting_up": "设置您的第一个工作区",
-      "default_workspace_name": "我的工作区"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

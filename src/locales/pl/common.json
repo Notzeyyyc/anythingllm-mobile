@@ -1175,29 +1175,17 @@
       "success_message": "Model został pomyślnie pobrany",
       "url_must_be_gguf": "Adres URL musi kończyć się na .gguf"
     },
-    "survey": {
-      "title": "W czym AnythingPocket Ci może pomóc?",
-      "description": "Wybierz ten, który odnosi się do Ciebie.",
-      "options": {
-        "productivity": "Zwiększ produktywność",
-        "privacy": "Czaty skoncentrowane na prywatności",
-        "custom_ai": "Niestandardowi agenci AI",
-        "automation": "Automatyzacja AI",
-        "other": "Inne"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Obsługa danych i prywatność",
-      "description": "Dzięki AnythingPocket wszystkie czaty, dokumenty i inne dane są przetwarzane i przechowywane na Twoim urządzeniu.",
-      "local_chats_title": "Czaty całkowicie lokalne",
-      "local_chats_description": "Wszystkie czaty są przechowywane na Twoim urządzeniu.",
-      "embedding_title": "Osadzanie dokumentów",
-      "embedding_description": "Wszystkie dokumenty i przetwarzanie odbywa się na Twoim urządzeniu.",
-      "agents_title": "Agenci AI",
-      "agents_description": "Wszyscy agenci działają na Twoim urządzeniu i używają Internetu tylko w razie potrzeby (np. wyszukiwanie w sieci)",
-      "experience": "Doświadczenie AnythingPocket",
-      "setting_up": "Konfigurowanie Twojego pierwszego obszaru roboczego",
-      "default_workspace_name": "Mój obszar roboczy"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

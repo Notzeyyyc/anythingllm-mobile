@@ -1052,29 +1052,17 @@
       "success_message": "Model telah berhasil diunduh",
       "url_must_be_gguf": "URL harus diakhiri dengan .gguf"
     },
-    "survey": {
-      "title": "Apa yang dapat dibantu AnythingPocket?",
-      "description": "Pilih yang paling berlaku untuk Anda.",
-      "options": {
-        "productivity": "Tingkatkan Produktivitas",
-        "privacy": "Obrolan Berfokus Privasi",
-        "custom_ai": "Agen AI Kustom",
-        "automation": "Otomasi AI",
-        "other": "Lainnya"
-      }
+    "mode_selection": {
+      "title": "Mau pakai gimana?",
+      "server_title": "Pakai server sendiri",
+      "server_description": "Jalankan agent bertenaga tool di komputermu. HP cuma remote + pemantau.",
+      "ondevice_title": "On-device saja",
+      "ondevice_description": "Chat lokal dengan model di HP, tanpa server.",
+      "skip": "Lewati dulu"
     },
-    "data_handling": {
-      "title": "Penanganan Data & Privasi",
-      "description": "Dengan AnythingPocket, semua obrolan, dokumen, dan data lainnya diproses dan disimpan di perangkat Anda.",
-      "local_chats_title": "Obrolan Sepenuhnya Lokal",
-      "local_chats_description": "Semua obrolan disimpan di perangkat Anda.",
-      "embedding_title": "Penyematan Dokumen",
-      "embedding_description": "Semua dokumen dan pemrosesan dilakukan di perangkat Anda.",
-      "agents_title": "Agen AI",
-      "agents_description": "Semua agen berjalan di perangkat Anda dan hanya menggunakan internet jika diperlukan (misalnya: Pencarian web)",
-      "experience": "Alami AnythingPocket",
-      "setting_up": "Menyiapkan ruang kerja pertama Anda",
-      "default_workspace_name": "Ruang Kerja Saya"
+    "completion": {
+      "default_workspace_name": "Workspace Saya",
+      "fork_credit": "Fork dari AnythingLLM Mobile oleh Mintplex Labs (GPLv3)"
     }
   },
   "workspace_settings": {

@@ -1052,29 +1052,17 @@
       "success_message": "모델이 성공적으로 다운로드되었습니다",
       "url_must_be_gguf": "url은 .gguf로 끝나야 합니다"
     },
-    "survey": {
-      "title": "AnythingPocket이 무엇을 도와드릴 수 있나요?",
-      "description": "가장 해당하는 것을 선택하세요.",
-      "options": {
-        "productivity": "생산성 증가",
-        "privacy": "개인정보 보호 중심 채팅",
-        "custom_ai": "맞춤 AI 에이전트",
-        "automation": "AI 자동화",
-        "other": "기타"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "데이터 처리 및 개인정보 보호",
-      "description": "AnythingPocket을 사용하면 모든 채팅, 문서 및 기타 데이터가 기기에서 처리 및 저장됩니다.",
-      "local_chats_title": "완전히 로컬 채팅",
-      "local_chats_description": "모든 채팅은 기기에 저장됩니다.",
-      "embedding_title": "문서 임베딩",
-      "embedding_description": "모든 문서 및 처리는 기기에서 수행됩니다.",
-      "agents_title": "AI 에이전트",
-      "agents_description": "모든 에이전트는 기기에서 실행되며 필요할 때만 인터넷을 사용합니다 (예: 웹 검색)",
-      "experience": "AnythingPocket 경험",
-      "setting_up": "첫 워크스페이스 설정 중",
-      "default_workspace_name": "내 워크스페이스"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

@@ -1052,29 +1052,17 @@
       "success_message": "Mô hình đã được tải xuống thành công",
       "url_must_be_gguf": "URL phải kết thúc bằng .gguf"
     },
-    "survey": {
-      "title": "AnythingPocket có thể giúp bạn điều gì?",
-      "description": "Chọn cái áp dụng nhất cho bạn.",
-      "options": {
-        "productivity": "Tăng năng suất",
-        "privacy": "Trò chuyện tập trung vào quyền riêng tư",
-        "custom_ai": "Tác nhân AI tùy chỉnh",
-        "automation": "Tự động hóa AI",
-        "other": "Khác"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Xử lý dữ liệu & Quyền riêng tư",
-      "description": "Với AnythingPocket, tất cả trò chuyện, tài liệu và dữ liệu khác được xử lý và lưu trữ trên thiết bị của bạn.",
-      "local_chats_title": "Trò chuyện hoàn toàn cục bộ",
-      "local_chats_description": "Tất cả trò chuyện được lưu trữ trên thiết bị của bạn.",
-      "embedding_title": "Nhúng tài liệu",
-      "embedding_description": "Tất cả tài liệu và xử lý được thực hiện trên thiết bị của bạn.",
-      "agents_title": "Tác nhân AI",
-      "agents_description": "Tất cả các tác nhân được chạy trên thiết bị của bạn và chỉ sử dụng internet khi cần (ví dụ: tìm kiếm web)",
-      "experience": "Trải nghiệm AnythingPocket",
-      "setting_up": "Thiết lập không gian làm việc đầu tiên của bạn",
-      "default_workspace_name": "Không gian làm việc của tôi"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

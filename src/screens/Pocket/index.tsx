@@ -15,6 +15,7 @@ import {
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { reaction } from 'mobx';
 import SafeView from '@/components/SafeView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -28,6 +29,7 @@ import {
   saveConnection,
 } from '@/services/pocket/tokenStore';
 import pocketChatStore from '@/services/pocket/chatStore';
+import { completeOnboarding } from '@/hooks/useOnboardingHook';
 import ChatView from './Chat';
 
 /** Normalize what the user typed into a ws:// URL (M1: plain ws, Tailscale/LAN). */
@@ -46,6 +48,20 @@ export default function Pocket() {
   const [pairing, setPairing] = useState<boolean | null>(null); // null = loading
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
+
+  // auth.ok flips the status to connected: from onboarding this marks the
+  // server path as finished; from Settings it is a harmless no-op. mobx
+  // reaction, not a render effect — status can flip without a re-render.
+  useEffect(
+    () =>
+      reaction(
+        () => pocketChatStore.status,
+        (s) => {
+          if (s === 'connected') void completeOnboarding();
+        },
+      ),
+    [],
+  );
 
   useEffect(() => {
     (async () => {

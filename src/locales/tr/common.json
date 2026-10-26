@@ -1093,29 +1093,17 @@
       "success_message": "Model başarıyla indirildi",
       "url_must_be_gguf": "URL'ün \".gguf\" ile bitmesi gerekir."
     },
-    "survey": {
-      "title": "AnythingPocket size nasıl yardımcı olabilir?",
-      "description": "Size en uygun olanı seçin.",
-      "options": {
-        "productivity": "Verimliliği Artır",
-        "privacy": "Gizliliğe odaklı sohbetler",
-        "custom_ai": "Özel Yapay Zeka Temsilcileri",
-        "automation": "Yapay Zeka Otomasyonu",
-        "other": "Diğer"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Veri Yönetimi ve Gizlilik",
-      "description": "AnythingPocket ile, tüm sohbetler, belgeler ve diğer veriler cihazınızda işlenir ve saklanır.",
-      "local_chats_title": "Yerel Sohbetler",
-      "local_chats_description": "Tüm sohbetler cihazınızda saklanır.",
-      "embedding_title": "Belge Entegrasyonu",
-      "embedding_description": "Tüm belgeler ve işlemler cihazınızda gerçekleştirilir.",
-      "agents_title": "AI Destek",
-      "agents_description": "Tüm ajanlar, cihazınızda çalışır ve yalnızca gerekli durumlarda (örneğin, web araması) interneti kullanır.",
-      "experience": "Deneyin AnythingPocket",
-      "setting_up": "İlk çalışma alanınızı oluşturma",
-      "default_workspace_name": "Çalışma Alanım"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

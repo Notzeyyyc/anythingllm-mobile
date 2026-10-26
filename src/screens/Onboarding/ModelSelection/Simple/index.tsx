@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PATHS } from "@/utils/paths";
+import { completeOnboarding } from "@/hooks/useOnboardingHook";
 import uiStore from "@/store/UIStore";
 import useModelManager from "@/hooks/useModelManager";
 import useLlmPreference from "@/hooks/useLLMPreference";
@@ -41,7 +42,8 @@ export default function SimpleModelSelection({ setMode }: SelectionModeProps) {
 
     await uiStore.setToStorage('onboarding_model_selection_completed', true);
     await uiStore.setToStorage('llmPreference', { provider: 'native', config: { runtime: 'cpu', model: model.modelId } });
-    navigation.navigate(PATHS.onboarding.survey as never)
+    await completeOnboarding();
+    navigation.navigate(PATHS.home as never)
   }
 
   useEffect(() => {

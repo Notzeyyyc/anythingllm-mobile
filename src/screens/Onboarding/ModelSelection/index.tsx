@@ -42,7 +42,7 @@ export default function OnboardingModelSelection() {
         containerStyle={{ zIndex: 1, paddingTop: insets.top + 20, paddingBottom: insets.bottom + 20 }}
       >
         <View className="flex flex-col grow gap-y-[66px]">
-          <ProgressBars numberOfBars={3} activeBar={1} />
+          <ProgressBars numberOfBars={2} activeBar={2} />
           <SelectionMode setMode={setMode} />
         </View>
       </SafeView>

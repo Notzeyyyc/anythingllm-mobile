@@ -1052,29 +1052,17 @@
       "success_message": "モデルが正常にダウンロードされました",
       "url_must_be_gguf": "URLは.ggufで終わる必要があります"
     },
-    "survey": {
-      "title": "AnythingPocketは何であなたを手伝うことができますか？",
-      "description": "あなたに最も適用されるものを選択してください。",
-      "options": {
-        "productivity": "生産性を向上させる",
-        "privacy": "プライバシーフォーカスチャット",
-        "custom_ai": "カスタムAIエージェント",
-        "automation": "AI自動化",
-        "other": "その他"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "データ処理とプライバシー",
-      "description": "AnythingPocketを使用すると、すべてのチャット、ドキュメント、その他のデータはデバイスで処理および保存されます。",
-      "local_chats_title": "完全にローカルチャット",
-      "local_chats_description": "すべてのチャットはデバイスに保存されます。",
-      "embedding_title": "ドキュメント埋め込み",
-      "embedding_description": "すべてのドキュメントと処理はデバイスで実行されます。",
-      "agents_title": "AIエージェント",
-      "agents_description": "すべてのエージェントはデバイスで実行され、必要な場合（例：ウェブ検索）のみインターネットを使用します",
-      "experience": "AnythingPocketを体験",
-      "setting_up": "最初のワークスペースをセットアップ",
-      "default_workspace_name": "マイワークスペース"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

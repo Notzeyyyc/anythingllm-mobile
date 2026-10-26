@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PATHS } from "@/utils/paths";
 import uiStore from "@/store/UIStore";
+import { completeOnboarding } from "@/hooks/useOnboardingHook";
 import ProviderSelection from "@/components/LLMSelection/ProviderSelection";
 import Telemetry from "@/utils/Telemetry";
 import type { SelectionModeProps } from "../index";
@@ -54,7 +55,8 @@ export default function ExternalProviderSelection({ setMode }: SelectionModeProp
       await uiStore.setToStorage('llmPreference', { provider, config });
       await uiStore.setToStorage('onboarding_model_selection_completed', true);
       Telemetry.logEvent(Telemetry.CUSTOM_EVENTS.ACTIONS.LLM_SETTINGS_UPDATED, { provider, model: config.model ?? '' });
-      navigation.navigate(PATHS.onboarding.survey as never);
+      await completeOnboarding();
+      navigation.navigate(PATHS.home as never);
     } finally {
       setSaving(false);
     }

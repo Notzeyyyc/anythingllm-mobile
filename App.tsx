@@ -128,19 +128,9 @@ const App = observer(() => {
                               }}
                             />
                             <Drawer.Screen
-                              name={PATHS.onboarding.survey}
+                              name={PATHS.onboarding.mode_selection}
                               component={gestureHandlerRootHOC(
-                                Screens.OnboardingSurvey,
-                              )}
-                              options={{
-                                headerShown: false,
-                                swipeEnabled: false,
-                              }}
-                            />
-                            <Drawer.Screen
-                              name={PATHS.onboarding.data_handling}
-                              component={gestureHandlerRootHOC(
-                                Screens.OnboardingDataHandling,
+                                Screens.OnboardingModeSelection,
                               )}
                               options={{
                                 headerShown: false,

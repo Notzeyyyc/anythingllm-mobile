@@ -1175,29 +1175,17 @@
       "success_message": "Модель успешно загружена",
       "url_must_be_gguf": "URL должен заканчиваться на .gguf"
     },
-    "survey": {
-      "title": "Чем AnythingPocket может вам помочь?",
-      "description": "Выберите то, что больше всего вас касается.",
-      "options": {
-        "productivity": "Повысить производительность",
-        "privacy": "Чаты с фокусом на конфиденциальность",
-        "custom_ai": "Пользовательские AI агенты",
-        "automation": "Автоматизация AI",
-        "other": "Другое"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Обработка данных и конфиденциальность",
-      "description": "С AnythingPocket все чаты, документы и другие данные обрабатываются и хранятся на вашем устройстве.",
-      "local_chats_title": "Полностью локальные чаты",
-      "local_chats_description": "Все чаты хранятся на вашем устройстве.",
-      "embedding_title": "Встраивание документов",
-      "embedding_description": "Все документы и обработка выполняются на вашем устройстве.",
-      "agents_title": "AI агенты",
-      "agents_description": "Все агенты запускаются на вашем устройстве и используют интернет только при необходимости (например, поиск в интернете)",
-      "experience": "Опыт AnythingPocket",
-      "setting_up": "Настройка вашего первого рабочего пространства",
-      "default_workspace_name": "Моё рабочее пространство"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

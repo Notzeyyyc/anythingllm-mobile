@@ -1093,29 +1093,17 @@
       "success_message": "The model has been downloaded successfully",
       "url_must_be_gguf": "The url must end with .gguf"
     },
-    "survey": {
-      "title": "What can AnythingPocket help you with?",
-      "description": "Select the one that most applies to you.",
-      "options": {
-        "productivity": "Increase Productivity",
-        "privacy": "Privacy Focused chats",
-        "custom_ai": "Custom AI Agents",
-        "automation": "AI Automation",
-        "other": "Other"
-      }
+    "mode_selection": {
+      "title": "How do you want to use it?",
+      "server_title": "Use your own server",
+      "server_description": "Run a tool-powered agent on your computer. Your phone is just the remote + monitor.",
+      "ondevice_title": "On-device only",
+      "ondevice_description": "Chat locally with a model on your phone, no server needed.",
+      "skip": "Skip for now"
     },
-    "data_handling": {
-      "title": "Data Handling & Privacy",
-      "description": "With AnythingPocket, all chats, documents, and other data is processed and stored on your device.",
-      "local_chats_title": "Fully Local Chats",
-      "local_chats_description": "All chats are stored on your device.",
-      "embedding_title": "Document Embedding",
-      "embedding_description": "All documents and processing are done on your device.",
-      "agents_title": "AI Agents",
-      "agents_description": "All agents are run on your device and only use the internet when required (eg: Web search)",
-      "experience": "Experience AnythingPocket",
-      "setting_up": "Setting up your first workspace",
-      "default_workspace_name": "My Workspace"
+    "completion": {
+      "default_workspace_name": "My Workspace",
+      "fork_credit": "A fork of AnythingLLM Mobile by Mintplex Labs (GPLv3)"
     }
   },
   "workspace_settings": {

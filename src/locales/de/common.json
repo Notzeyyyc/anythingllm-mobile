@@ -1093,29 +1093,17 @@
       "success_message": "Das Modell wurde erfolgreich heruntergeladen",
       "url_must_be_gguf": "Die URL muss mit .gguf enden"
     },
-    "survey": {
-      "title": "Womit kann AnythingPocket dir helfen?",
-      "description": "Wählen Sie das aus, das auf Sie am meisten zutrifft.",
-      "options": {
-        "productivity": "Produktivität erhöhen",
-        "privacy": "Datenschutzfokussierte Chats",
-        "custom_ai": "Benutzerdefinierte KI-Agenten",
-        "automation": "KI-Automatisierung",
-        "other": "Andere"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Datenbehandlung & Datenschutz",
-      "description": "Mit AnythingPocket werden alle Chats, Dokumente und andere Daten auf Ihrem Gerät verarbeitet und gespeichert.",
-      "local_chats_title": "Vollständig lokale Chats",
-      "local_chats_description": "Alle Chats werden auf Ihrem Gerät gespeichert.",
-      "embedding_title": "Dokument-Embedding",
-      "embedding_description": "Alle Dokumente und die Verarbeitung erfolgen auf Ihrem Gerät.",
-      "agents_title": "KI-Agenten",
-      "agents_description": "Alle Agenten werden auf Ihrem Gerät ausgeführt und verwenden das Internet nur, wenn erforderlich (z. B. Web-Suche)",
-      "experience": "AnythingPocket erleben",
-      "setting_up": "Einrichten Ihres ersten Workspace",
-      "default_workspace_name": "Mein Workspace"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

@@ -1,26 +1,60 @@
 import uiStore from "@/store/UIStore";
 import Workspace from "@/database/models/Workspace";
 import { useEffect, useState } from "react";
+import { PATHS } from "@/utils/paths";
+import i18n from "@/i18n";
+import Telemetry from "@/utils/Telemetry";
+
+/** Storage flag marking onboarding fully done (kept from upstream so legacy
+ * installs and every existing reader — useInitialRoute, AssistantApp, etc. —
+ * keep working without migration). */
+export const ONBOARDING_DONE_FLAG = 'onboarding_data_handling_completed';
+
+/**
+ * Pure decision for which route the app should open at launch (unit-tested).
+ * New flow: Welcome -> "Mau pakai gimana?" (server pairing / on-device) and
+ * either path ends in a workspace, so one final flag decides everything.
+ */
+export function nextOnboardingRoute(flags: { welcomeCompleted: boolean; onboardingCompleted: boolean }): string {
+    if (!flags.welcomeCompleted) return PATHS.onboarding.welcome;
+    if (!flags.onboardingCompleted) return PATHS.onboarding.mode_selection;
+    return PATHS.home;
+}
+
+/**
+ * Mark onboarding as finished from any of the new flow's exits (server pairing
+ * succeeded, model selection finished, or skipped). Creates the default
+ * workspace the rest of the app expects (moved from the removed DataHandling
+ * screen), then notifies the navigator the same way upstream did.
+ */
+export async function completeOnboarding(): Promise<void> {
+    if (!(await Workspace.first())) {
+        await Workspace.create({ name: i18n.t('onboarding.completion.default_workspace_name') });
+    }
+    await uiStore.setToStorage(ONBOARDING_DONE_FLAG, true);
+    uiStore.emitGlobalEvent(uiStore.globalEvents.ONBOARDING_COMPLETED);
+    Telemetry.logEvent(Telemetry.CUSTOM_EVENTS.ONBOARDING.COMPLETED);
+}
 
 let repairing: Promise<void> | null = null;
 
 /**
  * The navigator used to treat onboarding as done once its first step was, so quitting partway through dropped the
  * user into the app with the last step never recorded - and the assistant, Quick Actions, sharing and deep links
- * kept asking them to finish setup. Data handling (the last step) creates the first workspace, so anyone who has one
- * without the flag got in that way: record the remaining steps as done. Everyone else resumes onboarding.
+ * kept asking them to finish setup. Anyone who already has a workspace finished the old flow: record the remaining
+ * steps as done. Everyone else resumes onboarding.
  * Runs once per launch; both launch hooks await it before reading the onboarding flags.
  */
 export function repairPartialOnboarding(): Promise<void> {
     if (!repairing) repairing = (async () => {
         const welcomeCompleted = await uiStore.getFromStorage('onboarding_welcome_completed', false);
-        const dataHandlingCompleted = await uiStore.getFromStorage('onboarding_data_handling_completed', false);
-        if (!welcomeCompleted || dataHandlingCompleted) return;
+        const onboardingCompleted = await uiStore.getFromStorage(ONBOARDING_DONE_FLAG, false);
+        if (!welcomeCompleted || onboardingCompleted) return;
         if (!(await Workspace.first())) return;
         await Promise.all([
             uiStore.setToStorage('onboarding_model_selection_completed', true),
             uiStore.setToStorage('onboarding_survey_completed', true),
-            uiStore.setToStorage('onboarding_data_handling_completed', true),
+            uiStore.setToStorage(ONBOARDING_DONE_FLAG, true),
         ]);
     })().catch((e) => console.error('[Onboarding] could not repair partial onboarding', e));
     return repairing;
@@ -44,10 +78,10 @@ export function useOnboardingCompleted(): {
     const [loading, setLoading] = useState(true);
     const [onboardingCompleted, setOnboardingCompleted] = useState(false);
     useEffect(() => {
-        // The last step, not the first: until it is recorded the onboarding screens must stay in the navigator,
+        // The final flag, not the first: until it is recorded the onboarding screens must stay in the navigator,
         // or a relaunch mid-onboarding would land on Home with setup never finished.
         repairPartialOnboarding()
-            .then(() => uiStore.getFromStorage('onboarding_data_handling_completed', false))
+            .then(() => uiStore.getFromStorage(ONBOARDING_DONE_FLAG, false))
             .then(isOnboardingCompleted => setOnboardingCompleted(isOnboardingCompleted))
             .finally(() => setLoading(false));
     }, []);

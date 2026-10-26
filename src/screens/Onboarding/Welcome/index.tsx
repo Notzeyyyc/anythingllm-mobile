@@ -8,6 +8,7 @@ import { PATHS } from "@/utils/paths";
 import React from "react";
 import { showToast } from "@/utils/Notification";
 import { useTranslation } from "react-i18next";
+import { Linking } from "react-native";
 
 export default function OnboardingWelcome() {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ export default function OnboardingWelcome() {
   const imageWidth = Math.min(screenWidth * 0.85, 350);
   const handleGetStarted = () => {
     uiStore.setToStorage('onboarding_welcome_completed', true);
-    navigation.navigate(PATHS.onboarding.model_selection as never);
+    navigation.navigate(PATHS.onboarding.mode_selection as never);
   };
   useHighjackBackButtonPress(() => { showToast(t('onboarding.welcome.back_blocked'), 'short'); return true; });
 
@@ -49,6 +50,12 @@ export default function OnboardingWelcome() {
             className="flex w-full bg-[--cta-light-blue] rounded-md p-4 text-center max-w-[85%] mx-auto"
           >
             <Text className="text-[--dark] font-bold text-center">{t('onboarding.welcome.get_started')}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => Linking.openURL(PATHS.upstream_repo)}>
+            <Text className="text-white/50 text-xs text-center">
+              {t('onboarding.completion.fork_credit')}
+            </Text>
           </TouchableOpacity>
         </View>
       </SafeView>

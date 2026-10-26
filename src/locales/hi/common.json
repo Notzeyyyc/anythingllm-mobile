@@ -1093,29 +1093,17 @@
       "success_message": "मॉडल सफलतापूर्वक डाउनलोड किया गया है",
       "url_must_be_gguf": "URL को .gguf के साथ समाप्त होना चाहिए"
     },
-    "survey": {
-      "title": "AnythingPocket आपकी किस चीज़ में मदद कर सकता है?",
-      "description": "वह एक चुनें जो आपको सबसे अधिक लागू होता है।",
-      "options": {
-        "productivity": "उत्पादकता बढ़ाएँ",
-        "privacy": "गोपनीयता केंद्रित चैट्स",
-        "custom_ai": "कस्टम AI एजेंट",
-        "automation": "AI स्वचालन",
-        "other": "अन्य"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "डेटा हैंडलिंग और गोपनीयता",
-      "description": "AnythingPocket के साथ, सभी चैट्स, दस्तावेज़, और अन्य डेटा आपके डिवाइस पर प्रसंस्कृत और संग्रहीत किया जाता है।",
-      "local_chats_title": "पूरी तरह से स्थानीय चैट्स",
-      "local_chats_description": "सभी चैट्स आपके डिवाइस पर संग्रहीत हैं।",
-      "embedding_title": "दस्तावेज़ एम्बेडिंग",
-      "embedding_description": "सभी दस्तावेज़ और प्रसंस्करण आपके डिवाइस पर किया जाता है।",
-      "agents_title": "AI एजेंट",
-      "agents_description": "सभी एजेंट आपके डिवाइस पर चलाए जाते हैं और केवल तब इंटरनेट का उपयोग करते हैं जब आवश्यक हो (जैसे: वेब खोज)",
-      "experience": "AnythingPocket का अनुभव करें",
-      "setting_up": "अपना पहला कार्यक्षेत्र सेट अप कर रहे हैं",
-      "default_workspace_name": "मेरा कार्यक्षेत्र"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {

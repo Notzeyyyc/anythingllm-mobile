@@ -1134,29 +1134,17 @@
       "success_message": "Le modèle a été téléchargé avec succès",
       "url_must_be_gguf": "L'URL doit se terminer par .gguf"
     },
-    "survey": {
-      "title": "Comment AnythingPocket peut-il vous aider ?",
-      "description": "Sélectionnez celui qui vous s'applique le plus.",
-      "options": {
-        "productivity": "Augmenter la productivité",
-        "privacy": "Conversations axées sur la confidentialité",
-        "custom_ai": "Agents d'IA personnalisés",
-        "automation": "Automatisation de l'IA",
-        "other": "Autre"
-      }
+    "mode_selection": {
+      "title": null,
+      "server_title": null,
+      "server_description": null,
+      "ondevice_title": null,
+      "ondevice_description": null,
+      "skip": null
     },
-    "data_handling": {
-      "title": "Traitement et confidentialité des données",
-      "description": "Avec AnythingPocket, toutes les conversations, documents et autres données sont traités et stockés sur votre appareil.",
-      "local_chats_title": "Conversations entièrement locales",
-      "local_chats_description": "Toutes les conversations sont stockées sur votre appareil.",
-      "embedding_title": "Incorporation de documents",
-      "embedding_description": "Tous les documents et le traitement sont effectués sur votre appareil.",
-      "agents_title": "Agents d'IA",
-      "agents_description": "Tous les agents s'exécutent sur votre appareil et n'utilisent Internet que lorsque cela est nécessaire (par exemple : Recherche Web)",
-      "experience": "Expérimenter AnythingPocket",
-      "setting_up": "Configuration de votre premier espace de travail",
-      "default_workspace_name": "Mon espace de travail"
+    "completion": {
+      "default_workspace_name": null,
+      "fork_credit": null
     }
   },
   "workspace_settings": {
