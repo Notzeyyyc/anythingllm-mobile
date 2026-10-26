@@ -1486,6 +1486,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "चरण {{n}} — {{label}}",
+      "summary": "{{steps}} चरण, {{tools}} टूल कॉल, {{s}}से"
     }
   }
 }

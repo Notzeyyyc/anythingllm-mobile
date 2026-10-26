@@ -57,6 +57,14 @@ export function openDb(path: string = DB_PATH): DatabaseSync {
       status      TEXT NOT NULL DEFAULT 'pending'
                   CHECK (status IN ('pending','granted','rejected','expired'))
     );
+    CREATE TABLE IF NOT EXISTS session_history (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      session_id  TEXT NOT NULL REFERENCES sessions(id),
+      turn_id     TEXT NOT NULL,
+      role        TEXT NOT NULL CHECK (role IN ('user','assistant')),
+      content     TEXT NOT NULL,
+      created_at  TEXT NOT NULL
+    );
     CREATE INDEX IF NOT EXISTS idx_events_session_rev ON events(session_id, rev);
   `);
   return db;
@@ -132,6 +140,21 @@ export function revokeDevice(deviceId: string): boolean {
     "UPDATE devices SET revoked_at = ? WHERE id = ? AND revoked_at IS NULL",
   ).run(new Date().toISOString(), deviceId);
   return r.changes > 0;
+}
+
+// --- session history (Full-mode session serialization, minimal) ------------
+
+export function appendHistory(sessionId: string, turnId: string, role: 'user' | 'assistant', content: string): void {
+  db.prepare(
+    'INSERT INTO session_history (session_id, turn_id, role, content, created_at) VALUES (?, ?, ?, ?, ?)',
+  ).run(sessionId, turnId, role, content.slice(0, 50_000), new Date().toISOString());
+}
+
+export function listHistory(sessionId: string): { turnId: string; role: 'user' | 'assistant'; content: string }[] {
+  return (db.prepare(
+    'SELECT turn_id, role, content FROM session_history WHERE session_id = ? ORDER BY id',
+  ).all(sessionId) as { turn_id: string; role: 'user' | 'assistant'; content: string }[])
+    .map((r) => ({ turnId: r.turn_id, role: r.role, content: r.content }));
 }
 
 // --- approvals (pending with TTL, default REJECT) ---------------------------

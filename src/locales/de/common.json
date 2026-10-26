@@ -1486,6 +1486,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "Schritt {{n}} — {{label}}",
+      "summary": "{{steps}} Schritte, {{tools}} Tool-Aufrufe, {{s}}s"
     }
   }
 }

@@ -9,7 +9,8 @@
     "dev": "tsx src/index.ts",
     "doctor": "node --experimental-strip-types src/index.ts --doctor",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types test/e2e.ts && node --experimental-strip-types test/lite.test.ts && node --experimental-strip-types test/ws-runtime.test.ts",
+    "test": "node --experimental-strip-types test/e2e.ts && node --experimental-strip-types test/lite.test.ts && node --experimental-strip-types test/ws-runtime.test.ts && node --experimental-strip-types test/full.test.ts",
+    "test:full": "node --experimental-strip-types test/full.test.ts",
     "test:lite": "node --experimental-strip-types test/lite.test.ts",
     "test:runtime": "node --experimental-strip-types test/ws-runtime.test.ts",
     "lite": "tsx src/lite/cli.ts run"
@@ -18,8 +19,12 @@
     "anythingpocket": "src/lite/cli.ts"
   },
   "dependencies": {
+    "@ai-sdk/harness": "1.0.164",
+    "@ai-sdk/harness-pi": "1.0.167",
     "@ai-sdk/openai-compatible": "^1.0.59",
+    "@ai-sdk/sandbox-just-bash": "1.0.164",
     "ai": "^5.0.281",
+    "just-bash": "2.14.5",
     "ws": "^8.22.0",
     "zod": "^4.6.7"
   },

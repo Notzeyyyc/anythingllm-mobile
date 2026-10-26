@@ -1486,6 +1486,10 @@
       "show": "Technical details",
       "hide": "Hide technical details",
       "host": "Status: {{status}}"
+    },
+    "trace": {
+      "step_item": "Step {{n}} — {{label}}",
+      "summary": "{{steps}} steps, {{tools}} tool calls, {{s}}s"
     }
   }
 }

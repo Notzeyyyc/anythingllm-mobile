@@ -19,6 +19,8 @@ export interface LiteAgentOptions {
   emit: (type: EventType, payload: Record<string, unknown>) => void;
   /** Stream text deltas (WS turn.delta). CLI ignores it. */
   onDelta?: (delta: string) => void;
+  /** Abort signal — aborted = interrupt mid-run (protocol v1.1 turn.interrupt). */
+  signal?: AbortSignal;
 }
 
 export interface LiteRunResult {
@@ -46,6 +48,7 @@ export async function runLiteAgent(opts: LiteAgentOptions): Promise<LiteRunResul
         approvalHandler: opts.approvalHandler,
       }),
       stopWhen: stepCountIs(opts.maxSteps ?? 8),
+      abortSignal: opts.signal,
     });
 
     for await (const part of result.fullStream) {
@@ -92,6 +95,10 @@ export async function runLiteAgent(opts: LiteAgentOptions): Promise<LiteRunResul
       return { text, steps, toolCalls, durationMs: Date.now() - started };
     } catch (e) {
       lastErr = e;
+      if (opts.signal?.aborted) {
+        opts.emit('turn.end', { ok: false, reason: 'interrupted' });
+        throw e; // never retry an explicit user interrupt
+      }
       opts.emit('turn.end', { ok: false });
       const msg = e instanceof Error ? e.message : String(e);
       const isNetwork = /fetch failed|network|ECONN|ENOTFOUND|ETIMEDOUT|socket|timeout/i.test(msg);

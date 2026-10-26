@@ -1440,6 +1440,10 @@
       "show": "Detail teknis",
       "hide": "Sembunyikan detail teknis",
       "host": "Status: {{status}}"
+    },
+    "trace": {
+      "step_item": "Langkah {{n}} — {{label}}",
+      "summary": "{{steps}} langkah, {{tools}} panggilan perkakas, {{s}} detik"
     }
   }
 }

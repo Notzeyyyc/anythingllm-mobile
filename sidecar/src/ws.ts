@@ -16,6 +16,8 @@ import {
 } from './db.ts';
 import { authenticate, isLockedOut } from './auth.ts';
 import { DeviceRuntime } from './runtime.ts';
+import { routeTurn } from './router.ts';
+import type { HarnessRuntime } from './full/HarnessRuntime.ts';
 import type { EventType } from './schema.ts';
 import { isValidEvent, EVENT_TYPES as EVENT_TYPES_SET } from './schema.ts';
 
@@ -26,6 +28,10 @@ export interface ServerOpts {
   model?: LanguageModel;
   workspace?: string;           // sandbox root for the agent's file tools
   approvalTtlMs?: number;       // hard approval TTL, default 30s (spec §6)
+  /** Full-mode runtime (PiRuntime). When absent, router 'full' falls back to Lite (traced). */
+  fullRuntime?: HarnessRuntime;
+  /** User pin (spec §4.3): env POCKET_FORCE_RUNTIME wired here; beats heuristics. */
+  forceRuntime?: string | null;
 }
 
 const AUTH_TIMEOUT_MS = 5_000;
@@ -148,7 +154,34 @@ export function startServer(opts: ServerOpts = {}) {
           const prompt = typeof msg.prompt === 'string' ? msg.prompt : '';
           if (!prompt) { send(ws, { type: 'error', message: 'prompt required' }); return; }
           const turnId = typeof msg.turnId === 'string' && msg.turnId ? msg.turnId : randomUUID();
-          ctx.runtime!.startTurn(turnId, prompt); // false → already sent {type:'error',message:'turn in progress'}
+          if (ctx.runtime?.busy) { send(ws, { type: 'error', message: 'turn in progress' }); return; }
+          // Deterministic router (spec §4.3): decision traced, one-sentence reason.
+          const decision = routeTurn(prompt, { forceRuntime: opts.forceRuntime });
+          const effective = decision.runtime === 'full' && !opts.fullRuntime
+            ? { runtime: 'lite' as const, reason: decision.reason + ' — full runtime tidak terkonfigurasi, fallback Lite' }
+            : decision;
+          trace(sid, turnId, 'route.decided', { runtime: effective.runtime, reason: effective.reason });
+          // (Re)build the device runtime for this turn with the routed choice.
+          ctx.runtime = new DeviceRuntime(
+            {
+              workspace: workspaceDir, model: opts.model, ttlMs: opts.approvalTtlMs,
+              runtimeChoice: effective.runtime,
+              ...(effective.runtime === 'full' ? { harnessRuntime: opts.fullRuntime } : {}),
+            },
+            sid,
+            (m) => send(ws, m),
+          );
+          ctx.runtime.startTurn(turnId, prompt); // false → already sent {type:'error',message:'turn in progress'}
+          return;
+        }
+
+        // WS protocol v1.1 (additive, non-breaking): interrupt the active turn mid-run.
+        case 'turn.interrupt': {
+          const turnId = typeof msg.turnId === 'string' ? msg.turnId : undefined;
+          const interrupted = ctx.runtime?.busy
+            ? ctx.runtime.interrupt()
+            : (trace(ctx.sessionId ?? '', turnId ?? randomUUID(), 'error', { message: 'no active turn' }), false);
+          send(ws, { type: 'turn.interrupt.ack', ...(turnId ? { turnId } : {}), interrupted });
           return;
         }
 

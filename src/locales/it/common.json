@@ -1532,6 +1532,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "Passo {{n}} — {{label}}",
+      "summary": "{{steps}} passaggi, {{tools}} chiamate strumento, {{s}}s"
     }
   }
 }

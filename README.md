@@ -7,11 +7,11 @@
 > **Upstream project and license:** https://github.com/Mintplex-Labs/anythingllm-mobile · [GPLv3](LICENSE) · [Change notes](docs/REBRANDING.md)
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anythingllm-mobile/blob/main/images/gh-header.png?raw=true" alt="AnythingLLM logo"></a>
+  <img src="images/gh-header.png" alt="AnythingPocket">
 </p>
 
 <p align="center">
-    <b>AnythingLLM Mobile:</b> A real AI assistant that lives in your pocket, not in the cloud.<br />
+    <b>AnythingPocket:</b> A real AI assistant that lives in your pocket, not in the cloud.<br />
     See, hear, search, and remember - powered by models running right on your phone.
 </p>
 

@@ -9,14 +9,19 @@
 import * as fs from 'node:fs';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import type { LanguageModel } from 'ai';
-import { insertEvent, createApproval, resolveApproval, getApproval } from './db.ts';
+import { insertEvent, createApproval, resolveApproval, getApproval, appendHistory } from './db.ts';
 import { runLiteAgent } from './lite/agent.ts';
+import type { HarnessRuntime, RunTurnResult } from './full/HarnessRuntime.ts';
 import type { EventType } from './schema.ts';
 
 export interface RuntimeOpts {
   workspace: string;
   model?: LanguageModel;        // default: env-configured provider (lazy, on first turn)
   ttlMs?: number;               // approval hard TTL, default 30s (spec §6)
+  /** Router decision (spec §4.3): 'lite' | 'full'. Default 'lite'. */
+  runtimeChoice?: 'lite' | 'full';
+  /** Full-mode runtime (PiRuntime). Required when runtimeChoice === 'full'. */
+  harnessRuntime?: HarnessRuntime;
 }
 
 export type ApprovalRequest = { tool: string; path: string; content: string; diff: string | null };
@@ -38,7 +43,8 @@ export class DeviceRuntime {
   private readonly sessionId: string;
   private readonly send: (msg: Record<string, unknown>) => void;
   private activeTurnId: string | null = null;
-  private pending = new Map<string, (approved: boolean) => void>();
+  private activeAbort: AbortController | null = null;
+  private readonly pending = new Map<string, (approved: boolean) => void>();
 
   constructor(opts: RuntimeOpts, sessionId: string, send: (msg: Record<string, unknown>) => void) {
     this.opts = opts;
@@ -57,7 +63,9 @@ export class DeviceRuntime {
       return false;
     }
     this.activeTurnId = turnId;
+    this.activeAbort = new AbortController();
     this.emit(turnId, 'turn.start', { prompt });
+    appendHistory(this.sessionId, turnId, 'user', prompt);
     void this.run(turnId, prompt); // async: WS event loop stays free
     return true;
   }
@@ -68,23 +76,61 @@ export class DeviceRuntime {
 
   private async run(turnId: string, prompt: string): Promise<void> {
     try {
-      const result = await runLiteAgent({
-        model: this.opts.model ?? envModel(),
-        prompt,
-        sessionId: this.sessionId,
-        turnId,
-        workspace: this.opts.workspace,
-        approvalHandler: (req) => this.requestApproval(turnId, req),
-        emit: (type, payload) => this.emit(turnId, type, payload),
-        onDelta: (delta) => this.send({ type: 'turn.delta', turnId, delta }),
+      let result: RunTurnResult | { text: string };
+      if (this.opts.runtimeChoice === 'full') {
+        if (!this.opts.harnessRuntime) throw new Error('full runtime not configured');
+        result = await this.opts.harnessRuntime.runTurn({
+          turnId, prompt, sessionId: this.sessionId, workspace: this.opts.workspace,
+          approvalHandler: (req) => this.requestApproval(turnId, req),
+          emit: (type, payload) => this.emit(turnId, type, payload),
+          onDelta: (delta) => this.send({ type: 'turn.delta', turnId, delta }),
+          signal: this.activeAbort!.signal,
+        });
+      } else {
+        result = await runLiteAgent({
+          model: this.opts.model ?? envModel(),
+          prompt,
+          sessionId: this.sessionId,
+          turnId,
+          workspace: this.opts.workspace,
+          approvalHandler: (req) => this.requestApproval(turnId, req),
+          emit: (type, payload) => this.emit(turnId, type, payload),
+          onDelta: (delta) => this.send({ type: 'turn.delta', turnId, delta }),
+          signal: this.activeAbort!.signal,
+        });
+      }
+      const ok = !('ok' in result) || result.ok !== false;
+      const reason = 'reason' in result ? result.reason : undefined;
+      if (this.opts.runtimeChoice === 'full') {
+        this.emit(turnId, 'turn.end', { ok, reason }); // lite path emits its own turn.end
+      }
+      // Minimal session serialization (spec §4.2): history lives in SQLite.
+      if (ok && (result as { text?: string | null }).text) {
+        appendHistory(this.sessionId, turnId, 'assistant', String((result as { text?: string | null }).text));
+      }
+      this.send({
+        type: 'turn.end', turnId, ok, text: (result as { text?: string | null }).text ?? null,
+        error: ok ? null : reason === 'interrupted' ? 'interrupted' : (result as { error?: string }).error ?? 'error',
       });
-      this.send({ type: 'turn.end', turnId, ok: true, text: result.text, error: null });
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      this.send({ type: 'turn.end', turnId, ok: false, text: null, error: msg.slice(0, 500) });
+      const wasInterrupted = this.activeAbort?.signal.aborted === true;
+      this.send({
+        type: 'turn.end', turnId, ok: false, text: null,
+        error: wasInterrupted ? 'interrupted' : msg.slice(0, 500),
+      });
     } finally {
       this.activeTurnId = null;
+      this.activeAbort = null;
     }
+  }
+
+  /** Interrupt the active turn mid-run (WS turn.interrupt, protocol v1.1). */
+  interrupt(): boolean {
+    if (!this.activeTurnId || !this.activeAbort) return false;
+    if (this.opts.runtimeChoice === 'full') this.opts.harnessRuntime?.interrupt(this.activeTurnId);
+    this.activeAbort.abort(); // lite path: streamText aborts via signal
+    return true;
   }
 
   private async requestApproval(turnId: string, req: ApprovalRequest): Promise<ApprovalDecision> {

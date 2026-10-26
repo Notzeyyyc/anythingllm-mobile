@@ -35,6 +35,7 @@ const ChatView = observer(function ChatView({
   const insets = useSafeAreaInsets();
   const [input, setInput] = useState('');
   const [showDetails, setShowDetails] = useState(false);
+  const [expandedTrace, setExpandedTrace] = useState<number | null>(null);
   const [now, setNow] = useState(Date.now());
   const scrollRef = useRef<ScrollView>(null);
 
@@ -103,6 +104,28 @@ const ChatView = observer(function ChatView({
               <Text className={entry.role === 'user' ? 'text-white' : 'text-neutral-100'}>
                 {entry.text}
               </Text>
+              {/* Trace Rangkuman (spec §7.1, M2a) — collapsed one-liner, tap to expand */}
+              {entry.role === 'assistant' && entry.trace && (
+                <TouchableOpacity
+                  onPress={() => setExpandedTrace(expandedTrace === i ? null : i)}>
+                  <Text className="text-neutral-500 text-xs mt-1">
+                    {t('pocket.trace.summary', {
+                      steps: entry.trace.steps.length,
+                      tools: entry.trace.tools,
+                      s: entry.trace.s,
+                    })}
+                  </Text>
+                  {expandedTrace === i &&
+                    entry.trace.steps.map((st, j) => (
+                      <Text key={j} className="text-neutral-500 text-xs">
+                        {t('pocket.trace.step_item', {
+                          n: j + 1,
+                          label: t(st.key, { tool: st.tool }),
+                        })}
+                      </Text>
+                    ))}
+                </TouchableOpacity>
+              )}
             </View>
           ))}
 

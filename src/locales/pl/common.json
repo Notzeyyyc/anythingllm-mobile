@@ -1578,6 +1578,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "Krok {{n}} — {{label}}",
+      "summary": "{{steps}} kroków, wywołania narzędzi: {{tools}}, {{s}}s"
     }
   }
 }

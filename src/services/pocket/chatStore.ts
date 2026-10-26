@@ -13,6 +13,8 @@ const HISTORY_KEY = 'pocket.history';
 export interface PocketChatEntry {
   role: 'user' | 'assistant';
   text: string;
+  /** Trace summary (Rangkuman level, spec §7.1) attached to the assistant turn. */
+  trace?: { steps: { key: string; tool?: string }[]; tools: number; s: number };
 }
 
 export function traceLabel(ev: TraceEvent): { key: string; tool?: string; n?: string } {
@@ -35,6 +37,10 @@ export class PocketChatStore {
   /** 1-based step counter shown as "Langkah N" — derived from trace events. */
   step = 0;
   lastTrace: { key: string; tool?: string } | null = null;
+  /** Accumulated Rangkuman trace for the current turn (spec §7.1, M2a). */
+  turnSteps: { key: string; tool?: string }[] = [];
+  turnTools = 0;
+  turnStartTs = 0;
   pendingApproval: (ApprovalRequest & { expiresAt: number }) | null = null;
 
   constructor() {
@@ -69,10 +75,23 @@ export class PocketChatStore {
 
   finishTurn(ok: boolean, text?: string, error?: string) {
     const finalText = text ?? (this.streamingText || error || '');
-    if (finalText) this.entries = [...this.entries, { role: 'assistant', text: finalText }];
+    if (finalText) {
+      const trace =
+        this.turnSteps.length > 0
+          ? {
+              steps: this.turnSteps,
+              tools: this.turnTools,
+              s: Math.round(((Date.now() - (this.turnStartTs || Date.now())) / 100) / 10),
+            }
+          : undefined;
+      this.entries = [...this.entries, { role: 'assistant', text: finalText, trace }];
+    }
     this.streamingText = '';
     this.pendingApproval = null;
     this.lastTrace = null;
+    this.turnSteps = [];
+    this.turnTools = 0;
+    this.turnStartTs = 0;
     return this.persist();
   }
 
@@ -81,13 +100,25 @@ export class PocketChatStore {
     this.streamingText = '';
     this.step = 0;
     this.lastTrace = null;
+    this.turnSteps = [];
+    this.turnTools = 0;
+    this.turnStartTs = 0;
     return this.persist();
   }
 
   onTrace(ev: TraceEvent) {
+    if (!this.turnStartTs) this.turnStartTs = Date.now();
     if (ev.type.startsWith('tool.call.') || ev.type === 'llm.call.start') this.step += 1;
     const label = traceLabel(ev);
-    if (label.key) this.lastTrace = label;
+    if (label.key) {
+      this.lastTrace = label;
+      if (ev.type === 'tool.call.start') {
+        this.turnTools += 1;
+        this.turnSteps = [...this.turnSteps, { key: label.key, tool: label.tool }];
+      } else if (ev.type === 'llm.call.start') {
+        this.turnSteps = [...this.turnSteps, { key: label.key }];
+      }
+    }
   }
 
   setApproval(req: ApprovalRequest | null) {

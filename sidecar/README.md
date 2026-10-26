@@ -29,7 +29,8 @@ tanpa TLS; mode direct WSS itu M3).
 npm test
 ```
 
-19 assert, plain asserts tanpa framework, exit 0 = hijau. Mencakup: connect
+Test total (M2a): 19 + 14 + 20 + 32 = 85 assert hijau (`npm test`). Suite e2e
+(19 assert) mencakup: connect
 tanpa token ditolak, token ngaraco ditolak, pairing token valid → session token
 (`hbs_...`), pairing single-use, reconnect pakai session token tanpa re-pair,
 approval TTL 2s tanpa jawaban → auto REJECT (`expired`) tercatat di trace,
@@ -125,6 +126,12 @@ approval ke HP lewat WS adalah kelanjutan M1 (infra WS/approval di
 - **`ai` @5.0.281 + `@ai-sdk/openai-compatible` @1.0.59 (runtime dep)** — stack
   resmi spec §8 untuk Mode Cepat/Lite; di-pin versi (spec §8: experimental
   harus di-pin).
+- **Mode Full / M2a (`@ai-sdk/harness@1.0.164`, `@ai-sdk/harness-pi@1.0.167`,
+  `@ai-sdk/sandbox-just-bash@1.0.164`, `just-bash@2.14.5` — semua di-pin exact)**
+  — Pi host-process di balik `HarnessRuntime` (spec §4.2); detail, keterbatasan,
+  dan status sandbox partial: `docs/m2a-full-runtime.md`. Router deterministik
+  di `src/router.ts`, secrets proxy di `src/secrets-proxy.ts`, smoke real:
+  `node --experimental-strip-types scripts/smoke-full.ts`.
 - **Pairing token in-memory** (bukan tabel DB) — restart server = pairing token
   mati; cukup untuk M1, upgrade path: tabel `pairings` di db.ts saat butuh
   persist (M2). Session token & device TETAP persisten di SQLite.
@@ -151,6 +158,7 @@ diabaikan. Kontrak pesan:
 | C→S | `auth` | `token` (`hbk_`/`hbs_`) |
 | C→S | `session.start` | — |
 | C→S | `turn.request` | `turnId` (client uuid), `prompt` |
+| C→S | `turn.interrupt` (v1.1, additive) | `turnId` → server balas `turn.interrupt.ack {interrupted}`; turn aktif di-abort → `turn.end ok:false error:"interrupted"` |
 | C→S | `approval.response` | `approvalId`, `decision: "grant"\|"reject"` |
 | S→C | `auth.ok` / `auth.deny` | `deviceId` (+`sessionToken` saat pairing) |
 | S→C | `session.started` | `sessionId` |

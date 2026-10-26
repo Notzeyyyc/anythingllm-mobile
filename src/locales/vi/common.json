@@ -1440,6 +1440,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "Bước {{n}} — {{label}}",
+      "summary": "{{steps}} bước, {{tools}} lần gọi công cụ, {{s}}s"
     }
   }
 }

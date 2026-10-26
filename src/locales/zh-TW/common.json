@@ -1440,6 +1440,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "第 {{n}} 步 — {{label}}",
+      "summary": "{{steps}} 步,工具呼叫 {{tools}} 次,{{s}} 秒"
     }
   }
 }

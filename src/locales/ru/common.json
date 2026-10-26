@@ -1578,6 +1578,10 @@
       "show": null,
       "hide": null,
       "host": null
+    },
+    "trace": {
+      "step_item": "Шаг {{n}} — {{label}}",
+      "summary": "{{steps}} шагов, вызовов инструментов: {{tools}}, {{s}}с"
     }
   }
 }
