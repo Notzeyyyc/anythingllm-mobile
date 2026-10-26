@@ -1584,6 +1584,9 @@
     },
     "settings": {
       "raw_mode": null
+    },
+    "connection": {
+      "host": null
     }
   }
 }

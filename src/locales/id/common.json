@@ -1446,6 +1446,9 @@
     },
     "settings": {
       "raw_mode": "Tampilkan event trace mentah (mode belajar)"
+    },
+    "connection": {
+      "host": "Host: {{host}}"
     }
   }
 }

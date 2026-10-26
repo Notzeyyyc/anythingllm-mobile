@@ -1492,6 +1492,9 @@
     },
     "settings": {
       "raw_mode": "Show raw trace events (learning mode)"
+    },
+    "connection": {
+      "host": "Host: {{host}}"
     }
   }
 }

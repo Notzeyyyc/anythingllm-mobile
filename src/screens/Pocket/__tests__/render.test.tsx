@@ -1,11 +1,10 @@
 /**
- * Render smoke test for the Pocket screens (prevention for the "full black"
- * class of bug: a screen that renders nothing visible, e.g. the flex-less
- * container collapse in Chat or a hard-coded invisible theme). Asserts that
- * the i18n strings actually appear in the tree for each state.
+ * Render smoke test for the single-screen Pocket (chip + connection panel +
+ * always-rendered chat). Prevention for the "full black" class of bug:
+ * asserts that the i18n strings actually appear in the tree for each state.
  */
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity } from 'react-native';
 import TestRenderer, { act } from 'react-test-renderer';
 import SafeView from '@/components/SafeView';
 import pocketChatStore from '@/services/pocket/chatStore';
@@ -90,22 +89,30 @@ import '@/i18n';
 import Pocket from '../index';
 
 describe('Pocket render smoke (no blank screens)', () => {
-  it('pairing form renders host/token inputs and connect button', async () => {
+  it('unpaired state shows chip + inline pairing form and empty chat below', async () => {
     mockSavedHost = null;
+    pocketChatStore.setStatus('disconnected');
     const tree = await render(<Pocket />);
+    // Status chip
+    expect(hasText(tree, 'Disconnected — retrying in the background')).toBe(true);
+    // Pairing form inline in the panel
     expect(hasText(tree, 'Server address')).toBe(true);
     expect(hasText(tree, 'hbk_...')).toBe(true);
     expect(hasText(tree, 'Connect')).toBe(true);
+    // Chat area always present below the panel
+    expect(hasText(tree, 'Ask your server something to get started.')).toBe(true);
   });
 
-  it('connecting state shows spinner text and no dead screen', async () => {
+  it('connecting state shows chip spinner text and connecting panel', async () => {
     mockSavedHost = 'ws://10.0.0.5:7443/ws';
     pocketChatStore.setStatus('connecting');
     const tree = await render(<Pocket />);
+    expect(hasText(tree, 'Connecting…')).toBe(true);
     expect(hasText(tree, 'Connecting to server...')).toBe(true);
+    expect(hasText(tree, 'Ask your server something to get started.')).toBe(true);
   });
 
-  it('offline state shows error banner with retry and change-server buttons', async () => {
+  it('offline state shows error panel with retry and change-server buttons', async () => {
     mockSavedHost = 'ws://10.0.0.5:7443/ws';
     pocketChatStore.setStatus('disconnected');
     const tree = await render(<Pocket />);
@@ -128,22 +135,38 @@ describe('Pocket render smoke (no blank screens)', () => {
     expect(reconnectPocket).toHaveBeenCalled();
   });
 
-  it('connected empty state shows empty chat message and input', async () => {
+  it('connected state collapses the panel and shows the chat input', async () => {
     mockSavedHost = 'ws://10.0.0.5:7443/ws';
     pocketChatStore.setStatus('connected');
     const tree = await render(<Pocket />);
-    expect(hasText(tree, 'Ask your server something to get started.')).toBe(true);
+    expect(hasText(tree, '✅ Connected — safe and encrypted')).toBe(true);
     expect(hasText(tree, 'Ask something…')).toBe(true);
+    // Panel is collapsed: no host line, no Forget button
+    expect(hasText(tree, 'Forget')).toBe(false);
+    // Tapping the chip expands the panel with the host + management buttons
+    const chip = tree.root.findAllByType(TouchableOpacity as any).find(n => {
+      const kids = (n.props.children as any) ?? [];
+      const arr = Array.isArray(kids) ? kids : [kids];
+      return arr.some((k: any) =>
+        typeof k?.props?.children === 'string' &&
+        k.props.children.includes('Connected — safe'),
+      );
+    });
+    expect(chip).toBeTruthy();
+    act(() => {
+      chip!.props.onPress();
+    });
+    expect(hasText(tree, 'Host: ws://10.0.0.5:7443/ws')).toBe(true);
+    expect(hasText(tree, 'Forget')).toBe(true);
+    expect(hasText(tree, 'Re-pair')).toBe(true);
   });
 
-  it('SafeView non-scrollable container keeps flex-1 (blank-screen regression)', async () => {
+  it('SafeView container keeps flex-1 (blank-screen regression)', async () => {
     mockSavedHost = 'ws://10.0.0.5:7443/ws';
     pocketChatStore.setStatus('connected');
     const tree = await render(<Pocket />);
     const safe = tree.root.findByType(SafeView as any);
-    // ChatView is the second render path; find the SafeView rendered by Chat
-    const chatSafe = tree.root.findAllByType(SafeView as any).find(n => n.props.scrollable === false);
-    expect(chatSafe).toBeTruthy();
-    expect(chatSafe!.props.containerClassNames).toContain('flex-1');
+    expect(safe.props.scrollable).toBe(false);
+    expect(safe.props.containerClassNames).toContain('flex-1');
   });
 });
