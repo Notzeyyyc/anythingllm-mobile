@@ -16,6 +16,7 @@ import {
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import SafeView from '@/components/SafeView';
+import useTheme from '@/hooks/useTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import pocketChatStore from '@/services/pocket/chatStore';
 import { shareTrace } from '@/services/pocket/traceExport';
@@ -35,6 +36,9 @@ const ChatView = observer(function ChatView({
   onRepair: () => void;
 }) {
   const { t } = useTranslation();
+  // Same fix as the pairing screen: read colors from the upstream theme store
+  // instead of hardcoded dark hexes (white-on-white on light-scheme devices).
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [input, setInput] = useState('');
   const [showDetails, setShowDetails] = useState(false);
@@ -63,13 +67,16 @@ const ChatView = observer(function ChatView({
   }
 
   return (
-    <SafeView scrollable={false} safeAreaClassNames="pt-[21px]">
+    <SafeView
+      scrollable={false}
+      safeAreaClassNames="pt-[21px]"
+      safeAreaStyle={{ backgroundColor: theme.colors.background }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}>
         {/* Status line — one outcome-oriented label (spec §7.9) */}
         <View className="px-[30px] pb-2 flex-row items-center justify-between">
-          <Text className="text-neutral-300 flex-1" numberOfLines={1}>
+          <Text style={{ color: theme.colors.textSecondary }} className="flex-1" numberOfLines={1}>
             {connected
               ? '✅ ' + t('pocket.status.connected')
               : pocketChatStore.status === 'connecting'
@@ -77,10 +84,10 @@ const ChatView = observer(function ChatView({
                 : t('pocket.status.offline')}
           </Text>
           <TouchableOpacity onPress={onRepair} hitSlop={8}>
-            <Text className="text-[#3B82F6] px-2">{t('pocket.pairing.repair')}</Text>
+            <Text style={{ color: theme.colors.secondary }} className="px-2">{t('pocket.pairing.repair')}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={onUnpair} hitSlop={8}>
-            <Text className="text-red-400 px-2">{t('pocket.pairing.forget')}</Text>
+            <Text style={{ color: theme.colors.error }} className="px-2">{t('pocket.pairing.forget')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -93,26 +100,30 @@ const ChatView = observer(function ChatView({
             gap: 10,
           }}>
           {pocketChatStore.entries.length === 0 && !pocketChatStore.streamingText && (
-            <Text className="text-neutral-500 text-center mt-10">
+            <Text
+              style={{ color: theme.colors.textSecondary }}
+              className="text-center mt-10">
               {t('pocket.chat.empty')}
             </Text>
           )}
           {pocketChatStore.entries.map((entry, i) => (
             <View
               key={i}
-              className={
-                entry.role === 'user'
-                  ? 'self-end bg-[#3B82F6] rounded-2xl px-4 py-2 max-w-[85%]'
-                  : 'self-start bg-[#27282A] rounded-2xl px-4 py-2 max-w-[85%]'
-              }>
-              <Text className={entry.role === 'user' ? 'text-white' : 'text-neutral-100'}>
+              className="rounded-2xl px-4 py-2 max-w-[85%]"
+              style={{
+                alignSelf: entry.role === 'user' ? 'flex-end' : 'flex-start',
+                backgroundColor:
+                  entry.role === 'user' ? '#3B82F6' : theme.colors.surfaceContainerHighest,
+              }}>
+              <Text
+                style={{ color: entry.role === 'user' ? '#FFFFFF' : theme.colors.text }}>
                 {entry.text}
               </Text>
               {/* Trace Rangkuman (spec §7.1, M2a) — collapsed one-liner, tap to expand */}
               {entry.role === 'assistant' && entry.trace && (
                 <TouchableOpacity
                   onPress={() => setExpandedTrace(expandedTrace === i ? null : i)}>
-                  <Text className="text-neutral-500 text-xs mt-1">
+                  <Text style={{ color: theme.colors.textSecondary }} className="text-xs mt-1">
                     {t('pocket.trace.summary', {
                       steps: entry.trace.steps.length,
                       tools: entry.trace.tools,
@@ -122,7 +133,7 @@ const ChatView = observer(function ChatView({
                   {expandedTrace === i &&
                     entry.trace.steps.map((st, j) => (
                       <TouchableOpacity key={j} onPress={() => setDetail({ entry: i, step: j })}>
-                        <Text className="text-neutral-500 text-xs">
+                        <Text style={{ color: theme.colors.textSecondary }} className="text-xs">
                           {t('pocket.trace.step_item', {
                             n: j + 1,
                             label: t(st.key, { tool: st.tool }),
@@ -133,12 +144,12 @@ const ChatView = observer(function ChatView({
                   {expandedTrace === i && (
                     <View className="flex-row" style={{ gap: 12 }}>
                       <TouchableOpacity onPress={() => void shareTrace([entry], 'markdown')}>
-                        <Text className="text-[#3B82F6] text-xs">
+                        <Text style={{ color: theme.colors.secondary }} className="text-xs">
                           {t('pocket.trace.export_md')}
                         </Text>
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => void shareTrace([entry], 'json')}>
-                        <Text className="text-[#3B82F6] text-xs">
+                        <Text style={{ color: theme.colors.secondary }} className="text-xs">
                           {t('pocket.trace.export_json')}
                         </Text>
                       </TouchableOpacity>
@@ -152,7 +163,7 @@ const ChatView = observer(function ChatView({
           {/* Streaming answer + compact trace line */}
           {(pocketChatStore.streamingText || pocketChatStore.lastTrace) && (
             <View className="self-start max-w-[85%]" style={{ gap: 4 }}>
-              <Text className="text-neutral-400 text-xs">
+              <Text style={{ color: theme.colors.textSecondary }} className="text-xs">
                 {pocketChatStore.step > 0 &&
                   t('pocket.chat.step', { n: pocketChatStore.step })}
                 {pocketChatStore.lastTrace
@@ -160,8 +171,12 @@ const ChatView = observer(function ChatView({
                   : ''}
               </Text>
               {!!pocketChatStore.streamingText && (
-                <View className="bg-[#27282A] rounded-2xl px-4 py-2">
-                  <Text className="text-neutral-100">{pocketChatStore.streamingText}</Text>
+                <View
+                  className="rounded-2xl px-4 py-2"
+                  style={{ backgroundColor: theme.colors.surfaceContainerHighest }}>
+                  <Text style={{ color: theme.colors.text }}>
+                    {pocketChatStore.streamingText}
+                  </Text>
                 </View>
               )}
             </View>
@@ -169,22 +184,31 @@ const ChatView = observer(function ChatView({
 
           {/* Approval card */}
           {pocketChatStore.pendingApproval && (
-            <View className="self-start bg-[#1B1B1E] border border-amber-500 rounded-2xl p-4 w-full" style={{ gap: 8 }}>
-              <Text className="text-white font-medium">{t('pocket.approval.title')}</Text>
-              <Text className="text-neutral-300">
+            <View
+              className="self-start rounded-2xl p-4 w-full"
+              style={{
+                gap: 8,
+                backgroundColor: theme.colors.surfaceContainer,
+                borderWidth: 1,
+                borderColor: '#F59E0B',
+              }}>
+              <Text style={{ color: theme.colors.text, fontWeight: '500' }}>
+                {t('pocket.approval.title')}
+              </Text>
+              <Text style={{ color: theme.colors.textSecondary }}>
                 {t('pocket.approval.tool', { tool: pocketChatStore.pendingApproval.tool })}
               </Text>
               {!!pocketChatStore.pendingApproval.path && (
-                <Text className="text-neutral-400 text-xs" selectable>
+                <Text style={{ color: theme.colors.textSecondary }} className="text-xs" selectable>
                   {pocketChatStore.pendingApproval.path}
                 </Text>
               )}
               {!!pocketChatStore.pendingApproval.contentPreview && (
-                <Text className="text-neutral-400 text-xs" numberOfLines={6} selectable>
+                <Text style={{ color: theme.colors.textSecondary }} className="text-xs" numberOfLines={6} selectable>
                   {pocketChatStore.pendingApproval.contentPreview}
                 </Text>
               )}
-              <Text className="text-amber-400 text-xs">
+              <Text style={{ color: '#F59E0B' }} className="text-xs">
                 {t('pocket.approval.countdown', { s: secondsLeft })}
               </Text>
               <View className="flex-row justify-end" style={{ gap: 12 }}>
@@ -192,15 +216,20 @@ const ChatView = observer(function ChatView({
                   onPress={() =>
                     respondPocketApproval(pocketChatStore.pendingApproval!.approvalId, 'reject')
                   }
-                  className="px-4 py-2 rounded-lg bg-[#27282A]">
-                  <Text className="text-white">{t('pocket.approval.reject')}</Text>
+                  className="px-4 py-2 rounded-lg"
+                  style={{ backgroundColor: theme.colors.surfaceContainerHighest }}>
+                  <Text style={{ color: theme.colors.text }}>
+                    {t('pocket.approval.reject')}
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
                     respondPocketApproval(pocketChatStore.pendingApproval!.approvalId, 'grant')
                   }
-                  className="px-4 py-2 rounded-lg bg-emerald-600">
-                  <Text className="text-white font-medium">{t('pocket.approval.grant')}</Text>
+                  className="px-4 py-2 rounded-lg" style={{ backgroundColor: '#059669' }}>
+                  <Text style={{ color: '#FFFFFF', fontWeight: '500' }}>
+                    {t('pocket.approval.grant')}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -211,7 +240,7 @@ const ChatView = observer(function ChatView({
         <TouchableOpacity
           className="px-[30px] pb-1"
           onPress={() => setShowDetails(v => !v)}>
-          <Text className="text-neutral-500 text-xs">
+          <Text style={{ color: theme.colors.textSecondary }} className="text-xs">
             {showDetails
               ? t('pocket.details.hide')
               : t('pocket.details.show')}
@@ -219,14 +248,14 @@ const ChatView = observer(function ChatView({
         </TouchableOpacity>
         {showDetails && (
           <View className="px-[30px] pb-1" style={{ gap: 6 }}>
-            <Text className="text-neutral-500 text-xs">
+            <Text style={{ color: theme.colors.textSecondary }} className="text-xs">
               {t('pocket.details.host', {
                 status: pocketChatStore.status,
               })}
             </Text>
             {/* Raw / "mode belajar" toggle (spec §7.1 level 3) */}
             <View className="flex-row items-center justify-between">
-              <Text className="text-neutral-500 text-xs flex-1">
+              <Text style={{ color: theme.colors.textSecondary }} className="text-xs flex-1">
                 {t('pocket.settings.raw_mode')}
               </Text>
               <Switch
@@ -245,16 +274,23 @@ const ChatView = observer(function ChatView({
             value={input}
             onChangeText={setInput}
             placeholder={t('pocket.chat.input_placeholder')}
-            placeholderTextColor="#9F9FA0"
+            placeholderTextColor={theme.colors.placeholder}
             editable={connected}
             multiline
-            className="flex-1 bg-[#27282A] text-white rounded-2xl px-4 py-2 max-h-24"
+            className="flex-1 rounded-2xl px-4 py-2 max-h-24"
+            style={{
+              backgroundColor: theme.colors.surfaceContainerHighest,
+              color: theme.colors.text,
+            }}
           />
           <TouchableOpacity
             onPress={send}
             disabled={!connected || !input.trim()}
-            className={`rounded-full px-4 py-3 ${connected && input.trim() ? 'bg-[#3B82F6]' : 'bg-[#27282A]'}`}>
-            <Text className="text-white">{t('pocket.chat.send')}</Text>
+            className="rounded-full px-4 py-3"
+            style={{
+              backgroundColor: connected && input.trim() ? '#3B82F6' : theme.colors.surfaceContainerHighest,
+            }}>
+            <Text style={{ color: theme.colors.text }}>{t('pocket.chat.send')}</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

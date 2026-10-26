@@ -7,8 +7,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -30,6 +28,7 @@ import {
 } from '@/services/pocket/tokenStore';
 import pocketChatStore from '@/services/pocket/chatStore';
 import { completeOnboarding } from '@/hooks/useOnboardingHook';
+import useTheme from '@/hooks/useTheme';
 import ChatView from './Chat';
 
 /** Normalize what the user typed into a ws:// URL (M1: plain ws, Tailscale/LAN). */
@@ -42,6 +41,11 @@ export function normalizeHost(input: string): string {
 
 export default function Pocket() {
   const { t } = useTranslation();
+  // Theme comes from the upstream store (UIStore.colorScheme). Pocket used to
+  // hardcode dark colors + rely on a CSS-var bg class that never resolved, so
+  // on a light-scheme device the white labels were invisible and the screen
+  // looked blank (only the dark inputs + blue button showed).
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [host, setHost] = useState('');
   const [token, setToken] = useState('');
@@ -101,7 +105,10 @@ export default function Pocket() {
 
   if (pairing === null) {
     return (
-      <SafeView scrollable={false} containerClassNames="flex-1 justify-center items-center">
+      <SafeView
+        scrollable={false}
+        safeAreaStyle={{ backgroundColor: theme.colors.background }}
+        containerClassNames="flex-1 justify-center items-center">
         <ActivityIndicator size="large" />
       </SafeView>
     );
@@ -119,54 +126,71 @@ export default function Pocket() {
   }
 
   return (
-    <SafeView scrollable={false} safeAreaClassNames="pt-[21px]">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={{ flex: 1 }}
-        contentContainerStyle={{ paddingBottom: insets.bottom }}>
-        <View className="flex-1 px-[30px] justify-center" style={{ gap: 16 }}>
-          <Text className="text-white text-2xl font-medium">
-            {t('pocket.title')}
+    <SafeView
+      safeAreaClassNames="pt-[21px]"
+      safeAreaStyle={{ backgroundColor: theme.colors.background }}
+      containerClassNames="flex-1 justify-center"
+      containerStyle={{ gap: 16, paddingBottom: insets.bottom }}>
+      <View className="px-[30px]" style={{ gap: 16 }}>
+        <Text style={{ color: theme.colors.text, fontSize: 24, fontWeight: '500' }}>
+          {t('pocket.title')}
+        </Text>
+        <Text style={{ color: theme.colors.textSecondary }}>
+          {t('pocket.pairing.intro')}
+        </Text>
+        <View style={{ gap: 8 }}>
+          <Text style={{ color: theme.colors.text }}>
+            {t('pocket.pairing.host_label')}
           </Text>
-          <Text className="text-neutral-400">
-            {t('pocket.pairing.intro')}
-          </Text>
-          <View style={{ gap: 8 }}>
-            <Text className="text-white">{t('pocket.pairing.host_label')}</Text>
-            <TextInput
-              value={host}
-              onChangeText={setHost}
-              placeholder={t('pocket.pairing.host_placeholder')}
-              placeholderTextColor="#9F9FA0"
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="url"
-              className="bg-[#27282A] text-white rounded-lg px-4 py-3"
-            />
-          </View>
-          <View style={{ gap: 8 }}>
-            <Text className="text-white">{t('pocket.pairing.token_label')}</Text>
-            <TextInput
-              value={token}
-              onChangeText={setToken}
-              placeholder={t('pocket.pairing.token_placeholder')}
-              placeholderTextColor="#9F9FA0"
-              autoCapitalize="none"
-              autoCorrect={false}
-              secureTextEntry
-              className="bg-[#27282A] text-white rounded-lg px-4 py-3"
-            />
-          </View>
-          {!!error && <Text className="text-red-400">{error}</Text>}
-          <TouchableOpacity
-            onPress={onConnect}
-            className="bg-[#3B82F6] rounded-lg py-4 items-center">
-            <Text className="text-white text-lg font-medium">
-              {t('pocket.pairing.connect')}
-            </Text>
-          </TouchableOpacity>
+          <TextInput
+            value={host}
+            onChangeText={setHost}
+            placeholder={t('pocket.pairing.host_placeholder')}
+            placeholderTextColor={theme.colors.placeholder}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="url"
+            className="rounded-lg px-4 py-3"
+            style={{
+              backgroundColor: theme.colors.surfaceContainerHighest,
+              color: theme.colors.text,
+            }}
+          />
         </View>
-      </KeyboardAvoidingView>
+        <View style={{ gap: 8 }}>
+          <Text style={{ color: theme.colors.text }}>
+            {t('pocket.pairing.token_label')}
+          </Text>
+          <TextInput
+            value={token}
+            onChangeText={setToken}
+            placeholder={t('pocket.pairing.token_placeholder')}
+            placeholderTextColor={theme.colors.placeholder}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry
+            className="rounded-lg px-4 py-3"
+            style={{
+              backgroundColor: theme.colors.surfaceContainerHighest,
+              color: theme.colors.text,
+            }}
+          />
+        </View>
+        {!!error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
+        <TouchableOpacity
+          onPress={onConnect}
+          className="rounded-lg py-4 items-center"
+          style={{ backgroundColor: '#3B82F6' }}>
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontSize: 18,
+              fontWeight: '500',
+            }}>
+            {t('pocket.pairing.connect')}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeView>
   );
 }
