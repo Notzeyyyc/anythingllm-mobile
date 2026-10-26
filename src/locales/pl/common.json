@@ -1586,7 +1586,10 @@
       "raw_mode": null
     },
     "connection": {
-      "host": null
+      "host": null,
+      "auth_failed": null,
+      "empty_fields": null,
+      "invalid_host": null
     }
   }
 }

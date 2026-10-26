@@ -19,7 +19,11 @@ jest.mock('react-native-safe-area-context', () => {
 });
 
 jest.mock('react-native-linear-gradient', () => require('react-native').View);
-// mobx-react pulls react-dom in the jest (non-native) build — stub it.
+// mobx-react pulls react-dom in the jest (non-native) build, so the DEFAULT
+// mock keeps the identity observer (fn => fn) — limitation: mobx reactivity is
+// NOT exercised here — store values are read at first render only.
+// The dedicated `render.reactivity.test.tsx` file covers mobx re-renders
+// with a real Reaction-based observer as its file-level mock.
 jest.mock('mobx-react', () => ({
   observer: (fn: unknown) => fn,
 }));
@@ -168,5 +172,52 @@ describe('Pocket render smoke (no blank screens)', () => {
     const safe = tree.root.findByType(SafeView as any);
     expect(safe.props.scrollable).toBe(false);
     expect(safe.props.containerClassNames).toContain('flex-1');
+  });
+
+  it('auth-failed banner shows when the sidecar rejects the token', async () => {
+    mockSavedHost = null;
+    pocketChatStore.setStatus('disconnected');
+    pocketChatStore.setAuthError(true);
+    const tree = await render(<Pocket />);
+    expect(hasText(tree, 'Pairing failed — the token looks wrong. Check it and try again.')).toBe(true);
+  });
+
+  it('Connect button is disabled (grayed) until host + token are filled', async () => {
+    mockSavedHost = null;
+    pocketChatStore.setStatus('disconnected');
+    pocketChatStore.setAuthError(false);
+    const tree = await render(<Pocket />);
+    const findConnect = () =>
+      tree.root.findAllByType(TouchableOpacity as any).find(n => {
+        const kids = (n.props.children as any) ?? [];
+        const arr = Array.isArray(kids) ? kids : [kids];
+        return arr.some((k: any) => k?.type === Text && k?.props?.children === 'Connect');
+      });
+    expect(findConnect()!.props.disabled).toBe(true);
+    // Type host + token through the controlled inputs → button enables.
+    const inputs = tree.root.findAllByType(TextInput as any);
+    await act(async () => {
+      inputs[0].props.onChangeText('10.0.0.5:7443');
+      inputs[1].props.onChangeText('hbk_token');
+    });
+    expect(findConnect()!.props.disabled).toBe(false);
+  });
+
+});
+
+describe('normalizeHost', () => {
+  const { normalizeHost } = require('../index');
+  it('accepts host, host:port, ws(s):// and strips http(s) properly', () => {
+    expect(normalizeHost('10.0.0.5:7443')).toBe('ws://10.0.0.5:7443/ws');
+    expect(normalizeHost('mypc.local')).toBe('ws://mypc.local:7443/ws');
+    expect(normalizeHost('ws://10.0.0.5:7443')).toBe('ws://10.0.0.5:7443/ws');
+    expect(normalizeHost('wss://example.com')).toBe('wss://example.com:7443/ws');
+    expect(normalizeHost('https://10.0.0.5:7443')).toBe('wss://10.0.0.5:7443/ws');
+    expect(normalizeHost('http://10.0.0.5')).toBe('ws://10.0.0.5:7443/ws');
+    expect(normalizeHost('https://10.0.0.5/ws')).toBe('wss://10.0.0.5:7443/ws');
+  });
+  it('refuses garbage instead of building a broken URL', () => {
+    expect(normalizeHost('ws://')).toBeNull();
+    expect(normalizeHost('   ')).toBeNull();
   });
 });

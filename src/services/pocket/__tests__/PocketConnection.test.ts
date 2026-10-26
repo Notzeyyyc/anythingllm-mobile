@@ -261,4 +261,60 @@ describe('heartbeat', () => {
     conn.disconnect();
     jest.useRealTimers();
   });
+
+  it('tracks pong: a pong resets the dead-link timer', () => {
+    const { conn } = makeConnection();
+    conn.connect();
+    const ws = MockWebSocket.instances[0];
+    ws.onopen!();
+    ws.emit({ type: 'auth.ok' });
+    jest.advanceTimersByTime(1000); // ping 1
+    ws.emit({ type: 'pong' });
+    jest.advanceTimersByTime(1000); // ping 2
+    ws.emit({ type: 'pong' });
+    jest.advanceTimersByTime(1000); // 1s since last pong — still alive, ping again
+    expect(MockWebSocket.instances).toHaveLength(1);
+    expect(ws.sent.at(-1)).toBe('{"type":"ping"}');
+    conn.disconnect();
+  });
+
+  it('closes the socket after 2 consecutive heartbeats without pong', () => {
+    const { conn } = makeConnection();
+    conn.connect();
+    const ws = MockWebSocket.instances[0];
+    ws.onopen!();
+    ws.emit({ type: 'auth.ok' });
+    jest.advanceTimersByTime(1000); // ping 1 — no pong
+    jest.advanceTimersByTime(1000); // 2s without a pong (2 missed) → close
+    expect(MockWebSocket.instances).toHaveLength(1);
+    jest.advanceTimersByTime(1000); // backoff 1s → new socket
+    expect(MockWebSocket.instances).toHaveLength(2);
+  });
+
+  it('never routes pong/auth.deny to onTrace', () => {
+    const { conn, handlers } = makeConnection();
+    conn.connect();
+    const ws = MockWebSocket.instances[0];
+    ws.onopen!();
+    ws.emit({ type: 'auth.ok' });
+    ws.emit({ type: 'pong' });
+    ws.emit({ type: 'auth.deny', reason: 'invalid token' });
+    expect(handlers.onTrace).not.toHaveBeenCalled();
+  });
+});
+
+describe('auth.deny', () => {
+  it('surfaces the error immediately and does not reconnect', () => {
+    const { conn, handlers } = makeConnection();
+    conn.connect();
+    const ws = MockWebSocket.instances[0];
+    ws.onopen!();
+    ws.emit({ type: 'auth.deny', reason: 'invalid token' });
+    expect(handlers.onError).toHaveBeenCalledWith('invalid token');
+    // Server closes right after auth.deny.
+    ws.close();
+    expect(conn.getStatus()).toBe('disconnected');
+    jest.advanceTimersByTime(120_000);
+    expect(MockWebSocket.instances).toHaveLength(1); // no retry loop with a bad token
+  });
 });

@@ -80,7 +80,7 @@ export interface PocketConnectionOpts {
 }
 
 const PING_INTERVAL_MS = 20_000;
-/** Failed reconnects before surfacing an explicit offline state (~2min backoff). */
+/** Failed reconnects before surfacing an explicit offline state (1+2+4+8+16+30s ≈ 61s). */
 export const MAX_RECONNECT_ATTEMPTS = 6;
 
 export class PocketConnection {
@@ -107,6 +107,10 @@ export class PocketConnection {
     string,
     { turnId: string; handle: ReturnType<typeof setTimeout> }
   >();
+  /** Set when the sidecar rejects our token (auth.deny) — no retry loop. */
+  private authFailed = false;
+  /** Last time the sidecar answered our app-level ping with a pong. */
+  private lastPongAt = 0;
 
   constructor(opts: PocketConnectionOpts) {
     this.url = opts.url;
@@ -136,7 +140,8 @@ export class PocketConnection {
 
   private open() {
     if (!this.wantConnected || this.ws) return;
-    this.setStatus(this.sessionToken ? 'connecting' : 'connecting');
+    this.authFailed = false;
+    this.setStatus('connecting');
     const token = this.sessionToken ?? this.pairingToken;
     let ws: any;
     try {
@@ -166,6 +171,11 @@ export class PocketConnection {
       }
       // Give up after MAX_RECONNECT_ATTEMPTS failed closes so the UI can show
       // an explicit offline state instead of "connecting…" forever.
+      if (this.authFailed) {
+        // Bad token: retrying would only hammer the server (and risk lockout).
+        this.setStatus('disconnected');
+        return;
+      }
       if (this.attempt >= MAX_RECONNECT_ATTEMPTS) {
         this.setStatus('disconnected');
         return;
@@ -246,6 +256,16 @@ export class PocketConnection {
         this.handlers.onApprovalRequest(req);
         break;
       }
+      case 'auth.deny':
+        // Wrong/expired token: surface immediately, never routed to trace,
+        // and the following close must not schedule a reconnect.
+        this.authFailed = true;
+        this.handlers.onError(String(msg.reason ?? 'auth failed'));
+        break;
+      case 'pong':
+        // Keepalive answer for our app-level ping — bookkeeping only.
+        this.lastPongAt = Date.now();
+        break;
       case 'error':
         this.handlers.onError(msg.message);
         break;
@@ -279,7 +299,14 @@ export class PocketConnection {
 
   private startHeartbeat() {
     this.stopHeartbeat();
+    this.lastPongAt = Date.now();
     const interval = setInterval(() => {
+      // Two unanswered pings in a row: the link is dead even if the socket
+      // hasn't noticed — close so onclose fires the reconnect path.
+      if (Date.now() - this.lastPongAt >= 2 * this.heartbeatIntervalMs) {
+        this.ws?.close();
+        return;
+      }
       // Application-level ping — the sidecar answers with {"type":"pong"} and
       // never having to reach native WebSocket ping frames from JS.
       this.send({ type: 'ping' });

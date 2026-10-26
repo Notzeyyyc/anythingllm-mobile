@@ -1494,7 +1494,10 @@
       "raw_mode": "Show raw trace events (learning mode)"
     },
     "connection": {
-      "host": "Host: {{host}}"
+      "host": "Host: {{host}}",
+      "auth_failed": "Pairing failed — the token looks wrong. Check it and try again.",
+      "empty_fields": "Enter the server address and pairing token.",
+      "invalid_host": "Unknown address format. Use host, host:port, ws:// or wss://."
     }
   }
 }

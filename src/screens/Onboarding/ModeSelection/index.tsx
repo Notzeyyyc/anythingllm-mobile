@@ -12,6 +12,7 @@ import SafeView from "@/components/SafeView";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PATHS } from "@/utils/paths";
 import { completeOnboarding } from "@/hooks/useOnboardingHook";
+import useTheme from "@/hooks/useTheme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +20,7 @@ export default function OnboardingModeSelection() {
   const { t } = useTranslation();
   const navigation = useNavigation<NavigationProp<any>>();
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
 
   // Skip: default to on-device; pairing stays available later from Settings.
   const onSkip = async () => {
@@ -48,7 +50,9 @@ export default function OnboardingModeSelection() {
           />
 
           <TouchableOpacity onPress={onSkip} className="py-3">
-            <Text className="text-[--primary-text] text-lg underline">{t('onboarding.mode_selection.skip')}</Text>
+            {/* Inline style, NOT a CSS-var class (text-[--primary-text]) — the
+                CSS-var class rendered invisible text twice (commit 1fc1cae). */}
+            <Text style={{ color: theme.colors.text }} className="text-lg underline">{t('onboarding.mode_selection.skip')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => Linking.openURL(PATHS.upstream_repo)}>

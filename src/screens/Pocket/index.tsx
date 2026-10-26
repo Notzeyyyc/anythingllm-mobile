@@ -19,6 +19,7 @@ import {
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import SafeView from '@/components/SafeView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -38,15 +39,24 @@ import { completeOnboarding } from '@/hooks/useOnboardingHook';
 import useTheme from '@/hooks/useTheme';
 import ChatBody from './Chat';
 
-/** Normalize what the user typed into a ws:// URL (M1: plain ws, Tailscale/LAN). */
-export function normalizeHost(input: string): string {
-  let host = input.trim().replace(/\/+$/, '');
-  if (!/^wss?:\/\//.test(host)) host = `ws://${host}`;
-  if (!/:\d+(\/|$)/.test(host)) host = host.replace(/^(ws:\/\/[^/]+)/, '$1:7443');
-  return host.endsWith('/ws') ? host : `${host}/ws`;
+/**
+ * Normalize what the user typed into a ws(s):// URL (M1: plain ws, Tailscale/LAN).
+ * Accepts bare host, host:port, and ws(s):// or http(s):// forms. Returns null
+ * when nothing usable remains (caller shows a validation error instead of
+ * silently building `ws://https://…`).
+ */
+export function normalizeHost(input: string): string | null {
+  let host = input.trim();
+  host = host.replace(/^https:\/\//i, 'wss://').replace(/^http:\/\//i, 'ws://');
+  if (!/^wss?:\/\//i.test(host)) host = `ws://${host}`;
+  host = host.replace(/^(wss?:\/\/[^/]+)\/.*$/i, '$1'); // strip a pasted path, keep scheme://authority
+  // host[:port] only; nothing usable → null (caller shows a validation error)
+  const m = host.match(/^(wss?):\/\/([^/:?#]+)(?::(\d+))?$/i);
+  if (!m || !m[2]) return null;
+  return `${m[1].toLowerCase()}://${m[2]}${m[3] ? ':' + m[3] : ':7443'}/ws`;
 }
 
-export default function Pocket() {
+function Pocket() {
   const { t } = useTranslation();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -56,10 +66,10 @@ export default function Pocket() {
   const [savedHost, setSavedHost] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false); // manual toggle when connected
-  const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
   const status = pocketChatStore.status;
+  const authError = pocketChatStore.authError;
   const connected = status === 'connected';
   // The panel cannot be closed while not connected (spec: pairing inline).
   const panelVisible = !connected || panelOpen;
@@ -83,9 +93,14 @@ export default function Pocket() {
       const stored = await loadHost();
       const savedToken = await loadSessionToken();
       if (stored) {
-        setSavedHost(stored);
-        setShowForm(false);
-        connectPocket(normalizeHost(stored), null, savedToken);
+        const url = normalizeHost(stored);
+        if (url) {
+          setSavedHost(url);
+          setShowForm(false);
+          connectPocket(url, null, savedToken);
+        } else {
+          setShowForm(true);
+        }
       } else {
         setShowForm(true);
       }
@@ -96,19 +111,26 @@ export default function Pocket() {
 
   async function onConnect() {
     setError('');
-    if (!host.trim() || !token.trim()) return;
-    setConnecting(true);
+    pocketChatStore.setAuthError(false);
+    if (!host.trim() || !token.trim()) {
+      setError(t('pocket.connection.empty_fields'));
+      return;
+    }
     const url = normalizeHost(host);
+    if (!url) {
+      setError(t('pocket.connection.invalid_host'));
+      return;
+    }
     await saveConnection(url, null); // remember host even if pairing fails
     setSavedHost(url);
     connectPocket(url, token.trim(), null);
     // Pairing "succeeds" when auth.ok arrives (status flips to connected).
-    setConnecting(false);
     setShowForm(false);
   }
 
   async function onForget() {
     disconnectPocket();
+    pocketChatStore.setAuthError(false);
     await forgetConnection();
     setSavedHost(null);
     setHost('');
@@ -172,6 +194,13 @@ export default function Pocket() {
                   ? theme.colors.secondary
                   : theme.colors.error,
             }}>
+            {/* Instant feedback when the sidecar rejects the token (auth.deny) —
+                no more silent 6x backoff before "unreachable". */}
+            {authError && !connected && (
+              <Text style={{ color: theme.colors.error }}>
+                {t('pocket.connection.auth_failed')}
+              </Text>
+            )}
             {connected ? (
               <>
                 <Text style={{ color: theme.colors.text }} numberOfLines={1}>
@@ -269,8 +298,12 @@ export default function Pocket() {
                 {!!error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
                 <TouchableOpacity
                   onPress={onConnect}
+                  disabled={!host.trim() || !token.trim()}
                   className="rounded-lg py-3 items-center"
-                  style={{ backgroundColor: '#3B82F6' }}>
+                  style={{
+                    backgroundColor:
+                      host.trim() && token.trim() ? '#3B82F6' : theme.colors.surfaceContainerHighest,
+                  }}>
                   <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '500' }}>
                     {t('pocket.pairing.connect')}
                   </Text>
@@ -287,3 +320,7 @@ export default function Pocket() {
     </SafeView>
   );
 }
+
+// MobX observer: the chip/panel react to pocketChatStore.status and authError
+// without manual state mirrors (the old dead `connecting` state is gone).
+export default observer(Pocket);

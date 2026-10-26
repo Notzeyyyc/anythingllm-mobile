@@ -123,6 +123,8 @@ export function formatTurnJson(entries: PocketChatEntry[]): string {
 
 export class PocketChatStore {
   status: PocketStatus = 'disconnected';
+  /** True right after the sidecar rejected our token (auth.deny) — shown as a banner. */
+  authError = false;
   entries: PocketChatEntry[] = [];
   streamingText = '';
   /** 1-based step counter shown as "Langkah N" — derived from trace events. */
@@ -170,6 +172,11 @@ export class PocketChatStore {
 
   setStatus(s: PocketStatus) {
     this.status = s;
+    if (s === 'connected') this.authError = false;
+  }
+
+  setAuthError(on: boolean) {
+    this.authError = on;
   }
 
   appendStreaming(delta: string) {

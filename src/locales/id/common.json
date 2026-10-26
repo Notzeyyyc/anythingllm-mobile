@@ -1448,7 +1448,10 @@
       "raw_mode": "Tampilkan event trace mentah (mode belajar)"
     },
     "connection": {
-      "host": "Host: {{host}}"
+      "host": "Host: {{host}}",
+      "auth_failed": "Pairing gagal — token sepertinya salah. Periksa dan coba lagi.",
+      "empty_fields": "Isi alamat server dan token pairing dulu.",
+      "invalid_host": "Format alamat tidak dikenal. Pakai host, host:port, ws:// atau wss://."
     }
   }
 }

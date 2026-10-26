@@ -28,6 +28,7 @@ export function connectPocket(
   lastUrl = url;
   lastSessionToken = sessionToken;
   pocketChatStore.setStatus('connecting');
+  pocketChatStore.setAuthError(false);
   const handlers: PocketHandlers = {
     onStatusChange: (s: PocketStatus) => pocketChatStore.setStatus(s),
     onSessionStarted: () => {},
@@ -41,8 +42,10 @@ export function connectPocket(
       void pocketChatStore.finishTurn(ok, text, error),
     onApprovalRequest: (req: ApprovalRequest) => pocketChatStore.setApproval(req),
     onTrace: (ev: TraceEvent) => pocketChatStore.onTrace(ev),
-    onError: () => {
-      /* status banner covers it; keep tokens out of any log */
+    onError: (message: string) => {
+      // auth.deny (bad pairing/session token) → instant banner in the pairing
+      // form instead of a silent 6x backoff. Keep tokens out of any log.
+      if (/auth/i.test(String(message))) pocketChatStore.setAuthError(true);
     },
   };
   connection = new PocketConnection({

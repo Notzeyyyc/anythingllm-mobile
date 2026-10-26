@@ -16,7 +16,6 @@ import {
 import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import useTheme from '@/hooks/useTheme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import pocketChatStore from '@/services/pocket/chatStore';
 import { shareTrace } from '@/services/pocket/traceExport';
 import TraceDetailModal from './TraceDetailModal';
@@ -32,7 +31,6 @@ const ChatBody = observer(function ChatBody() {
   // Same fix as the pairing screen: read colors from the upstream theme store
   // instead of hardcoded dark hexes (white-on-white on light-scheme devices).
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
   const [input, setInput] = useState('');
   const [showDetails, setShowDetails] = useState(false);
   const [expandedTrace, setExpandedTrace] = useState<number | null>(null);
