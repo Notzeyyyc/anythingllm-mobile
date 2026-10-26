@@ -7,6 +7,7 @@
  * token with exponential backoff 1s..30s, reset on successful auth.
  */
 import { v4 as uuidv4 } from 'uuid';
+import { verifyChallenge } from './challenge';
 
 export type PocketStatus =
   | 'disconnected'
@@ -45,6 +46,8 @@ export interface PocketHandlers {
   onApprovalRequest: (req: ApprovalRequest) => void;
   onTrace: (ev: TraceEvent) => void;
   onError: (message: string) => void;
+  /** Server announced its cert fingerprint in auth.ok (M3 TOFU, spec §6). */
+  onCertFp?: (fp: string) => void;
 }
 
 /** Narrow the union of server messages; unknown/invalid frames return null. */
@@ -101,6 +104,8 @@ export class PocketConnection {
   private wantConnected = false;
   private reconnectHandle: ReturnType<typeof setTimeout> | null = null;
   private heartbeatHandle: ReturnType<typeof setInterval> | null = null;
+  /** Cert fingerprint seen in auth.ok — key for the TOFU challenge (M3). */
+  private challengeFp: string | null = null;
   private sessionId: string | null = null;
   private sessionStarted = false;
   private approvals = new Map<
@@ -208,9 +213,26 @@ export class PocketConnection {
           this.sessionToken = msg.sessionToken;
           this.handlers.onSessionToken(msg.sessionToken);
         }
+        // M3 TOFU: the sidecar may announce its self-signed cert fingerprint.
+        if (typeof msg.certFp === 'string' && msg.certFp) {
+          this.challengeFp = msg.certFp;
+          this.handlers.onCertFp?.(msg.certFp);
+        }
         this.startHeartbeat();
         this.send({ type: 'session.start' });
         break;
+      case 'auth.challenge': {
+        // App-level TOFU challenge (docs/pocket-m3-routing-pinning.md): prove
+        // the peer knows the verified fingerprint. Failure = hostile relay:
+        // close and stop retrying, like auth.deny.
+        if (!verifyChallenge(msg, this.challengeFp)) {
+          this.authFailed = true;
+          this.handlers.onError('cert challenge failed');
+          this.ws?.close();
+          break;
+        }
+        break;
+      }
       case 'session.started':
         this.sessionId = msg.sessionId;
         this.sessionStarted = true;
@@ -333,11 +355,18 @@ export class PocketConnection {
     return this.status === 'connected' && this.sessionStarted;
   }
 
-  /** Send a prompt; returns the generated turnId. No-op if not ready. */
-  sendTurn(prompt: string): string | null {
+  /** Send a prompt; returns the generated turnId. No-op if not ready.
+   * `runtime` (contract v1.2, optional) is only sent in Manual mode — the
+   * server may override it (POCKET_FORCE_RUNTIME) and reports via route.decided. */
+  sendTurn(prompt: string, runtime?: 'lite' | 'full'): string | null {
     if (!this.isReady() || !prompt.trim()) return null;
     const turnId = uuidv4();
-    this.send({ type: 'turn.request', turnId, prompt });
+    this.send({
+      type: 'turn.request',
+      turnId,
+      prompt,
+      ...(runtime ? { runtime } : {}),
+    });
     return turnId;
   }
 

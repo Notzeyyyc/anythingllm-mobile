@@ -17,7 +17,14 @@ import { observer } from 'mobx-react';
 import { useTranslation } from 'react-i18next';
 import useTheme from '@/hooks/useTheme';
 import pocketChatStore from '@/services/pocket/chatStore';
+import {
+  loadRoutingPrefs,
+  resolveRuntimeField,
+  shouldFallbackOnDevice,
+  type RoutingPrefs,
+} from '@/services/pocket/routingPrefs';
 import { shareTrace } from '@/services/pocket/traceExport';
+import { PATHS } from '@/utils/paths';
 import TraceDetailModal from './TraceDetailModal';
 import {
   respondPocketApproval,
@@ -36,7 +43,13 @@ const ChatBody = observer(function ChatBody() {
   const [expandedTrace, setExpandedTrace] = useState<number | null>(null);
   const [detail, setDetail] = useState<{ entry: number; step: number } | null>(null);
   const [now, setNow] = useState(Date.now());
+  const [prefs, setPrefs] = useState<RoutingPrefs | null>(null);
   const scrollRef = useRef<ScrollView>(null);
+
+  // Routing prefs (M3 §4.4) decide whether turn.request carries `runtime`.
+  useEffect(() => {
+    void loadRoutingPrefs().then(setPrefs);
+  }, []);
 
   useEffect(() => {
     if (!pocketChatStore.pendingApproval) return;
@@ -51,7 +64,10 @@ const ChatBody = observer(function ChatBody() {
 
   function send() {
     const prompt = input.trim();
-    if (!prompt || !connected || !sendPocketTurn(prompt)) return;
+    if (!prompt || !connected) return;
+    // Manual → pin the user's runtime; Smart → omit, server router decides.
+    const runtime = prefs ? resolveRuntimeField(prefs) : undefined;
+    if (!sendPocketTurn(prompt, runtime)) return;
     void pocketChatStore.addUserEntry(prompt);
     setInput('');
     requestAnimationFrame(() => scrollRef.current?.scrollToEnd({ animated: true }));
@@ -67,6 +83,28 @@ const ChatBody = observer(function ChatBody() {
           paddingBottom: 16,
           gap: 10,
         }}>
+        {prefs && !connected && shouldFallbackOnDevice(prefs, pocketChatStore.status) && (
+          <View
+            className="rounded-xl px-3 py-2"
+            style={{ backgroundColor: theme.colors.surfaceContainer, gap: 6 }}>
+            <Text style={{ color: theme.colors.textSecondary }}>
+              {t('pocket.routing.offline_banner')}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                // ponytail: lazy require — @react-navigation/native is ESM-only
+                // in node_modules and breaks jest module graphs when imported
+                // statically into render-tested components. Upgrade path: add
+                // transformIgnorePatterns for @react-navigation/*.
+                const { resetToWhenReady } = require('@/utils/navigationRef');
+                resetToWhenReady(PATHS.home);
+              }}>
+              <Text style={{ color: theme.colors.secondary }}>
+                {t('pocket.routing.offline_cta')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
         {pocketChatStore.entries.length === 0 && !pocketChatStore.streamingText && (
           <Text
             style={{ color: theme.colors.textSecondary }}

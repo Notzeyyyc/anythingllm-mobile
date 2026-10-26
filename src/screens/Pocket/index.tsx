@@ -24,6 +24,7 @@ import { reaction } from 'mobx';
 import SafeView from '@/components/SafeView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
+  confirmCertFp,
   connectPocket,
   disconnectPocket,
   reconnectPocket,
@@ -310,6 +311,54 @@ function Pocket() {
                 </TouchableOpacity>
               </View>
             )}
+          </View>
+        )}
+
+        {/* M3 TOFU verify-twice (spec §6): first sight of the server cert
+            fingerprint → user confirms against the server's own screen. */}
+        {(pocketChatStore.pendingCertFp || pocketChatStore.certMismatch) && (
+          <View
+            className="mx-[30px] mb-2 rounded-xl p-3"
+            style={{
+              gap: 8,
+              backgroundColor: theme.colors.surfaceContainer,
+              borderWidth: 1,
+              borderColor: pocketChatStore.certMismatch
+                ? theme.colors.error
+                : theme.colors.secondary,
+            }}>
+            {pocketChatStore.certMismatch && (
+              <Text style={{ color: theme.colors.error }}>
+                {t('pocket.routing.cert_mismatch_warn')}
+              </Text>
+            )}
+            <Text style={{ color: theme.colors.text }} selectable>
+              {pocketChatStore.pendingCertFp}
+            </Text>
+            <Text style={{ color: theme.colors.textSecondary }}>
+              {t('pocket.routing.cert_pending')}
+            </Text>
+            <View className="flex-row justify-end" style={{ gap: 12 }}>
+              <TouchableOpacity
+                onPress={() => pocketChatStore.setPendingCertFp(null)}
+                className="px-3 py-2 rounded-lg"
+                style={{ backgroundColor: theme.colors.surfaceContainerHighest }}>
+                <Text style={{ color: theme.colors.text }}>
+                  {t('pocket.routing.cert_mismatch')}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  const fp = pocketChatStore.pendingCertFp;
+                  if (fp) void confirmCertFp(fp);
+                }}
+                className="px-3 py-2 rounded-lg"
+                style={{ backgroundColor: theme.colors.secondary }}>
+                <Text style={{ color: '#FFFFFF' }}>
+                  {t('pocket.routing.cert_match')}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
 

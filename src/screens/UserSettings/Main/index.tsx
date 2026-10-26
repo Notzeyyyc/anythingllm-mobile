@@ -331,6 +331,12 @@ export function MainView({ goToPage }: MainViewProps) {
                 }
               />
               <SupportItem
+                title={t('pocket.routing.entry')}
+                icon={<ShieldCheck size={18} color="#FFF" />}
+                onPress={() => goToPage('pocket_routing')}
+                borderBottom={false}
+              />
+              <SupportItem
                 title={t('settings.language.app_language')}
                 icon={<Translate size={18} color="#FFF" />}
                 value={activeLanguage?.nativeName}

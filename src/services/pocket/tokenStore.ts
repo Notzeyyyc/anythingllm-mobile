@@ -7,6 +7,8 @@ import * as Keychain from 'react-native-keychain';
 
 const KEYCHAIN_SERVICE = 'anythingpocket.sessionToken';
 const HOST_KEY = 'pocket.host';
+/** TOFU-verified cert fingerprint (M3) — not a secret, AsyncStorage is fine. */
+const CERT_FP_KEY = 'pocket.certFp';
 
 export async function saveConnection(host: string, sessionToken: string | null) {
   await AsyncStorage.setItem(HOST_KEY, host);
@@ -40,8 +42,23 @@ export async function clearSessionToken() {
   } catch {}
 }
 
+/** Returns the TOFU-verified cert fingerprint, or null. */
+export async function loadCertFp(): Promise<string | null> {
+  try {
+    return await AsyncStorage.getItem(CERT_FP_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/** Persist the fingerprint the user confirmed against the server screen. */
+export async function saveCertFp(fp: string): Promise<void> {
+  await AsyncStorage.setItem(CERT_FP_KEY, fp);
+}
+
 /** Clears everything (host + token) — "forget this server". */
 export async function forgetConnection() {
   await AsyncStorage.removeItem(HOST_KEY);
+  await AsyncStorage.removeItem(CERT_FP_KEY);
   await clearSessionToken();
 }

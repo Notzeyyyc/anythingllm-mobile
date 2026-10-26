@@ -22,6 +22,8 @@ export interface RuntimeOpts {
   runtimeChoice?: 'lite' | 'full';
   /** Full-mode runtime (PiRuntime). Required when runtimeChoice === 'full'. */
   harnessRuntime?: HarnessRuntime;
+  /** Background-job hook (spec §7.6): called after turn.end / approval.requested is emitted. */
+  onEvent?: (type: 'turn.end' | 'approval.requested', payload: Record<string, unknown>) => void;
 }
 
 export type ApprovalRequest = { tool: string; path: string; content: string; diff: string | null };
@@ -104,10 +106,12 @@ export class DeviceRuntime {
       if (this.opts.runtimeChoice === 'full') {
         this.emit(turnId, 'turn.end', { ok, reason }); // lite path emits its own turn.end
       }
-      // Minimal session serialization (spec §4.2): history lives in SQLite.
+      // History is appended AFTER this point regardless of connection state —
+      // the turn completes server-side even if the device dropped mid-run (spec §7.6).
       if (ok && (result as { text?: string | null }).text) {
         appendHistory(this.sessionId, turnId, 'assistant', String((result as { text?: string | null }).text));
       }
+      this.opts.onEvent?.('turn.end', { turnId, ok, sessionId: this.sessionId });
       this.send({
         type: 'turn.end', turnId, ok, text: (result as { text?: string | null }).text ?? null,
         error: ok ? null : reason === 'interrupted' ? 'interrupted' : (result as { error?: string }).error ?? 'error',
@@ -146,6 +150,7 @@ export class DeviceRuntime {
       type: 'approval.request', approvalId: ap.id, turnId, tool: req.tool,
       path: req.path, contentPreview: req.content.slice(0, 2000), ttlMs,
     });
+    this.opts.onEvent?.('approval.requested', { approvalId: ap.id, sessionId: this.sessionId });
     // TTL hard, default REJECT: no approval.response in time → false. The db
     // sweep (ws.ts) expires the row + records approval.expired in the trace.
     const approved = await new Promise<boolean>((res) => {

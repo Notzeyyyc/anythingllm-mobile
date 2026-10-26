@@ -29,14 +29,14 @@ tanpa TLS; mode direct WSS itu M3).
 npm test
 ```
 
-Test total (M2a): 19 + 14 + 20 + 32 = 85 assert hijau (`npm test`). Suite e2e
-(19 assert) mencakup: connect
-tanpa token ditolak, token ngaraco ditolak, pairing token valid → session token
-(`hbs_...`), pairing single-use, reconnect pakai session token tanpa re-pair,
-approval TTL 2s tanpa jawaban → auto REJECT (`expired`) tercatat di trace,
-revoke device → session token mati, 5x handshake gagal per IP → lockout
-(fail2ban-style), dan scan DB bahwa tidak ada token mentah (`hbk_`/`hbs_` full
-hex) yang tersimpan — cuma SHA-256 hash.
+Test total (M3): 19 + 14 + 18 + 20 + 32 + 13 + 29 = 145 assert hijau
+(`npm test`). Suite M3 (`test/m3.test.ts`, 29 assert) mencakup: generate cert
+self-signed + cert_fp format §5.1 + cert_fp yang diterima client over-the-wire
+sama dengan pairing payload + client default menolak self-signed CA + handshake
+WSS, pairing payload direct/plain/override, push payload disanitasi (tanpa
+konten prompt) + subscribe/unsubscribe via WS, dan device disconnect mid-turn →
+turn tetap selesai + history tersimpan TERENKRIPSI (AES-256-GCM) di DB.
+Lihat `docs/m3-direct-push.md` dan `docs/m3-hardening.md`.
 
 ## Arsitektur singkat
 

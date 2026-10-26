@@ -13,7 +13,9 @@ case "${1:-}" in
   "") MODE="run" ;;
   --dry-run) MODE="dry" ;;
   --explain) MODE="explain" ;;
-  *) echo "Usage: bash install.sh [--dry-run | --explain]"; exit 2 ;;
+  --direct) MODE="direct" ;;
+  --cloudflare) MODE="cloudflare" ;;
+  *) echo "Usage: bash install.sh [--dry-run | --explain | --direct | --cloudflare]"; exit 2 ;;
 esac
 
 if [ "$MODE" = "explain" ]; then
@@ -105,6 +107,60 @@ rc=$?
 
 echo
 echo "== Next steps =="
-echo "  cd $INSTALL_DIR/sidecar"
-echo "  node src/index.ts --init-pairing --show-token   # pairing token (tampil sekali) + server start"
-echo "  lalu buka app AnythingPocket di HP → Pocket → pairing manual (host + token)."
+
+if [ "$MODE" = "direct" ]; then
+  # Spec §3.3 direct mode: WSS ke IP publik, TLS self-signed + cert pinning.
+  cat <<EOF
+== Mode DIRECT (WSS ke IP publik, TLS self-signed + cert pinning) ==
+
+PERINGATAN / WARNING: langkah ini membuka port 7443 ke internet publik.
+Hanya lanjutkan kalau kamu paham konsekuensinya: mesin ini akan bisa dijangkau
+siapa pun dari internet di port itu (perlindungan: TLS self-signed + token auth
++ lockout 5x gagal, tapi port tetap terekspos). Alternatif lebih aman: mode
+Tailscale (tidak perlu port publik).
+
+Langkah:
+  1. Buka firewall HANYA port 7443/tcp (contoh ufw):
+       sudo ufw allow 7443/tcp
+     (di VPS provider, buka juga security group / firewall cloud untuk 7443/tcp.)
+  2. Generate cert self-signed + start server:
+       cd $INSTALL_DIR/sidecar
+       POCKET_TLS=on node src/index.ts --init-pairing --show-token
+     - cert disimpan di sidecar/data/{cert,key}.pem (0600), masa berlaku 10 tahun.
+     - SAN default: loopback + IP utama mesin. IP/domain lain:
+       POCKET_SAN="IP:203.0.113.42,DNS:home.example" (env, sebelum perintah).
+  3. Pairing payload tercetak (spec §5.1) berisi "cert_fp". VERIFIKASI
+     KEDUA-KALI-TAMPIL: pastikan cert_fp yang tampil di HP sama persis dengan
+     yang tampil di layar server ini (proteksi MITM, spec §6).
+  4. HP connect ke wss://<IP-server>:7443/ws pakai token di payload.
+EOF
+elif [ "$MODE" = "cloudflare" ]; then
+  cat <<'EOF'
+== Mode CLOUDFLARE (Cloudflare Tunnel + domain milik kamu) ==
+
+Installer ini TIDAK meng-install cloudflared — kamu yang pasang dari sumber
+resmi: https://developers.cloudflare.com/cloudflare/one-page/#download-and-install
+(Cek terpasang: command -v cloudflared)
+
+Langkah:
+  1. Pasang cloudflared + login:  cloudflared tunnel login
+  2. Buat tunnel + route ke domain kamu:
+       cloudflared tunnel create anythingpocket
+       cloudflared tunnel route dns anythingpocket pocket.domainkamu.com
+  3. Tambahkan ke config cloudflared:
+       ingress: - hostname: pocket.domainkamu.com
+                  service: http://localhost:7443
+  4. Jalankan sidecar (plain ws, TLS ditangani Cloudflare):
+       cd $INSTALL_DIR/sidecar && node src/index.ts --init-pairing --show-token
+  5. Start tunnel: cloudflared tunnel run anythingpocket
+  6. Pairing di HP: host "pocket.domainkamu.com" (wss:// otomatis via Cloudflare).
+EOF
+else
+  cat <<'EOF'
+  cd $INSTALL_DIR/sidecar
+  node src/index.ts --init-pairing --show-token   # pairing token (tampil sekali) + server start
+  lalu buka app AnythingPocket di HP → Pocket → pairing manual (host + token).
+  Mode transport: default bind 127.0.0.1 (tailscale) — untuk WSS ke IP publik
+  jalankan ulang installer dengan --direct, atau --cloudflare untuk tunnel.
+EOF
+fi

@@ -139,6 +139,10 @@ export class PocketChatStore {
   /** Raw/"mode belajar" toggle (spec §7.1 level 3, default OFF). */
   rawMode = false;
   pendingApproval: (ApprovalRequest & { expiresAt: number }) | null = null;
+  /** Cert fingerprint announced in auth.ok but not yet confirmed by the user (M3 TOFU verify-twice). */
+  pendingCertFp: string | null = null;
+  /** True when the announced fingerprint differs from the one the user verified before. */
+  certMismatch = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -177,6 +181,15 @@ export class PocketChatStore {
 
   setAuthError(on: boolean) {
     this.authError = on;
+  }
+
+  setPendingCertFp(fp: string | null) {
+    this.pendingCertFp = fp;
+    this.certMismatch = false;
+  }
+
+  setCertMismatch(on: boolean) {
+    this.certMismatch = on;
   }
 
   appendStreaming(delta: string) {

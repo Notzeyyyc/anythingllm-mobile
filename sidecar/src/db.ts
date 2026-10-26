@@ -4,9 +4,10 @@
  * events table is append-only (trace log). Approvals default REJECT + TTL.
  */
 import { DatabaseSync } from 'node:sqlite';
-import { randomUUID } from 'node:crypto';
-import { mkdirSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { randomUUID, createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
+import { mkdirSync, existsSync, readFileSync, writeFileSync, chmodSync } from 'node:fs';
+import * as os from 'node:os';
+import { dirname, resolve, join } from 'node:path';
 import type { EventType, TraceEvent } from './schema.ts';
 import { sanitizePayload } from './schema.ts';
 
@@ -18,6 +19,8 @@ let db: DatabaseSync;
 export function openDb(path: string = DB_PATH): DatabaseSync {
   mkdirSync(dirname(path), { recursive: true });
   db = new DatabaseSync(path);
+  // Ephemeral DB (:memory:, tests) → ephemeral key; file-backed DB → key file next to it.
+  keyFile = path === ':memory:' ? null : resolve(dirname(path), 'history.key');
   db.exec('PRAGMA journal_mode = WAL;');
   db.exec(`
     CREATE TABLE IF NOT EXISTS devices (
@@ -143,18 +146,48 @@ export function revokeDevice(deviceId: string): boolean {
 }
 
 // --- session history (Full-mode session serialization, minimal) ------------
+// Content (prompt user + jawaban agent) dienkripsi at-rest AES-256-GCM
+// (docs/m3-hardening.md): key 256-bit di data/history.key (0600), di luar DB.
+let historyKey: Buffer | null = null;
+let keyFile: string | null = null;
+function getHistoryKey(): Buffer {
+  if (historyKey) return historyKey;
+  const kf = keyFile ?? join(os.tmpdir(), `apocket-history-${process.pid}.key`);
+  if (existsSync(kf)) historyKey = Buffer.from(readFileSync(kf, 'utf8').trim(), 'hex');
+  else {
+    historyKey = randomBytes(32);
+    mkdirSync(dirname(kf), { recursive: true });
+    writeFileSync(kf, historyKey.toString('hex'), { mode: 0o600 });
+    chmodSync(kf, 0o600);
+  }
+  return historyKey;
+}
+function enc(plain: string): string {
+  const iv = randomBytes(12);
+  const c = createCipheriv('aes-256-gcm', getHistoryKey(), iv);
+  const ct = Buffer.concat([c.update(plain, 'utf8'), c.final()]);
+  return 'enc1:' + iv.toString('base64') + ':' + c.getAuthTag().toString('base64') + ':' + ct.toString('base64');
+}
+function dec(stored: string): string {
+  if (!stored.startsWith('enc1:')) return stored; // legacy plaintext row
+  const [, ivB64, tagB64, ctB64] = stored.split(':');
+  const d = createDecipheriv('aes-256-gcm', getHistoryKey(), Buffer.from(ivB64, 'base64'));
+  d.setAuthTag(Buffer.from(tagB64, 'base64'));
+  return Buffer.concat([d.update(Buffer.from(ctB64, 'base64')), d.final()]).toString('utf8');
+}
 
 export function appendHistory(sessionId: string, turnId: string, role: 'user' | 'assistant', content: string): void {
   db.prepare(
     'INSERT INTO session_history (session_id, turn_id, role, content, created_at) VALUES (?, ?, ?, ?, ?)',
-  ).run(sessionId, turnId, role, content.slice(0, 50_000), new Date().toISOString());
+  ).run(sessionId, turnId, role, enc(content.slice(0, 50_000)), new Date().toISOString());
 }
 
 export function listHistory(sessionId: string): { turnId: string; role: 'user' | 'assistant'; content: string }[] {
   return (db.prepare(
     'SELECT turn_id, role, content FROM session_history WHERE session_id = ? ORDER BY id',
   ).all(sessionId) as { turn_id: string; role: 'user' | 'assistant'; content: string }[])
-    .map((r) => ({ turnId: r.turn_id, role: r.role, content: r.content }));
+    .filter((r) => { try { dec(r.content); return true; } catch { console.error('history: record gagal dekripsi (key berubah?) — dilewati'); return false; } })
+    .map((r) => ({ turnId: r.turn_id, role: r.role, content: dec(r.content) }));
 }
 
 // --- approvals (pending with TTL, default REJECT) ---------------------------

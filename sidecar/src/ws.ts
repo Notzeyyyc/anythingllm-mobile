@@ -5,9 +5,10 @@
  * token, no re-pair. Lockout 5 failed handshakes per IP (fail2ban, in-memory).
  * Ping/pong keepalive. Approval sweep enforces TTL hard, default REJECT.
  */
-import { randomUUID } from 'node:crypto';
+import { createHmac, randomBytes, randomUUID } from 'node:crypto';
 import { WebSocketServer, WebSocket } from 'ws';
 import type { IncomingMessage } from 'node:http';
+import type { Server as HttpServer } from 'node:http';
 import * as path from 'node:path';
 import type { LanguageModel } from 'ai';
 import {
@@ -16,6 +17,7 @@ import {
 } from './db.ts';
 import { authenticate, isLockedOut } from './auth.ts';
 import { DeviceRuntime } from './runtime.ts';
+import { notifyDevice, addSubscription, removeSubscription } from './notify.ts';
 import { routeTurn } from './router.ts';
 import type { HarnessRuntime } from './full/HarnessRuntime.ts';
 import type { EventType } from './schema.ts';
@@ -32,6 +34,10 @@ export interface ServerOpts {
   fullRuntime?: HarnessRuntime;
   /** User pin (spec §4.3): env POCKET_FORCE_RUNTIME wired here; beats heuristics. */
   forceRuntime?: string | null;
+  /** Direct-mode TLS fingerprint (spec §5.1/§6). Sent in auth.ok + HMAC challenge. */
+  certFp?: string;
+  /** External http/https server (direct TLS mode, spec §3.3): attach /ws to it instead of binding our own. */
+  server?: HttpServer;
 }
 
 const AUTH_TIMEOUT_MS = 5_000;
@@ -47,10 +53,13 @@ export function startServer(opts: ServerOpts = {}) {
   const port = opts.port ?? Number(process.env.PORT ?? 7443);
   const bind = opts.bind ?? process.env.BIND ?? '127.0.0.1';
 
-  const wss = new WebSocketServer({ host: bind, port, path: '/ws' });
+  const wss = opts.server
+    ? new WebSocketServer({ server: opts.server, path: '/ws' }) // direct TLS mode (M3)
+    : new WebSocketServer({ host: bind, port, path: '/ws' });
 
   type Ctx = { deviceId: string; sessionId: string | null; alive: boolean; runtime: DeviceRuntime | null };
   const authed = new Map<WebSocket, Ctx>();
+  const online = new Set<string>(); // deviceIds with a live socket (background-jobs notify gate, §7.6)
   const workspaceDir = opts.workspace ?? path.resolve(import.meta.dirname, '../workspace');
 
   function send(ws: WebSocket, msg: Record<string, unknown>): void {
@@ -88,7 +97,10 @@ export function startServer(opts: ServerOpts = {}) {
     let authedOk = false;
 
     const authTimer = setTimeout(() => ws.close(4001, 'auth timeout'), AUTH_TIMEOUT_MS);
-    ws.on('close', () => { clearTimeout(authTimer); authed.delete(ws); });
+    ws.on('close', () => {
+      clearTimeout(authTimer); authed.delete(ws);
+      if (ctx.deviceId && ![...authed.values()].some((c) => c.deviceId === ctx.deviceId)) online.delete(ctx.deviceId);
+    });
     ws.on('pong', () => { if (ctx) ctx.alive = true; });
 
     ws.on('message', (raw) => {
@@ -114,13 +126,23 @@ export function startServer(opts: ServerOpts = {}) {
         ctx.alive = true;
         authedOk = true;
         authed.set(ws, ctx);
+        online.add(res.deviceId!);
         clearTimeout(authTimer);
         send(ws, {
           type: 'auth.ok',
           deviceId: res.deviceId,
           // session token sent exactly once, on pairing; reconnect uses it
           ...(res.sessionToken ? { sessionToken: res.sessionToken } : {}),
+          ...(opts.certFp ? { certFp: opts.certFp } : {}),
         });
+        if (opts.certFp) {
+          // App-level TOFU challenge (docs/pocket-m3-routing-pinning.md): prove
+          // we know the verified fingerprint. mac = HMAC-SHA256(fp-hex, nonce).
+          const nonce = randomBytes(32).toString('hex');
+          const fpHex = opts.certFp.trim().toLowerCase().replace(/^sha256:/, '').replace(/[\s:]/g, '');
+          const mac = createHmac('sha256', fpHex).update(nonce).digest('hex');
+          send(ws, { type: 'auth.challenge', nonce, mac });
+        }
         return;
       }
 
@@ -128,6 +150,7 @@ export function startServer(opts: ServerOpts = {}) {
       if (!ctx.sessionId) {
         const t = msg.type;
         if (t !== 'session.start' && t !== 'ping' && t !== 'turn.request' && t !== 'approval.response'
+            && t !== 'push.subscribe' && t !== 'push.unsubscribe'
             && !(typeof t === 'string' && EVENT_TYPES_SET.has(t))) {
           send(ws, { type: 'error', message: 'unknown message type: ' + String(t) }); return;
         }
@@ -135,11 +158,30 @@ export function startServer(opts: ServerOpts = {}) {
       switch (msg.type) {
         case 'ping': send(ws, { type: 'pong' }); return;
 
+        // --- push subscriptions (spec §7.6): per-device WebPush endpoint storage
+        case 'push.subscribe': {
+          const s = objOf(msg.subscription);
+          const endpoint = typeof s.endpoint === 'string' ? s.endpoint : '';
+          const keys = objOf(s.keys);
+          if (!endpoint || typeof keys.p256dh !== 'string' || typeof keys.auth !== 'string') {
+            send(ws, { type: 'error', message: 'push.subscribe needs subscription{endpoint, keys{p256dh,auth}}' }); return;
+          }
+          addSubscription(ctx.deviceId, { endpoint, p256dh: keys.p256dh, auth: keys.auth });
+          send(ws, { type: 'push.subscribed', endpoint });
+          return;
+        }
+        case 'push.unsubscribe': {
+          const endpoint = typeof msg.endpoint === 'string' ? msg.endpoint : '';
+          removeSubscription(ctx.deviceId, endpoint);
+          send(ws, { type: 'push.unsubscribed' });
+          return;
+        }
+
         case 'session.start': {
           ctx.sessionId = createSession(ctx.deviceId);
           trace(ctx.sessionId, ctx.sessionId, 'session.start', { device: ctx.deviceId });
           ctx.runtime = new DeviceRuntime(
-            { workspace: workspaceDir, model: opts.model, ttlMs: opts.approvalTtlMs },
+            { workspace: workspaceDir, model: opts.model, ttlMs: opts.approvalTtlMs, onEvent: offlineNotifier(ctx) },
             ctx.sessionId,
             (m) => send(ws, m),
           );
@@ -167,6 +209,7 @@ export function startServer(opts: ServerOpts = {}) {
               workspace: workspaceDir, model: opts.model, ttlMs: opts.approvalTtlMs,
               runtimeChoice: effective.runtime,
               ...(effective.runtime === 'full' ? { harnessRuntime: opts.fullRuntime } : {}),
+              onEvent: offlineNotifier(ctx),
             },
             sid,
             (m) => send(ws, m),
@@ -271,6 +314,13 @@ export function startServer(opts: ServerOpts = {}) {
 
   function objOf(v: unknown): Record<string, unknown> {
     return (typeof v === 'object' && v !== null && !Array.isArray(v) ? v : {}) as Record<string, unknown>;
+  }
+
+  /** Notify the device's push subscriptions ONLY when it has no live socket (§7.6). */
+  function offlineNotifier(ctx: Ctx) {
+    return (type: 'turn.end' | 'approval.requested'): void => {
+      if (ctx.sessionId && !online.has(ctx.deviceId)) void notifyDevice(ctx.deviceId, type, ctx.sessionId);
+    };
   }
 
   return {

@@ -9,6 +9,7 @@ import AssistantSettings from './Assistant';
 import AnonymousTelemetry from './AnonymousTelemetry';
 import LanguageSettings from './Language';
 import ToolAutoApprovals from './ToolAutoApprovals';
+import PocketRouting from './PocketRouting';
 
 const PAGES = {
   main: (props: any) => <MainView {...props} />,
@@ -20,6 +21,7 @@ const PAGES = {
   anonymous_telemetry: (props: any) => <AnonymousTelemetry {...props} />,
   language: (props: any) => <LanguageSettings {...props} />,
   tool_auto_approvals: (props: any) => <ToolAutoApprovals {...props} />,
+  pocket_routing: (props: any) => <PocketRouting {...props} />,
 };
 export type IWorkspacePageKey = keyof typeof PAGES;
 

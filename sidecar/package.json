@@ -9,7 +9,7 @@
     "dev": "tsx src/index.ts",
     "doctor": "node --experimental-strip-types src/index.ts --doctor",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types test/e2e.ts && node --experimental-strip-types test/lite.test.ts && node --experimental-strip-types test/mcp-skills.test.ts && node --experimental-strip-types test/ws-runtime.test.ts && node --experimental-strip-types test/full.test.ts && node --experimental-strip-types test/sandbox.test.ts",
+    "test": "node --experimental-strip-types test/e2e.ts && node --experimental-strip-types test/lite.test.ts && node --experimental-strip-types test/mcp-skills.test.ts && node --experimental-strip-types test/ws-runtime.test.ts && node --experimental-strip-types test/full.test.ts && node --experimental-strip-types test/sandbox.test.ts && node --experimental-strip-types test/m3.test.ts",
     "test:full": "node --experimental-strip-types test/full.test.ts && node --experimental-strip-types test/sandbox.test.ts",
     "test:lite": "node --experimental-strip-types test/lite.test.ts",
     "test:runtime": "node --experimental-strip-types test/ws-runtime.test.ts",
@@ -26,10 +26,12 @@
     "@modelcontextprotocol/sdk": "^1.32.2",
     "ai": "^5.0.281",
     "just-bash": "2.14.5",
+    "web-push": "^3.6.7",
     "ws": "^8.22.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@types/web-push": "^3.6.4",
     "@types/ws": "^8.18.2",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
