@@ -45,7 +45,7 @@ if (process.env.POCKET_FULL !== '0') {
     const { baseUrl, model } = fullModelConfig();
     const proxy = await startSecretsProxy({ upstreamBase: baseUrl, key: readKeyFromFile(process.env.POCKET_API_KEY_FILE ?? '/root/.secrets/9router_local_key.txt') });
     console.log(`Secrets proxy on ${proxy.url} (key server-side only)`);
-    fullRuntime = new PiRuntime({ baseUrl: proxy.url, apiKey: 'via-secrets-proxy', model });
+    fullRuntime = new PiRuntime({ baseUrl: proxy.url, apiKey: 'via-secrets-proxy', model, proxySocketPath: proxy.socketPath });
   } catch (e) {
     console.log(`Full mode disabled (secrets proxy/model config unavailable: ${e instanceof Error ? e.message : e}) — turns route to Lite.`);
   }

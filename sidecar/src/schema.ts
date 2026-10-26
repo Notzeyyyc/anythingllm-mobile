@@ -17,6 +17,7 @@ export type EventType =
   | 'approval.rejected'
   | 'approval.expired'
   | 'route.decided'
+  | 'sandbox.decided'
   | 'turn.end'
   | 'error';
 
@@ -24,7 +25,7 @@ export const EVENT_TYPES: ReadonlySet<string> = new Set([
   'session.start', 'turn.start', 'llm.call.start', 'llm.call.end',
   'tool.call.start', 'tool.call.end',
   'approval.requested', 'approval.granted', 'approval.rejected', 'approval.expired',
-  'route.decided', 'turn.end', 'error',
+  'route.decided', 'sandbox.decided', 'turn.end', 'error',
 ]);
 
 export interface TraceEvent {
@@ -65,6 +66,7 @@ const PAYLOAD_KEYS: Record<EventType, string[]> = {
   'approval.rejected': ['approvalId', 'reason'],
   'approval.expired': ['approvalId'],
   'route.decided': ['runtime', 'reason'],
+  'sandbox.decided': ['mechanism', 'bashEnabled', 'reason'],
   'turn.end': ['ok', 'reason'],
   'error': ['message'],
 };

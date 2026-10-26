@@ -173,3 +173,21 @@ kirim `{"type":"auth","token":"<hbk_...>"}` (token dari
 `npm start -- --init-pairing --show-token`), `{"type":"session.start"}`, lalu
 `{"type":"turn.request","turnId":"t1","prompt":"tulis file catatan.txt"}` — balas
 approval dengan `{"type":"approval.response","approvalId":"<id>","decision":"grant"}`.
+
+## Sandbox bash (syarat rilis, spec §6)
+
+Bash tool mode Full berjalan di **bubblewrap (bwrap)** — kebutuhan HOST, install
+via `apt install bubblewrap` (bukan dependency npm). Container: `--unshare-net`
+(tanpa network sama sekali → egress allowlist dipenuhi by construction),
+`--unshare-pid --die-with-parent --new-session`, root read-only + workspace
+re-bind RW, `/etc/passwd`+`/etc/shadow` dimasking, `--clearenv`. Satu-satunya
+jalan keluar adalah **secrets-proxy UNIX socket** (`startSecretsProxy` dengan
+`socketPath`) yang di-bind-mount read-only ke dalam sandbox — akses model hanya
+via proxy itu (dari dalam sandbox: `curl --unix-socket <path> <proxy-url>`).
+Konfigurasi via env `POCKET_SANDBOX=auto|bwrap|docker|required|none` (default
+`auto`): mekanisme tidak tersedia + `required` → error jelas, turn gagal;
+`auto`/`none` tanpa mekanisme → **tool bash DIMATIKAN** + warning tercatat di
+trace (`sandbox.decided`) — fail toward safety. Pi builtin write/edit/bash
+berjalan `permissionMode: 'allow-reads'` → approval via hook yang sama dengan
+Lite (WS `approval.request`/`approval.response`). Uji: `test/sandbox.test.ts`
+(escape path, network deny, proxy socket 200, fallback policy).

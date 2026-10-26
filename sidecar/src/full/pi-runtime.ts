@@ -7,10 +7,10 @@
  * the same Promise-based approval contract as Lite. Interrupt = AbortSignal
  * into HarnessAgent.stream → turn.end ok:false reason 'interrupted'.
  *
- * ponytail: Pi builtin `write`/`edit`/`bash` stay allow-all INSIDE the sandbox
- * (in-memory overlay, contained); approval gate covers our host tools. Wire
- * permissionMode-driven pending approvals when the API settles (partial
- * sandbox status — see docs/m2a-full-runtime.md).
+ * ponytail: Pi builtin `write`/`edit`/`bash` run under permissionMode
+ * 'allow-reads' (approvals via the Lite approval hook) and — when a real
+ * sandbox is available — inside bwrap (src/sandbox.ts). No sandbox → bash
+ * filtered out entirely (fail toward safety, docs/m2a-full-runtime.md).
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -21,6 +21,7 @@ import type { HarnessV1NetworkSandboxSession } from '@ai-sdk/harness';
 import { createJustBashNetworkSandboxSession } from '@ai-sdk/sandbox-just-bash';
 import { OverlayFs } from 'just-bash';
 import { z } from 'zod';
+import { resolveSandbox, createSandboxSession, type SandboxDecision } from '../sandbox.ts';
 import type { HarnessRuntime, RunTurnInput, RunTurnResult, RuntimeApprovalHandler } from './HarnessRuntime.ts';
 
 // any: experimental harness callback payloads, shape documented by the spike
@@ -38,6 +39,12 @@ export interface PiRuntimeOptions {
   model: string;              // '<provider>/<model-id>'
   providerName?: string;      // default '9router'
   ttlMs?: number;             // approval TTL (default 30s, enforced by caller)
+  /** POCKET_SANDBOX value (auto|bwrap|docker|required|none). Default 'auto'.
+   *  auto/none WITHOUT a mechanism → bash tool DISABLED (fail toward safety). */
+  sandboxMode?: string;
+  /** Secrets-proxy UNIX socket path bind-mounted into the bwrap sandbox —
+   *  the single egress route (spec §6). */
+  proxySocketPath?: string;
 }
 
 function resolveInWorkspace(workspace: string, p: string): string {
@@ -123,9 +130,32 @@ export class PiRuntime implements HarnessRuntime {
     let sandbox: HarnessV1NetworkSandboxSession | null = null;
     const started = Date.now();
     try {
-      sandbox = await createJustBashNetworkSandboxSession({
-        fs: new OverlayFs({ root: path.resolve(input.workspace), mountPoint: '/' }),
+      // spec §6: real sandbox. resolveSandbox THROWS for required-without-
+      // mechanism (turn fails loudly); auto/none without mechanism → bash off.
+      let decision: SandboxDecision;
+      try {
+        decision = resolveSandbox(this.opts.sandboxMode ?? process.env.POCKET_SANDBOX);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        input.emit('sandbox.decided', { mechanism: 'none', bashEnabled: false, reason: msg.slice(0, 200) });
+        throw e;
+      }
+      input.emit('sandbox.decided', {
+        mechanism: decision.mechanism,
+        bashEnabled: decision.bashEnabled,
+        ...(decision.warning ? { reason: decision.warning.slice(0, 200) } : {}),
       });
+      if (decision.mechanism === 'bwrap') {
+        sandbox = await createSandboxSession({
+          workspace: input.workspace,
+          proxySocket: this.opts.proxySocketPath,
+        });
+      } else {
+        // No real sandbox: overlay-only file tools, bash tool filtered out.
+        sandbox = await createJustBashNetworkSandboxSession({
+          fs: new OverlayFs({ root: path.resolve(input.workspace), mountPoint: '/' }),
+        });
+      }
       const providerName = this.opts.providerName ?? '9router';
       const agent = new HarnessAgent({
         id: `pi-${input.turnId}`,
@@ -146,7 +176,11 @@ export class PiRuntime implements HarnessRuntime {
         }),
         model: `${providerName}/${this.opts.model}`,
         tools: this.hostTools(input),
-        permissionMode: 'allow-all',
+        // spec §4.2: read auto; builtin write/edit/bash require approval via
+        // the same approval hook as Lite (HarnessAgentPendingToolApproval flow).
+        permissionMode: 'allow-reads',
+        // fail toward safety: no real sandbox → bash builtin removed entirely.
+        ...(decision.bashEnabled ? {} : { builtinToolFiltering: { mode: 'deny' as const, toolNames: ['bash'] } }),
         instructions:
           'You are in a sandboxed workspace directory. Prefer the host tools read_file, list_dir and write_file ' +
           '(write_file needs user approval). Keep answers short.',
@@ -176,15 +210,44 @@ export class PiRuntime implements HarnessRuntime {
         },
       });
       const session = await agent.createSession({ sandboxSession: sandbox });
-      const result = await agent.stream({
-        session,
-        prompt: input.prompt,
-        abortSignal: ac.signal,
-      });
+      // Turn loop: each stream round may pause on builtin tool approvals
+      // (permissionMode allow-reads). We answer via the SAME approval hook as
+      // Lite (granted/rejected events emitted by the runtime/ws layer) and
+      // continue the turn with toolApprovalContinuations.
       let text = '';
-      for await (const delta of (result as any).textStream) {
-        text += delta;
-        input.onDelta?.(delta);
+      let stream = await agent.stream({ session, prompt: input.prompt, abortSignal: ac.signal });
+      for (let round = 0; ; round++) {
+        const pending: { approvalId: string; toolName: string; input: string }[] = [];
+        for await (const part of (stream as any).fullStream) {
+          if (part.type === 'text-delta') {
+            const d = String(part.text ?? part.delta ?? '');
+            text += d;
+            input.onDelta?.(d);
+          } else if (part.type === 'tool-approval-request') {
+            pending.push({
+              approvalId: String(part.approvalId),
+              toolName: String(part.toolCall?.toolName ?? 'unknown'),
+              input: typeof part.toolCall?.input === 'string' ? part.toolCall.input : JSON.stringify(part.toolCall?.input ?? ''),
+            });
+          }
+        }
+        if (pending.length === 0 || round >= 16) break;
+        const decisions = [];
+        for (const p of pending) {
+          const res = await input.approvalHandler({
+            tool: p.toolName, path: '', content: p.input.slice(0, 2000), diff: null,
+          });
+          decisions.push({
+            approvalId: p.approvalId,
+            approved: res.approved,
+            ...(res.approved ? {} : { reason: 'rejected by user' }),
+          });
+        }
+        stream = await agent.continueStream({
+          session,
+          toolApprovalContinuations: decisions,
+          abortSignal: ac.signal,
+        } as any);
       }
       this.active.delete(input.turnId);
       try { await session.stop(); } catch { /* generate ends the session */ }

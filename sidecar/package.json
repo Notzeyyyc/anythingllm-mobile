@@ -9,8 +9,8 @@
     "dev": "tsx src/index.ts",
     "doctor": "node --experimental-strip-types src/index.ts --doctor",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types test/e2e.ts && node --experimental-strip-types test/lite.test.ts && node --experimental-strip-types test/ws-runtime.test.ts && node --experimental-strip-types test/full.test.ts",
-    "test:full": "node --experimental-strip-types test/full.test.ts",
+    "test": "node --experimental-strip-types test/e2e.ts && node --experimental-strip-types test/lite.test.ts && node --experimental-strip-types test/ws-runtime.test.ts && node --experimental-strip-types test/full.test.ts && node --experimental-strip-types test/sandbox.test.ts",
+    "test:full": "node --experimental-strip-types test/full.test.ts && node --experimental-strip-types test/sandbox.test.ts",
     "test:lite": "node --experimental-strip-types test/lite.test.ts",
     "test:runtime": "node --experimental-strip-types test/ws-runtime.test.ts",
     "lite": "tsx src/lite/cli.ts run"

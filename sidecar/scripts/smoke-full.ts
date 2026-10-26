@@ -45,9 +45,10 @@ async function main(): Promise<void> {
   const proxy = await startSecretsProxy({
     upstreamBase: baseUrl,
     key: readKeyFromFile(process.env.POCKET_API_KEY_FILE ?? '/root/.secrets/9router_local_key.txt'),
+    socketPath: path.join(os.tmpdir(), `pocket-smoke-proxy-${Date.now()}.sock`),
   });
-  console.log('SECRETS PROXY:', proxy.url, '(key stays parent-side; agent sees placeholder only)');
-  const fullRuntime = new PiRuntime({ baseUrl: proxy.url, apiKey: 'via-secrets-proxy', model });
+  console.log('SECRETS PROXY:', proxy.url, 'UNIX:', proxy.socketPath, '(key stays parent-side; agent sees placeholder only)');
+  const fullRuntime = new PiRuntime({ baseUrl: proxy.url, apiKey: 'via-secrets-proxy', model, sandboxMode: process.env.POCKET_SANDBOX ?? 'auto', proxySocketPath: proxy.socketPath });
 
   openDb(path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pocket-smoke-db-')), 'smoke.db'));
   setDbApi(dbmod);
@@ -60,12 +61,17 @@ async function main(): Promise<void> {
   const started = await waitMsg(ws, (m) => m.type === 'session.started');
 
   const turnId = 'smoke-full-1';
-  send({ type: 'turn.request', turnId, prompt: 'Gunakan tool write_file untuk membuat file catatan.txt berisi satu kalimat: "Smoke M2a Full mode berjalan." Lalu jawab singkat.' });
+  send({ type: 'turn.request', turnId, prompt: 'Jalankan bash `ls` di workspace (tool bash), lalu gunakan tool write_file untuk membuat file catatan.txt berisi satu kalimat: "Smoke sandbox bash berjalan." Jawab singkat.' });
 
-  const req = await waitMsg(ws, (m) => m.type === 'approval.request');
-  console.log('>> approval GRANT', req.approvalId);
-  send({ type: 'approval.response', approvalId: req.approvalId, decision: 'grant' });
-  const end = await waitMsg(ws, (m) => m.type === 'turn.end' && m.turnId === turnId);
+  // approvals can arrive repeatedly (bash, write_file) — grant each, then wait end
+  const end: any = await (async () => {
+    for (;;) {
+      const req = await waitMsg(ws, (m) => m.type === 'approval.request' || (m.type === 'turn.end' && m.turnId === turnId));
+      if (req.type === 'turn.end') return req;
+      console.log('>> approval GRANT', req.approvalId, req.tool);
+      send({ type: 'approval.response', approvalId: req.approvalId, decision: 'grant' });
+    }
+  })();
 
   const file = path.join(workspace, 'catatan.txt');
   console.log('--- EVIDENCE ---');
@@ -77,10 +83,12 @@ async function main(): Promise<void> {
   console.log('TRACE COUNTS:', JSON.stringify(byType));
   const route = events.find((e) => e.type === 'route.decided');
   console.log('route.decided:', JSON.stringify(route?.payload));
+  const sbx = events.find((e) => e.type === 'sandbox.decided');
+  console.log('sandbox.decided:', JSON.stringify(sbx?.payload));
   console.log('tool calls:', events.filter((e) => e.type === 'tool.call.start').map((e) => e.payload.tool).join(','));
   const leak = JSON.stringify(events.map((e) => e.payload)).includes(readKeyFromFile(process.env.POCKET_API_KEY_FILE ?? '/root/.secrets/9router_local_key.txt'));
   console.log('key leaked into trace:', leak);
-  const okSmoke = end.ok === true && fs.existsSync(file) && byType['tool.call.start'] > 0 && !!route && !leak;
+  const okSmoke = end.ok === true && fs.existsSync(file) && byType['tool.call.start'] > 0 && !!route && !!sbx && !leak;
   console.log(okSmoke ? 'SMOKE PASS' : 'SMOKE FAIL');
   ws.close();
   await srv.close();

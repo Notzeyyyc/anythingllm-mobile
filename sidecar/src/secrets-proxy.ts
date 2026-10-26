@@ -17,6 +17,8 @@ export interface SecretsProxy {
   /** http://127.0.0.1:<random>/v1 — give THIS to the agent runtime. */
   url: string;
   port: number;
+  /** UNIX socket path when started in socket mode (POCKET_PROXY_SOCKET). */
+  socketPath?: string;
   close(): void;
 }
 
@@ -29,10 +31,16 @@ export async function startSecretsProxy(opts: {
   upstreamBase: string;
   key: string;
   authStyle?: 'bearer' | 'x-api-key';
+  socketPath?: string;
+  /** Listen on a UNIX socket instead of TCP loopback. The socket is
+   *  bind-mounted (read-only) into the bwrap sandbox — the ONLY egress path.
+   *  Trade-off (documented in docs/m2a-full-runtime.md): parent-side Pi LLM
+   *  calls keep TCP loopback (Pi provider config has no custom fetch hook);
+   *  in-sandbox tools reach the proxy via `curl --unix-socket`. */
 }): Promise<SecretsProxy> {
   const upstream = new URL(opts.upstreamBase);
   const authStyle = opts.authStyle ?? 'bearer';
-  const server = http.createServer((req, res) => {
+  const handler = (req: http.IncomingMessage, res: http.ServerResponse) => {
     const chunks: Buffer[] = [];
     req.on('data', (c: Buffer) => chunks.push(c));
     req.on('end', () => {
@@ -57,18 +65,34 @@ export async function startSecretsProxy(opts: {
       });
       preq.end(Buffer.concat(chunks));
     });
-  });
+  };
+  const servers: http.Server[] = [http.createServer(handler)];
+  if (opts.socketPath) servers.push(http.createServer(handler));
+  const server = servers[0];
   await new Promise<void>((res, rej) => {
     server.once('listening', res);
     server.once('error', rej);
-    server.listen(0, '127.0.0.1');
+    server.listen(0, '127.0.0.1'); // TCP loopback for the parent (Pi host-process)
   });
+  if (opts.socketPath) {
+    // UNIX socket for the SANDBOX (bind-mounted in via bwrap — single egress).
+    try { fs.unlinkSync(opts.socketPath); } catch { /* not present */ }
+    await new Promise<void>((res, rej) => {
+      const unixServer = servers[1];
+      unixServer.once('error', rej);
+      unixServer.listen(opts.socketPath!, () => res());
+    });
+  }
   const address = server.address();
   if (address === null || typeof address === 'string') throw new Error('secrets proxy: no port');
   return {
     url: `http://127.0.0.1:${address.port}${upstream.pathname}`,
     port: address.port,
-    close: () => server.close(),
+    ...(opts.socketPath ? { socketPath: opts.socketPath } : {}),
+    close: () => {
+      for (const s of servers) s.close();
+      if (opts.socketPath) { try { fs.unlinkSync(opts.socketPath); } catch { /* gone */ } }
+    },
   };
 }
 
